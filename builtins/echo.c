@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/03 15:00:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:38:53 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,27 @@ void    echo(char   **cmd)
     i = 0;
     j = 1;
     flag = 0;
-	if (!ft_strcmp(cmd[1], "-n"))
+    if (cmd[1] == NULL) // echo 
+    {
+        write(1, "\n", 1);
+        return ;
+    }
+	if (!flag_check(cmd[1])) // echo -n and echo -nnnnnn
 	{
 		if (cmd[2])
 			ft_putstr(cmd[2]);
 	}
 	else
-	 	ft_putstr(cmd[1]);
-	if (ft_strcmp(cmd[1], "-n"))
+	 	ft_putstr(cmd[1]); // echo string
+	if (flag_check(cmd[1]))
 		write(1, "\n", 1);
 }
 
 void    identifyer(char **str)
 {
-    if (!ft_strcmp(str[0], "echo"))
+    if (!ft_strcmp(str[0], "echo", 4))
         echo(str);
+    
     // if (!ft_strcmp(str[0], "cd"))
     //     cd(str);
     // if (!ft_strcmp(str[0], "pwd"))
@@ -52,6 +58,7 @@ void    identifyer(char **str)
 
 int main()
 {
-    char **str = ft_split("echo salam", ' ');
+    char **str = ft_split("echo -nhahaha", ' ');
+        // printf("%s----", str[1]);
     identifyer(str);
 }

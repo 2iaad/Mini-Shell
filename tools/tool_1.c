@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:14:32 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/03 14:59:52 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/03 20:29:17 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,28 @@ void    ft_putstr(char *str)
         write(1, &str[i], 1);
 }
 
-int ft_strcmp(char *s1, char *s2)
+int ft_strcmp(char *s1, char *s2, int len)
 {
     int i;
 
     i = 0;
-    while (s1[i] && s1[i] == s2[i])
-    {
-        // printf("--->%d",i);
+    while (s1[i] && s2[i] && s1[i] == s2[i] && i < len)
         i++;
-    }
-    // printf("\n\n");
-    // printf("------------------------->%d<---",s1[i] = s2[i]);
     return(s1[i] - s2[i]);
+}
+
+int flag_check(char *s1) // check if s1 == "-n" or -nnnnnnn
+{
+    int i;
+
+	if (ft_strcmp(s1, "-n", 1)) // if not real flag "-n"
+		return (1);
+    i = 2;
+	while (s1[i]) // if not real flag "-nnnnx"
+	{
+		if (s1[i] != 'n')
+			return (1);
+		i++;
+	}
+	return (0);
 }
