@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/03 10:22:09 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/03 11:10:33 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 #include "tools.h"
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 typedef struct s_cmd
 {
     char *cmd;
     char *string;
 }   t_cmd;
-
 
 #endif

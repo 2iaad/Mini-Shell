@@ -6,9 +6,10 @@ RM = rm -rf
 
 FLAGS = 
 
-SRCS = builtins/echo.c
+SRCS = builtins/echo.c \
 
-TOOL_SRCS = tools/tool_1.c
+TOOL_SRCS = tools/tool_1.c \
+			tools/tool_split.c \
 
 OBJS = $(SRCS:.c=.o)
 TOOL_OBJS = $(TOOL_SRCS:.c=.o)
