@@ -11,17 +11,17 @@ SRCS = builtins/echo.c
 TOOL_SRCS = tools/tool_1.c
 
 OBJS = $(SRCS:.c=.o)
-TOOL_OBJS = $(TOOL_OBJS:.c=.o)
+TOOL_OBJS = $(TOOL_SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME) : $(OBJS) $(TOOL_OBJS)
 	$(CC) $(FLAGS) $^ -o $@
 
-$(OBJS): %.o: %.c minishell/minishell.h
+$(OBJS): %.o: %.c includes/minishell.h
 	$(CC) $(FLAGS) -c $< -o $@
 
-$(TOOL_OBJS): %.o: %.c includes/utils.h
+$(TOOL_OBJS): %.o: %.c includes/tools.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
