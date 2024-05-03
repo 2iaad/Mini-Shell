@@ -4,7 +4,7 @@ CC = cc
 
 RM = rm -rf
 
-FLAGS = 
+FLAGS = -fsanitize=address
 
 SRCS = builtins/echo.c \
 
