@@ -1,51 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   identifier.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/03 22:38:53 by zderfouf         ###   ########.fr       */
+/*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
+/*   Updated: 2024/05/04 16:01:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void    echo(char   **cmd)
-{
-    int i;
-    int j;
-    int flag;
+// builltins need to work without execve, if there is a pipe i need to fork then call the builtin.
 
-    i = 0;
-    j = 1;
-    flag = 0;
-    if (cmd[1] == NULL) // echo 
-    {
-        write(1, "\n", 1);
-        return ;
-    }
-	if (!flag_check(cmd[1])) // echo -n and echo -nnnnnn
-	{
-		if (cmd[2])
-			ft_putstr(cmd[2]);
-	}
-	else
-	 	ft_putstr(cmd[1]); // echo string
-	if (flag_check(cmd[1]))
-		write(1, "\n", 1);
-}
-
-void    identifyer(char **str)
+void    cmd_identifyer(char **str)
 {
     if (!ft_strcmp(str[0], "echo", 4))
         echo(str);
-    
-    // if (!ft_strcmp(str[0], "cd"))
-    //     cd(str);
-    // if (!ft_strcmp(str[0], "pwd"))
-    //     pwd(str);
+    if (!ft_strcmp(str[0], "cd", 2))
+        cd(str);
+    if (!ft_strcmp(str[0], "pwd", 3))
+        pwd(str);
     // if (!ft_strcmp(str[0], "export"))
     //     export(str);
     // if (!ft_strcmp(str[0], "unset"))
@@ -56,9 +32,20 @@ void    identifyer(char **str)
     //     exit(str);
 }
 
+void f()
+{
+    system("leaks minishell");
+}
+
 int main()
 {
-    char **str = ft_split("echo -nhahaha", ' ');
-        // printf("%s----", str[1]);
-    identifyer(str);
+    // atexit(f);
+    t_cmd *cmd;
+
+    cmd = malloc(sizeof(t_cmd));
+    cmd->str = ft_split("cd /tmp", ' ');
+    cmd_identifyer(cmd->str);
+    cmd->str = ft_split("pwd includes", ' ');
+    cmd_identifyer(cmd->str);
+    free(cmd);
 }
