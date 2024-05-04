@@ -4,9 +4,10 @@ CC = cc
 
 RM = rm -rf
 
-FLAGS = -fsanitize=address
+FLAGS = #-fsanitize=address
 
-SRCS = builtins/echo.c \
+SRCS =	builtins/builtins_1.c \
+		builtins/identifier.c \
 
 TOOL_SRCS = tools/tool_1.c \
 			tools/tool_split.c \
