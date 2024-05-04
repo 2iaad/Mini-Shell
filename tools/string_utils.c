@@ -6,13 +6,13 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:48:54 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/04 16:50:01 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:55:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, int len)
 {
 	size_t	i;
 	size_t	j;
