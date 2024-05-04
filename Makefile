@@ -9,8 +9,9 @@ FLAGS = #-fsanitize=address
 SRCS =	builtins/builtins_1.c \
 		builtins/identifier.c \
 
-TOOL_SRCS = tools/utils.c \
+TOOL_SRCS = tools/mini_utils.c \
 			tools/split.c \
+			tools/string_utils.c \
 
 OBJS = $(SRCS:.c=.o)
 TOOL_OBJS = $(TOOL_SRCS:.c=.o)
