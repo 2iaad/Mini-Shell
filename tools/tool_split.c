@@ -6,13 +6,13 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:37:24 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/03 11:38:01 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:17:21 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/tools.h"
 
-static void	ft_free(char **p2s, int wc)
+static void	split_ft_free(char **p2s, int wc)
 {
 	while (wc--)
 		free(p2s[wc]);
@@ -68,7 +68,7 @@ static char	**sizeofwords(int wc, const char *s, char c, char **p2s)
 		p2s[wa] = allocat_andcopy_words(s, j, i);
 		if (p2s[wa] == NULL)
 		{
-			ft_free(p2s, wa);
+			split_ft_free(p2s, wa);
 			return (NULL);
 		}
 		wa++;
