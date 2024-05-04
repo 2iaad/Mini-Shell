@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/03 16:49:29 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:47:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@
 
 typedef struct s_cmd
 {
-    char *cmd;
-    char *string;
+    char **str;
 }   t_cmd;
+
+/*          BUILTINS        */
+
+void    echo(char   **cmd);
+void    cd(char **cmd);
+void    pwd(char **str);
 
 #endif
