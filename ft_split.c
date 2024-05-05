@@ -6,13 +6,13 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:35:47 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/04 17:49:56 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/05 16:15:14 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_in_s(char c, char *sub_s)
+static int	is_in_s(char c, char *sub_s)
 {
 	int	i;
 

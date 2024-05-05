@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/05 20:50:36 by ibouram          ###   ########.fr       */
+/*   Created: 2024/05/05 17:05:10 by ibouram           #+#    #+#             */
+/*   Updated: 2024/05/05 20:30:01 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdio.h>
-
-typedef struct s_env
+int	check_quotes(char *line)
 {
-	char	*variable;
-	int		*value;
-}				t_env;
+	int	i;
+	int	quote;
 
-
-
-char	**ft_split(const char *s, char *sub_s);
-void	read_from_input(t_env **env);
-int		parce_line(char *line, t_env **env);
-int		check_quotes(char *line);
-#endif
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'' || line[i] == '\"')
+		{
+			quote = line[i++];
+			while (line[i] && line[i] != quote)
+				i++;
+			if (line[i] != quote)
+				return (0);
+			i++;
+		}
+		else
+			i++;
+	}
+	return (1);
+}

@@ -6,25 +6,50 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:10:41 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/04 18:00:22 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/05 20:50:14 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-int	main()
-{
-	char *s = "cat-e<numbers.txt>|grep>>hi";
-	char **line;
 
-	line = ft_split(s, " '\"|<>&");
-	// if (line != NULL)
-	// {
-	// 	int i = 0;
-	// 	while (line[i])
-	// 	{
-	// 		printf("%s\n", line[i]);
-	// 		i++;
-	// 	}
-	// }
+int	parce_line(char *line, t_env **env)
+{
+	(void)env;
+	if (!check_quotes(line))
+	{
+		free (line);//, ("syntax error\n"));
+		printf("syntax error\n");
+	}
+	return (0);
+}
+
+void	read_from_input(t_env **env)
+{
+	
+	char *line;
+	while (1)
+	{
+		line = readline("minishell$ ");
+		//displays the prompt "minishell$ " and waits for the user to enter a command. 
+		// The entered command is stored in the line variable as a dynamically allocated string.
+		if (!line)//If the user presses Ctrl-D, the program should exit. this if the user wanna exit
+		{
+			printf("exit\n");
+			exit(0);
+		}
+		if (!line[0])
+		{
+			free(line);
+			continue ;
+		}
+		add_history(line);
+		parce_line(line, env);
+	}
+}
+int main(int ac, char **av)
+{
+	(void)ac;
+	(void)av;
+	t_env *env;
+	read_from_input(&env);
 }
