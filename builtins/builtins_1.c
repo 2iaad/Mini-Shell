@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/04 15:14:28 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:04:40 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    cd(char **cmd)
         perror("cd");
 }
 
-void    pwd(char **str)
+void    pwd(void)
 {
     char *c_path;
 

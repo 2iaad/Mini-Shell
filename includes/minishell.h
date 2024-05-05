@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/04 16:55:21 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/05 11:35:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@
 typedef struct s_cmd
 {
     char **str;
+    char **env;
 }   t_cmd;
 
 /*          BUILTINS        */
 
 void    echo(char   **cmd);
 void    cd(char **cmd);
-void    pwd(char **str);
+void    pwd(void);
+void    env(t_cmd *cmd);
+
+/*          EXECUTION       */
+
+char	*look_for_paths(char **ev);
 
 #endif
