@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/05 15:49:03 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:15:13 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // builltins need to work without execve, if there is a pipe i need to fork then call the builtin.
 
-void    cmd_identifyer(t_cmd *cmd)
+void	cmd_identifyer(t_cmd *cmd)
 {
     if (!ft_strcmp(cmd->str[0], "echo", 4))
         echo(cmd->str);
@@ -37,9 +37,11 @@ void f()
     system("leaks minishell");
 }
 
+// better work with linked list in the env command to put each variable in its node 
+
 int main(int ac, char **av, char **env)
 {
-    atexit(f);
+    // atexit(f);
     t_cmd *cmd;
 
     cmd = malloc(sizeof(t_cmd));
