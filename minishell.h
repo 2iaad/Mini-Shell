@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/05 20:50:36 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/06 19:04:15 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,7 @@ char	**ft_split(const char *s, char *sub_s);
 void	read_from_input(t_env **env);
 int		parce_line(char *line, t_env **env);
 int		check_quotes(char *line);
+int		whitespaces(char s);
+void	space(char *line);
+int 	ft_strlen(char *s);
 #endif

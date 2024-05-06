@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:10:41 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/05 20:50:14 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/06 19:06:47 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int	parce_line(char *line, t_env **env)
 	(void)env;
 	if (!check_quotes(line))
 	{
-		free (line);//, ("syntax error\n"));
-		printf("syntax error\n");
+		free (line);
+		write(2, "syntax error\n", 13);
 	}
+	//space(line);
 	return (0);
 }
 
@@ -46,9 +47,18 @@ void	read_from_input(t_env **env)
 		parce_line(line, env);
 	}
 }
+// void f(void)
+// {
+// 	system("leaks minishell");
+// }
 int main(int ac, char **av)
 {
-	(void)ac;
+	// atexit(f);
+	if (ac > 1)
+	{
+		write(2, "Error: too many arguments\n", 26);
+		return (1);
+	}
 	(void)av;
 	t_env *env;
 	read_from_input(&env);
