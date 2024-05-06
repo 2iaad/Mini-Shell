@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/06 16:09:01 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:04:27 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void    env(t_list *lst) // didnt handle "no envirement" case!!
 	t_env	*tmp;
     
     i = 0;
+	lst->env_args = NULL;
     while (lst->env[i])
     {
         str = ft_split(lst->env[i], '='); // i split with '=' and take the variable name
@@ -30,13 +31,11 @@ void    env(t_list *lst) // didnt handle "no envirement" case!!
         ft_free(str);
         i++;
     }
-	// while (lst->env_args)
-	// {
-		
-	// 	printf("%s--->", lst->env_args->key);
-	// 	printf("%s\n", lst->env_args->value);
-		
-	// 	lst->env_args = lst->env_args->next;
-	// }
-	// ft_lstclear(&lst->env_args);
+	tmp = lst->env_args; // to keep the linked list preserved for later freeing of the linked list
+	while (tmp)
+	{
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&lst->env_args);
 }

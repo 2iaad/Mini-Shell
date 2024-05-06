@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/06 16:01:46 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:21:37 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void f()
 
 int main(int ac, char **av, char **env)
 {
-    atexit(f);
+    // atexit(f);
     t_list *lst;
 
     lst = malloc(sizeof(t_list));
