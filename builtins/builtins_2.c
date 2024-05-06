@@ -6,35 +6,37 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/05 20:19:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:09:01 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// better work with linked list in the env command to put each variable in its node 
-// the node will contain the variable and its argument
-// add the ft_lstnew and ft_lst_add_back to tools files
-// then do the expanding
-// each string expaned will get added to the cmd->env list
+// do the expanding
+// each string expanded will get added to the cmd->env list
 // check if there is $VAR and replace VAR with its value
 
-void    env(t_cmd *cmd) // didnt handle "no envirement" case!!
+void    env(t_list *lst) // didnt handle "no envirement" case!!
 {
-    int i;
-    char **str;
-    char *argument;
+    int		i;
+	char	**str;
+	t_env	*tmp;
     
     i = 0;
-    while (cmd->env[i])
+    while (lst->env[i])
     {
-        str = ft_split(cmd->env[i], '='); // i split with '=' and take the variable name
-        argument = getenv(str[0]); // pass it to getenv to take its value
-        ft_putstr(str[0]); // print variable
-        write(1, "---->", 5);
-        ft_putstr(argument); // print value
-        write(1, "\n", 1);
+        str = ft_split(lst->env[i], '='); // i split with '=' and take the variable name
+		ft_lstadd_back(&lst->env_args, ft_lstnew(ft_strdup(str[0]), ft_strdup(getenv(str[0])))); // strdup bec bla strdup makhdmatch ez
         ft_free(str);
         i++;
     }
+	// while (lst->env_args)
+	// {
+		
+	// 	printf("%s--->", lst->env_args->key);
+	// 	printf("%s\n", lst->env_args->value);
+		
+	// 	lst->env_args = lst->env_args->next;
+	// }
+	// ft_lstclear(&lst->env_args);
 }

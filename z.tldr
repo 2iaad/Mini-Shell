@@ -42,9 +42,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": -191.65344458103868,
-			"y": 1147.1309048787805,
-			"lastActivityTimestamp": 1714922004321,
+			"x": 1951.709441783037,
+			"y": 2364.30366166179,
+			"lastActivityTimestamp": 1715006167322,
 			"meta": {}
 		},
 		{
@@ -59,13 +59,13 @@
 			"opacityForNextShape": 1,
 			"stylesForNextShape": {
 				"tldraw:color": "yellow",
-				"tldraw:size": "m",
+				"tldraw:size": "s",
 				"tldraw:font": "serif"
 			},
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "cross",
+				"type": "default",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -75,8 +75,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1171,
-				"h": 716
+				"w": 671,
+				"h": 789
 			},
 			"insets": [
 				false,
@@ -94,7 +94,7 @@
 			"isFocused": true,
 			"devicePixelRatio": 2,
 			"isCoarsePointer": false,
-			"isHoveringCanvas": false,
+			"isHoveringCanvas": true,
 			"openMenus": [],
 			"isChangingStyle": false,
 			"isReadonly": false,
@@ -107,8 +107,10 @@
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
-			"selectedShapeIds": [],
-			"hoveredShapeId": null,
+			"selectedShapeIds": [
+				"shape:ZDMT_26GyeI6cjDPkrhyG"
+			],
+			"hoveredShapeId": "shape:ZDMT_26GyeI6cjDPkrhyG",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -118,9 +120,9 @@
 			"typeName": "instance_page_state"
 		},
 		{
-			"x": 499.39821314703187,
-			"y": -703.4560041258259,
-			"z": 1.6060640601726774,
+			"x": -1686.5667631672986,
+			"y": -2055.049934229462,
+			"z": 1.377560194786082,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
@@ -2095,6 +2097,29 @@
 			},
 			"parentId": "page:page",
 			"index": "aH",
+			"typeName": "shape"
+		},
+		{
+			"x": 1771.528108969849,
+			"y": 2197.9712937635436,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:ZDMT_26GyeI6cjDPkrhyG",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 787.3079388874149,
+				"text": "SECURITYSESSIONID=186a3\nUSER=zderfouf\nMallocNanoZone=0\nCOMMAND_MODE=unix2003\nPATH=/Users/zderfouf/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Users/zderfouf/.brew/bin\nHOME=/Users/zderfouf\nSHELL=/bin/zsh\nLaunchInstanceID=0ECF251B-C39C-4CB9-A341-0F82584AC2EF\n__CF_USER_TEXT_ENCODING=0x1929B:0x0:0x0\nCOLORTERM=truecolor\nGIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh\nVSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)\nVSCODE_GIT_ASKPASS_EXTRA_ARGS=--ms-enable-electron-run-as-node\nVSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js\nVSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n000cklc0034mv/T/vscode-git-47b98288e0.sock\nVSCODE_INJECTION=1\nZDOTDIR=/Users/zderfouf\nUSER_ZDOTDIR=/Users/zderfouf\nTERM=xterm-256color\n_=/usr/bin/env",
+				"font": "serif",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 0.4355426213164942
+			},
+			"parentId": "page:page",
+			"index": "aI",
 			"typeName": "shape"
 		}
 	]
