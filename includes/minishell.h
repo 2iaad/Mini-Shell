@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/05 11:35:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:32:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,33 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-typedef struct s_cmd
+typedef struct s_env
 {
-    char **str;
-    char **env;
-}   t_cmd;
+	char			*key;
+    char			*value;
+    struct s_env	*next;
+}   t_env;
+
+typedef struct s_list
+{
+	char	**cmd;
+    char 	**env;
+	t_env	*env_args;
+}	t_list;
+
+t_env	*ft_lstnew(char *key, char *value);
+t_env	*ft_lstlast(t_env *lst);
+void	ft_lstclear(t_env **lst);
+void	ft_lstadd_back(t_env **lst, t_env *newn);
+
+
 
 /*          BUILTINS        */
 
 void    echo(char   **cmd);
 void    cd(char **cmd);
 void    pwd(void);
-void    env(t_cmd *cmd);
+void    env(t_list *cmd);
 
 /*          EXECUTION       */
 
