@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:13:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/06 15:48:04 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/08 11:59:41 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int     flag_check(char *s1);
 char	*ft_strdup(char *s1);
 char	**ft_split(const char *s, char c);
 int     ft_strcmp(char *s1, char *s2, int len);
+char	**custumized_ft_split(const char *str, char c);
 char	*ft_strnstr(const char *haystack, const char *needle, int len);
 
 
