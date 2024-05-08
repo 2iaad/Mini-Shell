@@ -25,21 +25,21 @@ void	d_node(t_env	**env_args)
 	t_env *tmp2; // hadi fiha salam li mnwra HELLO
 
 	tmp0 = *env_args;
+	tmp1 = *env_args;
 	while (tmp0)
 	{
 		if (!ft_strcmp(tmp0->key, "HELLO", 4))
 		{
 			tmp2 = tmp0->next;
-			free(tmp0);
 			break;
 		}
 		tmp0 = tmp0->next;
 	}
-	tmp1 = *env_args;
 	while (tmp1)
 	{
 		if (!ft_strcmp(tmp1->next->key, "HELLO", 4))
 		{
+			free(tmp1->next);
 			tmp1->next = tmp2;
 			break;
 		}
