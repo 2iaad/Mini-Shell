@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/06 18:04:27 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:45:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void    env(t_list *lst) // didnt handle "no envirement" case!!
     int		i;
 	char	**str;
 	t_env	*tmp;
-    
+
     i = 0;
-	lst->env_args = NULL;
+	// lst->env_args = NULL;
     while (lst->env[i])
     {
         str = ft_split(lst->env[i], '='); // i split with '=' and take the variable name
@@ -37,5 +37,18 @@ void    env(t_list *lst) // didnt handle "no envirement" case!!
 		printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
-	ft_lstclear(&lst->env_args);
+}
+
+void	export_data(t_list *lst)
+{
+	int		i;
+	char	**str;
+	t_env	*tmp;
+
+	i = 0;
+	str = custumized_ft_split(lst->cmd[1], '='); // it segf if there is no "="
+	if (!str)
+		return ;
+	ft_lstadd_back(&lst->env_args, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
+	ft_free(str);
 }
