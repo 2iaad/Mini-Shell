@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/08 12:45:45 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:20:55 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,46 @@ void    env(t_list *lst) // didnt handle "no envirement" case!!
 	}
 }
 
-void	export_data(t_list *lst)
+void	export_data(t_list *lst) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
 {
-	int		i;
 	char	**str;
 	t_env	*tmp;
 
-	i = 0;
 	str = custumized_ft_split(lst->cmd[1], '='); // it segf if there is no "="
 	if (!str)
 		return ;
 	ft_lstadd_back(&lst->env_args, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
 	ft_free(str);
+}
+
+// void	unset_tool(t_env	*env_args)
+// {
+// 	t_env	*tmp;
+
+// 	tmp = env_args;
+// 	while (tmp)
+// 	{
+// 		if 
+// 	}
+// }
+
+void	unset(t_list	*lst)
+{
+	t_env	*tmp;
+	t_env	*tmp2;
+
+	tmp = lst->env_args;
+	if (!lst->cmd[1])
+		return ;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, lst->cmd[1], ft_strlen(lst->cmd[1])))
+		{
+			printf("%s", tmp->key);
+			tmp2 = tmp->next;
+			free(tmp->key);
+			free(tmp->value);
+		}
+		tmp = tmp->next;
+	}
 }

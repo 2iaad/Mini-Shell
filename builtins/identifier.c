@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/08 12:46:58 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:02:48 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	cmd_identifyer(t_list *lst)
         pwd();
     if (!ft_strcmp(lst->cmd[0], "export", 6))
         export_data(lst);
-    // if (!ft_strcmp(lst->cmd[0], "unset"))
-    //     unset(lst->cmd);
+    if (!ft_strcmp(lst->cmd[0], "unset", 5))
+        unset(lst);
     if (!ft_strcmp(lst->cmd[0], "env", 3))
         env(lst);
     // if (!ft_strcmp(lst->cmd[0], "exit"))
@@ -41,7 +41,7 @@ void f()
 
 int main(int ac, char **av, char **env)
 {
-    atexit(f);
+    // atexit(f);
     t_list *lst;
 
     lst = malloc(sizeof(t_list));
@@ -55,24 +55,22 @@ int main(int ac, char **av, char **env)
     // lst->cmd = ft_split("pwd includes", ' ');
     // lst_identifyer(lst->cmd);
 
-	/*			env			*/
+	/*			EXPORT			*/
+    lst->cmd = ft_split("export B=ziad", ' '); // need to use "env to visualize its existence in the env"
+    cmd_identifyer(lst);
+    ft_free(lst->cmd);
+	
+	// /*			ENV			*/
     // lst->cmd = ft_split("env ", ' ');
     // cmd_identifyer(lst);
 	// ft_free(lst->cmd);
 
-	/*			export			*/
-    lst->cmd = ft_split("export A13=37", ' ');
-    cmd_identifyer(lst);
-    ft_free(lst->cmd);
-    lst->cmd = ft_split("export B=ziad", ' ');
-    cmd_identifyer(lst);
-    ft_free(lst->cmd);
 	
-    // lst->cmd = ft_split("env ", ' ');
-    // cmd_identifyer(lst);
-	// ft_free(lst->cmd);
-	
-	
+	/*			UNSET			*/
+	lst->cmd = ft_split("unset B", ' ');
+	cmd_identifyer(lst);
+	ft_free(lst->cmd);
+
 	ft_lstclear(&lst->env_args);
     free(lst);
 }

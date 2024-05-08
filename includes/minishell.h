@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/08 12:49:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:42:48 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void    echo(char   **cmd);
 void    cd(char **cmd);
 void    pwd(void);
 void    env(t_list *cmd);
+void	unset(t_list	*lst);
 void	export_data(t_list *lst);
 
 /*          EXECUTION       */
