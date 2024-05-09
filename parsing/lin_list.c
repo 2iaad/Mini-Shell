@@ -1,28 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   lin_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 18:06:06 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/06 19:03:27 by ibouram          ###   ########.fr       */
+/*   Created: 2024/05/09 03:09:32 by ibouram           #+#    #+#             */
+/*   Updated: 2024/05/09 03:47:37 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"minishell.h"
 
-int	whitespaces(char s)
+t_token	*ft_lstnew(char *content, int type)
 {
-	return (s == ' ' || s == '\t' || s == '\n' || s == '\v' || s == '\f' || s == '\r');
+	t_token	*n;
+
+	n = (t_token *)malloc(sizeof(t_token));
+	if (!n)
+		return (NULL);
+	n->token = content;
+	n->type = type;
+	n->next = NULL;
+	return (n);
 }
 
-int ft_strlen(char *s)
+void	ft_lstadd_back(t_token **lst, t_token *new)
 {
-	int i;
+	t_token	*last;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (!new || !lst)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	else
+	{
+		last = ft_lstlast(*lst);
+		last -> next = new;
+	}
 }

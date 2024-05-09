@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 05:57:38 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/08 06:38:09 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/09 05:42:37 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ char	*space(char *line, int i, int j)
 			new_line[j++] = line[i];
 		i++;
 	}
+	malloc_faill(new_line);
 	new_line[j] = '\0';
 	return (new_line);
 }

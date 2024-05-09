@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:06:06 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/06 19:03:27 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/09 05:41:06 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 int	whitespaces(char s)
 {
 	return (s == ' ' || s == '\t' || s == '\n' || s == '\v' || s == '\f' || s == '\r');
+}
+
+void	malloc_faill(char *buffer)
+{
+	if (!buffer)
+		return (NULL);
 }
 
 int ft_strlen(char *s)
