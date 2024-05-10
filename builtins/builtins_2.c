@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/08 15:20:55 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:28:38 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdio.h>
 
 // do the expanding
 // each string expanded will get added to the cmd->env list
@@ -51,34 +52,47 @@ void	export_data(t_list *lst) // doesnt have to work if the key is a number or '
 	ft_free(str);
 }
 
-// void	unset_tool(t_env	*env_args)
-// {
-// 	t_env	*tmp;
+void	ft_free_node(t_env *node)
+{
+	free(node->key);
+	free(node->value);
+	free(node);
+}
 
-// 	tmp = env_args;
-// 	while (tmp)
-// 	{
-// 		if 
-// 	}
-// }
+void	d_node(t_env	**env_args, char *to_delete)
+{
+	t_env *tmp[3]; 
+
+	tmp[0] = *env_args;
+	tmp[1] = *env_args;
+	while (tmp[0])
+	{
+		if (!ft_strcmp(tmp[0]->key, to_delete, ft_strlen(to_delete)))
+		{
+			tmp[2] = tmp[0]->next;
+			break;
+		}
+		tmp[0] = tmp[0]->next;
+	}
+	while (tmp[1])
+	{
+		if (tmp[1]->next)
+			if (!ft_strcmp(tmp[1]->next->key, to_delete, ft_strlen(to_delete)))
+			{
+				ft_free_node(tmp[1]->next);
+				tmp[1]->next = tmp[2];
+				break;
+			}
+		tmp[1] = tmp[1]->next;
+	}
+}
 
 void	unset(t_list	*lst)
 {
 	t_env	*tmp;
-	t_env	*tmp2;
 
 	tmp = lst->env_args;
 	if (!lst->cmd[1])
 		return ;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->key, lst->cmd[1], ft_strlen(lst->cmd[1])))
-		{
-			printf("%s", tmp->key);
-			tmp2 = tmp->next;
-			free(tmp->key);
-			free(tmp->value);
-		}
-		tmp = tmp->next;
-	}
+	d_node(&tmp, lst->cmd[1]);
 }

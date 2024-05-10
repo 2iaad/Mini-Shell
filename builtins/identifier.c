@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/08 15:02:48 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:30:15 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void f()
 
 int main(int ac, char **av, char **env)
 {
-    // atexit(f);
+    atexit(f);
     t_list *lst;
 
     lst = malloc(sizeof(t_list));
@@ -56,21 +56,29 @@ int main(int ac, char **av, char **env)
     // lst_identifyer(lst->cmd);
 
 	/*			EXPORT			*/
-    lst->cmd = ft_split("export B=ziad", ' '); // need to use "env to visualize its existence in the env"
+	
+	/*			ENV			*/
+
+    lst->cmd = ft_split("env ", ' ');
+    cmd_identifyer(lst);
+	ft_free(lst->cmd);
+	ft_lstclear(&lst->env_args);
+
+    lst->cmd = ft_split("export Bbb=ziad", ' '); // need to use "env to visualize its existence in the env"
     cmd_identifyer(lst);
     ft_free(lst->cmd);
 	
-	// /*			ENV			*/
-    // lst->cmd = ft_split("env ", ' ');
-    // cmd_identifyer(lst);
-	// ft_free(lst->cmd);
-
-	
 	/*			UNSET			*/
-	lst->cmd = ft_split("unset B", ' ');
+	lst->cmd = ft_split("unset Bbb", ' ');
 	cmd_identifyer(lst);
 	ft_free(lst->cmd);
 
+	printf("\n\n\n");
+
+    lst->cmd = ft_split("env ", ' ');
+    cmd_identifyer(lst);
+	ft_free(lst->cmd);
 	ft_lstclear(&lst->env_args);
+
     free(lst);
 }
