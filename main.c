@@ -47,7 +47,7 @@ void	d_node(t_env	**env_args)
 	}
 }
 
-// fix segfault
+void f(){system("leaks a.out");}
 
 int main(int ac, char **av)
 {
@@ -55,6 +55,7 @@ int main(int ac, char **av)
 	t_env *head;
 	t_env *tmp;
 
+	atexit(f);
 	head = NULL;
 	while (i < 7)
 	{
