@@ -6,13 +6,30 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/10 20:30:15 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/11 15:14:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // builltins need to work without execve, if there is a pipe i need to fork then call the builtin.
+
+void	init_env_args(t_list *lst)
+{
+	int		i;
+	char	**str;
+	t_env	*tmp;
+
+    i = 0;
+	lst->env_args = NULL;
+    while (lst->env[i])
+    {
+        str = ft_split(lst->env[i], '='); // i split with '=' and take the variable name
+		ft_lstadd_back(&lst->env_args, ft_lstnew(ft_strdup(str[0]), ft_strdup(getenv(str[0])))); // strdup bec bla strdup makhdmatch ez
+        ft_free(str);
+        i++;
+    }
+}
 
 void	cmd_identifyer(t_list *lst)
 {
@@ -41,12 +58,12 @@ void f()
 
 int main(int ac, char **av, char **env)
 {
-    atexit(f);
+    // atexit(f);
     t_list *lst;
 
     lst = malloc(sizeof(t_list));
     lst->env = env;
-	lst->env_args = NULL;
+	init_env_args(lst);
 	/*			CD			*/
     // lst->cmd = ft_split("cd /tmp", ' ');
     // lst_identifyer(lst->cmd);
@@ -55,19 +72,17 @@ int main(int ac, char **av, char **env)
     // lst->cmd = ft_split("pwd includes", ' ');
     // lst_identifyer(lst->cmd);
 
-	/*			EXPORT			*/
-	
 	/*			ENV			*/
 
     lst->cmd = ft_split("env ", ' ');
     cmd_identifyer(lst);
 	ft_free(lst->cmd);
-	ft_lstclear(&lst->env_args);
 
+	/*			EXPORT			*/
     lst->cmd = ft_split("export Bbb=ziad", ' '); // need to use "env to visualize its existence in the env"
     cmd_identifyer(lst);
     ft_free(lst->cmd);
-	
+
 	/*			UNSET			*/
 	lst->cmd = ft_split("unset Bbb", ' ');
 	cmd_identifyer(lst);
