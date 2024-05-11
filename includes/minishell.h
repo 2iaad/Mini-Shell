@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/08 14:42:48 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:39:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ typedef struct s_env
 typedef struct s_list
 {
 	char	**cmd;
-    char 	**env;
-	t_env	*env_args;
+	t_env	*env;
 }	t_list;
 
 t_env	*ft_lstnew(char *key, char *value);
