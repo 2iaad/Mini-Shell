@@ -6,17 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 11:25:09 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/12 11:53:42 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-// do the expanding
-// each string expanded will get added to the cmd->env list
-// check if there is $VAR and replace VAR with its value
 
 void    env(t_list *lst) // didnt handle "no envirement" case!!
 {
