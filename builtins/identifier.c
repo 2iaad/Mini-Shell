@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 10:29:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/12 11:24:41 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int main(int ac, char **av, char **env)
 	// ft_free(lst->cmd);
 
 	/*			EXPORT			*/
-    lst->cmd = ft_split("export salam", ' '); // need to use "env to visualize its existence in the env"
+    lst->cmd = ft_split("export salamcv", ' '); // need to use "env to visualize its existence in the env"
     cmd_identifyer(lst);
     ft_free(lst->cmd);
 
@@ -88,10 +88,10 @@ int main(int ac, char **av, char **env)
 
 	// printf("\n\n\n");
 
-    // lst->cmd = ft_split("env ", ' ');
-    // cmd_identifyer(lst);
-	// ft_free(lst->cmd);
-	// ft_lstclear(&lst->env);
+    lst->cmd = ft_split("env ", ' ');
+    cmd_identifyer(lst);
+	ft_free(lst->cmd);
+	ft_lstclear(&lst->env);
 
     free(lst);
 }

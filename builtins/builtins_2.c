@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 10:17:24 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/12 11:25:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	export_data(t_list *lst) // doesnt have to work if the key is a number or '
 	alpha_arrang(tmp);
 	if (!lst->cmd[1])
 		return solo_export(tmp);
-	str = custumized_ft_split(lst->cmd[1], '='); // it segf if there is no "="
+	str = custumized_ft_split(lst->cmd[1], '=');
 	if (!str)
 		return ;
 	ft_lstadd_back(&lst->env, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));

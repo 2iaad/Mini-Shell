@@ -4,7 +4,7 @@ CC = cc
 
 RM = rm -rf
 
-FLAGS = -fsanitize=address
+FLAGS = -g -fsanitize=address
 
 SRCS =	builtins/builtins_1.c \
 		builtins/builtins_2.c \
