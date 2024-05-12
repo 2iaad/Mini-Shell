@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:53:30 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/08 11:58:11 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/12 10:55:21 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ char **custumized_ft_split(const char *str, char c)
 {
 	char	**s;
 
+	if (!ft_strchr(str, c))
+	{
+		s = (char **) malloc (sizeof(char *) * 2);
+		if (!s)
+			return (NULL);
+		s[0] = first_word(str, '=');
+		s[1] = NULL;
+		return (s);
+	}
 	s = (char **) malloc (sizeof(char *) * 3);
 	if (!s)
 		return (NULL);

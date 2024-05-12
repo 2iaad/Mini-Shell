@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:48:54 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/06 15:48:13 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/12 11:24:14 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,31 @@ char	*ft_strnstr(const char *haystack, const char *needle, int len)
 
 char	*ft_strdup(char *s1)
 {
-	char	*s2;
 	size_t	i;
+	char	*s2;
 
 	i = 0;
 	s2 = (char *) malloc (sizeof(char) * ft_strlen(s1) + 1);
-	if (s1 == NULL || s2 == NULL)
+	if (s2 == NULL)
 		return (NULL);
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		s2[i] = s1[i];
 		i++;
 	}
 	s2[i] = '\0';
 	return (s2);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (0);
 }
