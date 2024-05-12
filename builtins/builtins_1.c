@@ -6,34 +6,45 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 11:55:51 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:01:54 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void    echo(char   **cmd) // handle "echo -n -n"
+void	expand(t_list	*lst, char *arg)
 {
-    int i;
-    int j;
+	t_env	*tmp;
+
+	tmp = lst->env;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, arg, ft_strlen(arg)))
+			printf("%s", tmp->value);
+		tmp = tmp->next;
+	}
+}
+
+void    echo(t_list	*lst) // handle "echo -n -n"
+{
     int flag;
 
-    i = 0;
-    j = 1;
     flag = 0;
-    if (cmd[1] == NULL) // echo 
-    {
-        write(1, "\n", 1);
-        return ;
-    }
-	if (!flag_check(cmd[1])) // echo -n and echo -nnnnnn
+    if (lst->cmd[1] == NULL) // echo 
+        return (void) write(1, "\n", 1);
+	if (!flag_check(lst->cmd[1])) // echo -n and echo -nnnnnn
 	{
-		if (cmd[2])
-			ft_putstr(cmd[2], 1);
+		if (lst->cmd[2])
+			ft_putstr(lst->cmd[2], 1);
 	}
 	else
-	 	ft_putstr(cmd[1], 1); // echo string
-	if (flag_check(cmd[1]))
+	{
+		if (lst->cmd[1][0] == '$' && (lst->cmd[1][1] != '$' && lst->cmd[1][1] != '?')) // ila kan lst->cmd[1] o lst->cmd[1][0] = '$' => expand
+			expand(lst, lst->cmd[1] + 1);
+		else
+			ft_putstr(lst->cmd[1], 1); // else echo string
+	}
+	if (flag_check(lst->cmd[1]))
 		write(1, "\n", 1);
 }
 

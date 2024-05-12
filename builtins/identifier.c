@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 11:24:41 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:51:11 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_env(t_list *lst, char **env)
 void	cmd_identifyer(t_list *lst)
 {
     if (!ft_strcmp(lst->cmd[0], "echo", 4))
-        echo(lst->cmd);
+        echo(lst);
     if (!ft_strcmp(lst->cmd[0], "cd", 2))
         cd(lst->cmd);
     if (!ft_strcmp(lst->cmd[0], "pwd", 3))
@@ -61,37 +61,35 @@ int main(int ac, char **av, char **env)
 
     lst = malloc(sizeof(t_list));
 	init_env(lst, env);
+
+	/* 		   ECHO			*/
+	lst->cmd = ft_split("echo $PATH" , ' ');
+	cmd_identifyer(lst);
+	
 	
 	/*			CD			*/
     // lst->cmd = ft_split("cd /tmp", ' ');
-    // lst_identifyer(lst->cmd);
+    // cmd_identifyer(lst->cmd);
 	
 	/*			PWD			*/
     // lst->cmd = ft_split("pwd includes", ' ');
-    // lst_identifyer(lst->cmd);
+    // cmd_identifyer(lst->cmd);
 
 	/*			ENV			*/
-
     // lst->cmd = ft_split("env ", ' ');
     // cmd_identifyer(lst);
 	// ft_free(lst->cmd);
 
 	/*			EXPORT			*/
-    lst->cmd = ft_split("export salamcv", ' '); // need to use "env to visualize its existence in the env"
-    cmd_identifyer(lst);
-    ft_free(lst->cmd);
+    // lst->cmd = ft_split("export salamcv", ' ');
+    // cmd_identifyer(lst);
+    // ft_free(lst->cmd);
 
 	// /*			UNSET			*/
 	// lst->cmd = ft_split("unset Bbb", ' ');
 	// cmd_identifyer(lst);
 	// ft_free(lst->cmd);
 
-	// printf("\n\n\n");
-
-    lst->cmd = ft_split("env ", ' ');
-    cmd_identifyer(lst);
-	ft_free(lst->cmd);
-	ft_lstclear(&lst->env);
 
     free(lst);
 }
