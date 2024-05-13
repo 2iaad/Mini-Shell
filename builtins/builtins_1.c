@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/13 16:29:30 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:41:41 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    echo(t_list	*lst) // handle "echo -n -n"
 		{
 			if (lst->cmd[i][1] == '$') // need to handle the "echo $$$ ..."
 				printf("khasni mprinti current pid, bach law3lm"); // increment i in the function by 2
-			if (lst->cmd[i][1] == '?')
+			else if (lst->cmd[i][1] == '?')
 				printf("khasni mprinti exit status deyal last command executed"); // increment i in the function by 2
 			else
 				expand(lst, &lst->cmd[i][1]);
