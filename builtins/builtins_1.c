@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 15:01:54 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:31:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	expand(t_list	*lst, char *arg)
 	t_env	*tmp;
 
 	tmp = lst->env;
+	if (!ft_strlen(arg)) // in case there is only "$"
+		printf("$");
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, arg, ft_strlen(arg)))
@@ -25,27 +27,38 @@ void	expand(t_list	*lst, char *arg)
 	}
 }
 
+
 void    echo(t_list	*lst) // handle "echo -n -n"
 {
-    int flag;
+	int	i;
+    int	flag;
 
-    flag = 0;
-    if (lst->cmd[1] == NULL) // echo 
-        return (void) write(1, "\n", 1);
-	if (!flag_check(lst->cmd[1])) // echo -n and echo -nnnnnn
+	if (!lst->cmd[1])
+		return (void) write(1, "\n", 1);
+	i = 1;
+    flag = flag_check(lst->cmd[1]);
+	while (lst->cmd[i]) // skip the "-n" "-n" if there are ones
 	{
-		if (lst->cmd[2])
-			ft_putstr(lst->cmd[2], 1);
+		if (flag_check(lst->cmd[i]))
+			break ;
+		i++;
 	}
-	else
+	while (lst->cmd[i]) // printf the strings that come after the "-nn"
 	{
-		if (lst->cmd[1][0] == '$' && (lst->cmd[1][1] != '$' && lst->cmd[1][1] != '?')) // ila kan lst->cmd[1] o lst->cmd[1][0] = '$' => expand
-			expand(lst, lst->cmd[1] + 1);
-		else
-			ft_putstr(lst->cmd[1], 1); // else echo string
+		if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '$') // need to handle the "echo $$$ ..."
+			printf("khasni mprinti current pid, bach law3lm"); // increment i in the function by 2
+		else if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '?')
+			printf("khasni mprinti exit status deyal last command executed"); // increment i in the function by 2
+		else if (lst->cmd[i][0] == '$')
+			expand(lst, &lst->cmd[i][1]);
+		else if (lst->cmd[i][0] != '$')
+			printf("%s", lst->cmd[i]);
+		if (lst->cmd[i + 1])
+			printf(" ");
+		i++;
 	}
-	if (flag_check(lst->cmd[1]))
-		write(1, "\n", 1);
+	if (flag) // if there is no flag (flag != 0) then write "\n"
+		printf("\n");
 }
 
 void    cd(char **cmd)

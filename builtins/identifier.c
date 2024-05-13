@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 14:51:11 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:33:48 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int main(int ac, char **av, char **env)
 	init_env(lst, env);
 
 	/* 		   ECHO			*/
-	lst->cmd = ft_split("echo $PATH" , ' ');
+	lst->cmd = ft_split("echo -n -nnnn. $PATH" , ' ');
 	cmd_identifyer(lst);
-	
-	
+
+
 	/*			CD			*/
     // lst->cmd = ft_split("cd /tmp", ' ');
     // cmd_identifyer(lst->cmd);
