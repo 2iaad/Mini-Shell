@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 15:04:42 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:40:41 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+
+
+// no env
+// unset path
+
+// export ZZ+=33
+// export ZZ+=44$a
+// export a="ls -la"
+
+// $a $hddhd -l
 
 typedef struct s_env
 {
