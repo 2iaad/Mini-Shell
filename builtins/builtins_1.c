@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/13 12:31:31 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:07:14 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	expand(t_list	*lst, char *arg)
 	}
 }
 
+void	exit_status_and_pid(char *str)
+{
+		
+}
 
 void    echo(t_list	*lst) // handle "echo -n -n"
 {
@@ -45,11 +49,14 @@ void    echo(t_list	*lst) // handle "echo -n -n"
 	}
 	while (lst->cmd[i]) // printf the strings that come after the "-nn"
 	{
-		if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '$') // need to handle the "echo $$$ ..."
-			printf("khasni mprinti current pid, bach law3lm"); // increment i in the function by 2
-		else if (lst->cmd[i][0] == '$' && lst->cmd[i][1] == '?')
-			printf("khasni mprinti exit status deyal last command executed"); // increment i in the function by 2
-		else if (lst->cmd[i][0] == '$')
+		if (lst->cmd[i][0] == '$')
+		{
+			if (lst->cmd[i][1] == '$') // need to handle the "echo $$$ ..."
+				printf("khasni mprinti current pid, bach law3lm"); // increment i in the function by 2
+			else if (lst->cmd[i][1] == '?')
+				printf("khasni mprinti exit status deyal last command executed"); // increment i in the function by 2
+		}
+		if (lst->cmd[i][0] == '$')
 			expand(lst, &lst->cmd[i][1]);
 		else if (lst->cmd[i][0] != '$')
 			printf("%s", lst->cmd[i]);
