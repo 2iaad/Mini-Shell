@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/13 12:33:48 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/14 10:05:21 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,16 @@ void f()
 
 int main(int ac, char **av, char **env)
 {
-    // atexit(f);
+    atexit(f);
     t_list *lst;
 
     lst = malloc(sizeof(t_list));
 	init_env(lst, env);
 
 	/* 		   ECHO			*/
-	lst->cmd = ft_split("echo -n -nnnn. $PATH" , ' ');
+	lst->cmd = ft_split("echo -n -nn -nnnn/nnnnn $PATH salam" , ' ');
 	cmd_identifyer(lst);
+	ft_free(lst->cmd);
 
 
 	/*			CD			*/
@@ -90,6 +91,6 @@ int main(int ac, char **av, char **env)
 	// cmd_identifyer(lst);
 	// ft_free(lst->cmd);
 
-
+	ft_lstclear(&lst->env);
     free(lst);
 }
