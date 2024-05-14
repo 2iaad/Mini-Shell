@@ -6,11 +6,23 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 10:06:17 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/14 10:53:24 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void    env(t_list *lst) // didnt handle "no envirement" case!!
+{
+	t_env *tmp;
+
+	tmp = lst->env; // to keep the linked list preserved for later freeing of the linked list
+	while (tmp)
+	{
+		printf("%s------>%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+}
 
 /*								UNSET								*/
 

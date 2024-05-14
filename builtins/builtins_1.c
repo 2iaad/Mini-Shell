@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/14 10:01:45 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/14 10:25:24 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void    pwd(void)
     c_path = getcwd(NULL, -1337); // when giving NULL , the fun ignores the number of bytes of the array that have been given
     if (!c_path) // contains the path, that have been allocated by getcwd
         perror("getcwd"); // return 
-    ft_putstr(c_path, 1);
+    printf("%s", c_path);
     free(c_path);
 }
