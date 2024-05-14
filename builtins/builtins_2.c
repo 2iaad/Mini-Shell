@@ -6,23 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 11:53:42 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:40:11 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void    env(t_list *lst) // didnt handle "no envirement" case!!
-{
-	t_env *tmp;
-
-	tmp = lst->env; // to keep the linked list preserved for later freeing of the linked list
-	while (tmp)
-	{
-		printf("%s------>%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-}
 /* 								EXPORT								*/
 
 void	alpha_arrang(t_env *env)
@@ -45,7 +34,31 @@ void	alpha_arrang(t_env *env)
 	}
 }
 
-void	solo_export(t_env *env)
+// void	export_replace(t_env, char *)
+// {
+	
+// }
+
+void	export_join(t_env *env, char **key)
+{
+	char	*tmpo;
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, key[0], ft_strlen(key[0]) - 2))
+		{
+			printf("\nsalam\n");
+			tmpo = tmp->value;
+			tmp->value = ft_strjoin(tmpo, key[1]);
+			free(tmpo);
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	export_solo(t_env *env)
 {
 	t_env	*tmp;
 
@@ -66,10 +79,15 @@ void	export_data(t_list *lst) // doesnt have to work if the key is a number or '
 	tmp = lst->env;
 	alpha_arrang(tmp);
 	if (!lst->cmd[1])
-		return solo_export(tmp);
+		return export_solo(tmp);
 	str = custumized_ft_split(lst->cmd[1], '=');
 	if (!str)
 		return ;
-	ft_lstadd_back(&lst->env, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
+	if (str[0][ft_strlen(str[0]) - 1] == '+') // case where there is "+=" --> join
+		export_join(lst->env, str);
+	else if (str[1][0] == '+')
+		printf("ndir function likatramplace dakchi b new content");
+	else
+		ft_lstadd_back(&lst->env, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
 	ft_free(str);
 }
