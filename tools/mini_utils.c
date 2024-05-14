@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:14:32 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/12 11:54:25 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/14 10:36:11 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,6 @@ int ft_strlen(char *str)
     while (str && str[i])
         i++;
     return (i);
-}
-
-void    ft_putstr(char *str, int fd)
-{
-    int i;
-
-    i = -1;
-    while (str[++i])
-        write(fd, &str[i], 1);
 }
 
 int ft_strcmp(char *s1, char *s2, int len)
