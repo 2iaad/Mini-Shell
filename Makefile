@@ -6,9 +6,11 @@ RM = rm -rf
 
 FLAGS = -g -fsanitize=address
 
-SRCS =	builtins/builtins_1.c \
-		builtins/builtins_2.c \
-		builtins/builtins_3.c \
+SRCS =	builtins/echo.c \
+		builtins/cd.c \
+		builtins/pwd.c \
+		builtins/export.c \
+		builtins/unset.c \
 		builtins/identifier.c \
 
 TOOL_SRCS = tools/mini_utils.c \

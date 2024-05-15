@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_1.c                                       :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/14 10:25:24 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:12:26 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,4 @@ void    echo(t_list	*lst)
 	}
 	if (flag) // if there is no flag (flag != 0) then write "\n"
 		printf("\n");
-}
-
-void    cd(char **cmd)
-{
-    char *c_path;
-    if (!access(cmd[1] , F_OK)) // === true
-    {
-        if (chdir(cmd[1]) == -1) // === then go to 
-            perror("chdir");
-    }
-    else
-        perror("cd");
-}
-
-void    pwd(void)
-{
-    char *c_path;
-
-    c_path = getcwd(NULL, -1337); // when giving NULL , the fun ignores the number of bytes of the array that have been given
-    if (!c_path) // contains the path, that have been allocated by getcwd
-        perror("getcwd"); // return 
-    printf("%s", c_path);
-    free(c_path);
 }
