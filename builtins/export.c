@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/15 10:56:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:53:13 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	export_replace(t_env *env, char **str)
 		if (!ft_strcmp(tmp->key, str[0], ft_strlen(str[0])))
 		{
 			free(tmp->value); // free old value
-			tmp->value = ft_strdup(str[1] + 1); // replace it with new allocated value(so i can free the linked list)
+			tmp->value = ft_strdup(str[1]); // replace it with new allocated value(so i can free the linked list)
 		}
 		tmp = tmp->next;
 	}	
