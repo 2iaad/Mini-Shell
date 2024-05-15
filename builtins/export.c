@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_2.c                                       :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/14 13:40:11 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:56:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,23 @@ void	alpha_arrang(t_env *env)
 	}
 }
 
-// void	export_replace(t_env, char *)
-// {
-	
-// }
+void	export_replace(t_env *env, char **str)
+{
+	t_env *tmp;
 
-void	export_join(t_env *env, char **key)
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, str[0], ft_strlen(str[0])))
+		{
+			free(tmp->value); // free old value
+			tmp->value = ft_strdup(str[1] + 1); // replace it with new allocated value(so i can free the linked list)
+		}
+		tmp = tmp->next;
+	}	
+}
+
+void	export_join(t_env *env, char **str)
 {
 	char	*tmpo;
 	t_env	*tmp;
@@ -47,11 +58,11 @@ void	export_join(t_env *env, char **key)
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->key, key[0], ft_strlen(key[0]) - 2))
+		if (!ft_strcmp(tmp->key, str[0], ft_strlen(str[0]) - 2))
 		{
 			printf("\nsalam\n");
 			tmpo = tmp->value;
-			tmp->value = ft_strjoin(tmpo, key[1]);
+			tmp->value = ft_strjoin(tmpo, str[1]);
 			free(tmpo);
 		}
 		tmp = tmp->next;
@@ -85,8 +96,8 @@ void	export_data(t_list *lst) // doesnt have to work if the key is a number or '
 		return ;
 	if (str[0][ft_strlen(str[0]) - 1] == '+') // case where there is "+=" --> join
 		export_join(lst->env, str);
-	else if (str[1][0] == '+')
-		printf("ndir function likatramplace dakchi b new content");
+	else if (str[1][0] == '+') // case where there is "=+" --> replace
+		export_replace(lst->env, str);
 	else
 		ft_lstadd_back(&lst->env, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
 	ft_free(str);

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/14 13:25:33 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:53:15 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void f()
 
 int main(int ac, char **av, char **env)
 {
-    // atexit(f);
+    atexit(f);
     t_list *lst;
 
     lst = malloc(sizeof(t_list));
@@ -92,7 +92,7 @@ int main(int ac, char **av, char **env)
     ft_free(lst->cmd);
 
 	/*			EXPORT			*/
-    lst->cmd = ft_split("export s+=oui", ' ');
+    lst->cmd = ft_split("export s=+oui", ' ');
     cmd_identifyer(lst);
     ft_free(lst->cmd);
 
