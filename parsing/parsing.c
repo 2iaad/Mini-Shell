@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/14 01:13:47 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/18 21:49:14 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	parce_line(char *line, t_env **env)
 {
-	char *tmp; // to free the line
+	char	*tmp;
+	char	**split; // to free the line
 
 	if (!check_quotes(line))
 	{
@@ -29,6 +30,12 @@ int	parce_line(char *line, t_env **env)
 	line = space(line, 0, 0);
 	syntax_error(line);
 	expand_env(line, env);
+	split = split_line(line);
+	while (*split)
+	{
+		printf("split: %s\n", *split);
+		split++;
+	}// still issue like "ss " && "aa aa"
 	free(tmp);
 	return (0);
 }
