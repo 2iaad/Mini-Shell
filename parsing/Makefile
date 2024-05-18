@@ -6,12 +6,12 @@
 #    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/05/14 01:06:20 by ibouram          ###   ########.fr        #
+#    Updated: 2024/05/18 21:15:34 by ibouram          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = ft_split.c parsing.c quotes.c utils.c add_space.c syntax_error.c \
-	Tokenizer.c lin_list.c utils2.c expanding.c
+	Tokenizer.c lin_list.c utils2.c expanding.c ft_split2.c
 
 RM = rm -rf
 NAME = minishell

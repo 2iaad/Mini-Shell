@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/18 16:55:48 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/18 21:15:52 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef enum s_meta
 } t_meta;
 
 char	**ft_split(const char *s, char *sub_s);
+char	**split_line(char *line);
 void	read_from_input(t_env **env);
 int		parce_line(char *line, t_env **env);
 int		check_quotes(char *line);
