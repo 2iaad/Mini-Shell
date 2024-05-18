@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 03:09:32 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/09 03:47:37 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/13 02:34:23 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,32 @@ t_token	*ft_lstnew(char *content, int type)
 	return (n);
 }
 
+t_token	*ft_lstlast(t_token *lst)
+{
+	t_token	*last;
+
+	last = NULL;
+	while (lst)
+	{
+		last = lst;
+		lst = lst->next;
+	}
+	return (last);
+}
+
+t_env	*ft_lstlast2(t_env *lst)
+{
+	t_env	*last;
+
+	last = NULL;
+	while (lst)
+	{
+		last = lst;
+		lst = lst->next;
+	}
+	return (last);
+}
+
 void	ft_lstadd_back(t_token **lst, t_token *new)
 {
 	t_token	*last;
@@ -39,6 +65,24 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	else
 	{
 		last = ft_lstlast(*lst);
-		last -> next = new;
+		last->next = new;
+	}
+}
+
+void	ft_lstadd_back_2(t_env **lst, t_env *new)
+{
+	t_env	*last;
+
+	if (!new || !lst)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	else
+	{
+		last = ft_lstlast2(*lst);
+		last->next = new;
 	}
 }

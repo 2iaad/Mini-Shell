@@ -6,32 +6,33 @@
 #    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/05/09 06:23:54 by ibouram          ###   ########.fr        #
+#    Updated: 2024/05/14 01:06:20 by ibouram          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = ft_split.c parcing.c quotes.c utils.c add_space.c syntax_error.c \
-	Tokenizer.c lin_list.c
+SRC = ft_split.c parsing.c quotes.c utils.c add_space.c syntax_error.c \
+	Tokenizer.c lin_list.c utils2.c expanding.c
 
 RM = rm -rf
 NAME = minishell
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 OBJS = $(SRC:.c=.o)
 
 all: $(NAME)
-
+	@printf "\033[32m[ ✔ ] %s\n\033[0m" "DONE"
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS)  -lreadline $^ -o $@
+	@$(CC) $(FLAGS)  -lreadline $^ -o $@
 
 %.o: %.c minishell.h
-	$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@printf "\033[32m[ ✔ ] %s\n\033[0m" "Clean"
 
 re: fclean all

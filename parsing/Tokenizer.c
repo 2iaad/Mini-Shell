@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/09 06:33:36 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/09 23:49:44 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_token *word(char *line, int *i)
 	while (line[*i] && !whitespaces(line[*i]))
 		(*i)++;
 	word = (char *)malloc(*i - start + 1);
-	malloc_faill(word);
+	if (!word)
+		return (NULL);
 	while(start < *i)
 	{
 		word[start - *i] = line[start];
@@ -30,8 +31,8 @@ t_token *word(char *line, int *i)
 	}
 	word[start - *i] = '\0';
 	node = ft_lstnew(word, WORD);
-	malloc_faill(node);
-	free(word);
+	if (!node)
+		return (NULL);
 	return (node);	
 }
 
@@ -42,8 +43,9 @@ t_token *red_in_herdk(char *line, int *i)
 
 	if (line[*i] == '<' && line[*i + 1] == '<')
 	{
-		redir = malloc(3);
-		malloc_faill(redir);
+		redir = malloc(sizeof(char) * 3);
+		if(!redir)
+			return (NULL);
 		redir[0] = line[*i];
 		redir[1] = line[*i + 1];
 		redir[2] = '\0';
@@ -52,15 +54,16 @@ t_token *red_in_herdk(char *line, int *i)
 	}
 	else
 	{
-		redir = malloc(2);
-		malloc_faill(redir);
+		redir = malloc(sizeof(char) * 2);
+		if (!redir)
+			return (NULL);
 		redir[0] = line[*i];
 		redir[1] = '\0';
 		(*i)++;
 		node = ft_lstnew(redir, REDIR_IN);
 	}
-	malloc_faill(node);
-	free(redir);
+	if (!node)
+		return (NULL);
 	return (node);
 }
 
@@ -71,8 +74,9 @@ t_token *red_out_apnd(char *line, int *i)
 
 	if (line[*i] == '>' && line[*i + 1] == '>')
 	{
-		redir = malloc(3);
-		malloc_faill(redir);
+		redir = malloc(sizeof(char) * 3);
+		if (!redir)
+			return (NULL);
 		redir[0] = line[*i];
 		redir[1] = line[*i + 1];
 		redir[2] = '\0';
@@ -81,18 +85,18 @@ t_token *red_out_apnd(char *line, int *i)
 	}
 	else
 	{
-		redir = malloc(2);
-		malloc_faill(redir);
+		redir = malloc(sizeof(char) * 2);
+		if(!redir)
+			return (NULL);
 		redir[0] = line[*i];
 		redir[1] = '\0';
 		(*i)++;
 		node = ft_lstnew(redir, REDIR_OUT);
 	}
-	malloc_faill(node);
-	free(redir);
+	if (!node)
+		return (NULL);
 	return (node);
 }
-
 
 t_token *ft_pipe(char *line, int *i)
 {
@@ -104,8 +108,8 @@ t_token *ft_pipe(char *line, int *i)
 	pipe[1] = '\0'; 
 	(*i)++;
 	node = ft_lstnew(pipe, PIPE);
-	malloc_faill(node);
-	free(pipe);
+	if (!node)
+		return (NULL);
 	return (node);
 }
 
@@ -130,7 +134,7 @@ void	tokenizer(char *line, t_token **token)
 			else if (line[i] == '>')
 				node = red_out_apnd(line, &i);
 			if (node->token != NULL)
-				ft_lstadd_back(&token, node);
+				ft_lstadd_back(token, node);
 			else
 				i++;
 		}
