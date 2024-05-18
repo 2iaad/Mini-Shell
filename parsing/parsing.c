@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/08 18:44:52 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/14 01:13:47 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 
 int	parce_line(char *line, t_env **env)
 {
-	(void)env;
-	char *tmp;
+	char *tmp; // to free the line
 
 	if (!check_quotes(line))
 	{
 		free (line);
-		write(2, "syntax error\n", 13);
+		ft_putstr_fd("syntax error related to unclosed quote\n", 2);
+		return (0);
 	}
 	tmp = line;
+	line = trim_line(line);
+	if (line == NULL)
+		return (1);
 	line = space(line, 0, 0);
+	syntax_error(line);
+	expand_env(line, env);
 	free(tmp);
 	return (0);
 }
 
 void	read_from_input(t_env **env)
 {
-	
 	char *line;
 	while (1)
 	{
@@ -55,9 +59,10 @@ void	read_from_input(t_env **env)
 // {
 // 	system("leaks minishell");
 // }
-int main(int ac, char **av)
+int main(int ac, char **av, char **envp)
 {
 	// atexit(f);
+	// rl_catch_signals = 0;
 	if (ac > 1)
 	{
 		write(2, "Error: too many arguments\n", 26);
@@ -65,5 +70,6 @@ int main(int ac, char **av)
 	}
 	(void)av;
 	t_env *env;
+	env = get_env(envp);
 	read_from_input(&env);
 }
