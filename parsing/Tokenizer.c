@@ -6,137 +6,69 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/09 23:49:44 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/20 10:02:19 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token *word(char *line, int *i)
+t_token	*ft_get_token(char *content, int type)
 {
-	char	*word;
-	t_token	*node;
-	int start;
+	t_token	*n;
 
-	start = *i;
-	while (line[*i] && !whitespaces(line[*i]))
-		(*i)++;
-	word = (char *)malloc(*i - start + 1);
-	if (!word)
+	n = (t_token *)malloc(sizeof(t_token));
+	if (!n)
 		return (NULL);
-	while(start < *i)
-	{
-		word[start - *i] = line[start];
-		start++;
-	}
-	word[start - *i] = '\0';
-	node = ft_lstnew(word, WORD);
-	if (!node)
-		return (NULL);
-	return (node);	
+	n->token = ft_strdup(content);
+	n->type = type;
+	n->next = NULL;
+	return (n);
 }
 
-t_token *red_in_herdk(char *line, int *i)
+int	is_oper(char *tok, int asc, int len)
 {
-	char	*redir;
-	t_token	*node;
+	int	i;
 
-	if (line[*i] == '<' && line[*i + 1] == '<')
+	i = 0;
+	if (ft_strlen(tok) == len)
 	{
-		redir = malloc(sizeof(char) * 3);
-		if(!redir)
-			return (NULL);
-		redir[0] = line[*i];
-		redir[1] = line[*i + 1];
-		redir[2] = '\0';
-		(*i)++;
-		node = ft_lstnew(redir, REDIR_HEREDOC);
+		while (i < len)
+		{
+			if (tok[i] != asc)
+				return (0);
+			i++;
+		}
+		return (1);
 	}
-	else
-	{
-		redir = malloc(sizeof(char) * 2);
-		if (!redir)
-			return (NULL);
-		redir[0] = line[*i];
-		redir[1] = '\0';
-		(*i)++;
-		node = ft_lstnew(redir, REDIR_IN);
-	}
-	if (!node)
-		return (NULL);
-	return (node);
+	return (0);
 }
 
-t_token *red_out_apnd(char *line, int *i)
-{
-	char	*redir;
-	t_token	*node;
-
-	if (line[*i] == '>' && line[*i + 1] == '>')
-	{
-		redir = malloc(sizeof(char) * 3);
-		if (!redir)
-			return (NULL);
-		redir[0] = line[*i];
-		redir[1] = line[*i + 1];
-		redir[2] = '\0';
-		(*i)++;
-		node = ft_lstnew(redir, REDIR_APPEND);
-	}
-	else
-	{
-		redir = malloc(sizeof(char) * 2);
-		if(!redir)
-			return (NULL);
-		redir[0] = line[*i];
-		redir[1] = '\0';
-		(*i)++;
-		node = ft_lstnew(redir, REDIR_OUT);
-	}
-	if (!node)
-		return (NULL);
-	return (node);
-}
-
-t_token *ft_pipe(char *line, int *i)
-{
-	char	*pipe;
-	t_token	*node;
-
-	pipe = (char *)malloc(2);
-	pipe[0] = line[*i];
-	pipe[1] = '\0'; 
-	(*i)++;
-	node = ft_lstnew(pipe, PIPE);
-	if (!node)
-		return (NULL);
-	return (node);
-}
-
-void	tokenizer(char *line, t_token **token)
+void	tokenizer(char **splited, t_token **token)
 {
 	int	i;
 	t_token *node;
 
+	node = NULL;
+	(void)token;
 	i = 0;
-	while (line[i])
+	if (!splited)
+		return ;
+	while (splited[i])
 	{
-		if (i == 0 || whitespaces(line[i]))
-		{
-			while (line[i] && whitespaces(line[i]))
-				i++;
-			if (line[i] != '|' && line[i] != '<' && line[i] != '>')
-				node = word(line, &i);
-			else if (line[i] == '|')
-				node = ft_pipe(line, &i);
-			else if (line[i] == '<')
-				node = red_in_herdk(line, &i);
-			else if (line[i] == '>')
-				node = red_out_apnd(line, &i);
-			if (node->token != NULL)
-				ft_lstadd_back(token, node);
-			else
-				i++;
-		}
+		if (is_oper(splited[i], -5, 1))
+			node = ft_get_token("|", PIPE);
+		else if (is_oper(splited[i], -1, 1))
+			node = ft_get_token("<", REDIR_IN);
+		else if (is_oper(splited[i], -3, 1))
+			node = ft_get_token(">", REDIR_OUT);
+		else if (is_oper(splited[i], -4, 2))
+			node = ft_get_token(">>", REDIR_APPEND);
+		else if (is_oper(splited[i], -2, 2))
+			node = ft_get_token("<<", REDIR_HEREDOC);
+		else
+			node = ft_get_token(splited[i], WORD);
+		if (node != NULL && node->token != NULL)
+			ft_lstadd_back(token, node);
+		i++;
 	}
 }
