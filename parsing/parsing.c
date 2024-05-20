@@ -6,16 +6,88 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/18 21:49:14 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/20 10:13:30 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+ // ****TO DO****
+// 1. continue TOKENIZER
+// 2. STRUCT
+// 3. REMOVE QUOTES
+// 4. GARVAGE COLLECTOR
+// 5. NORMINETTE
 
+char	*parse_protec(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (valid_meta(&line[i], i, 0, 1))
+		{
+			if (line[i] == '<' && line[i + 1] == '<')
+			{
+				line[i] = -2;
+				line[i + 1] = -2;
+				i++;
+			}
+			else if (line[i] == '>' && line[i + 1] == '>')
+			{
+				line[i] = -4;
+				line[i + 1] = -4;
+				i++;
+			}
+			else if (line[i] == '|')
+				line[i] = -5;
+			else if (line[i] == '<')
+				line[i] = -1;
+			else if (line[i] == '>')
+				line[i] = -3;
+		}
+		i++;
+	}
+	return (line);
+}
+
+
+void print_struct(t_token *token)
+{
+	t_token *tmp_token = token;
+	while (tmp_token)
+	{
+		printf("token: %s, type: ", tmp_token->token);
+		switch (tmp_token->type)
+		{
+			case (0):
+				printf("WORD\n");
+				break ;
+			case (1):
+				printf("PIPE\n");
+				break ;
+			case (2):
+				printf("REDIR_IN\n");
+				break ;
+			case (3):
+				printf("REDIR_OUT\n");
+				break ;
+			case (4):
+				printf("REDIR_APPEND\n");
+				break ;
+			case (5):
+				printf("REDIR_HEREDOC\n");
+				break ;
+		}
+		tmp_token = tmp_token->next;
+	}
+}
 int	parce_line(char *line, t_env **env)
 {
 	char	*tmp;
-	char	**split; // to free the line
+	t_token	*token;
+	token = NULL;
+	char	**split = NULL; // to free the line
 
 	if (!check_quotes(line))
 	{
@@ -28,17 +100,20 @@ int	parce_line(char *line, t_env **env)
 	if (line == NULL)
 		return (1);
 	line = space(line, 0, 0);
-	syntax_error(line);
-	expand_env(line, env);
+	if (syntax_error(line))
+		return (1);
+	line = parse_protec(line);
+	line = expand_env(line, env);
 	split = split_line(line);
-	while (*split)
-	{
-		printf("split: %s\n", *split);
-		split++;
-	}// still issue like "ss " && "aa aa"
+	tokenizer(split, &token);
+	print_struct(token);
 	free(tmp);
 	return (0);
 }
+// $x > out = ls -la > out > s
+// $x: cmd
+// > : redir_out
+// out: out_file
 
 void	read_from_input(t_env **env)
 {
