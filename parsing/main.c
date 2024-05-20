@@ -1,72 +1,209 @@
-char	*expand_env(char *line, t_env **env)
-{
-	int 	i;
-	int		len;
-	char	*new_line;
-	char	*new;
-	t_env	*tmp_env;
-	t_env	*expander;
-	int		var_len;
+#include <stdio.h>
+#include <stdlib.h>
 
-	i = 0;
-	new = NULL;
-	expander = NULL;
-	while (line[i])
+int	valid_meta(char *line, int i, int j, int valid)
+{
+	int		in1;
+	int		in2;
+	char	quote;
+
+	while (line[j])
 	{
-		len = 0;
-		while (line[i + len] != '\0' && line[i + len] != '$')
+		if (line[j] == '\'' || line[j] == '\"')
 		{
-			if (line[i + len] == '\'')
+			in1 = j;
+			quote = line[j++];
+			while (line[j] && line[j] != quote)
+				j++;
+			if (line[j] == quote)
+				in2 = j;
+			if (i > in1 && i < in2)
 			{
-				len++;
-				while (line[i + len] && line[i + len] != '\'')
-					len++;
-				len++;
+				valid = 0;
+				break ;
 			}
-			else
-				len++;
-		}
-		if (len > 0) // if there is a string before the variable
-		{
-			new_line = ft_substr(line, i, len);
-			new = ft_strjoin(new, new_line);
-		}
-		if (line[i + len] == '$' && line[i + len + 1] == '\0')
-		{
-			new = ft_strjoin(new, "$");
-			i += len + 1;
-		}
-		else if (line[i + len] == '$' && ft_isnum(line[i + len + 1]))
-		{
-			var_len = 1;
-			while(line[i + len + var_len] && ft_isnum(line[i + len + var_len]))
-				var_len++;
-			new_line = ft_substr(line, i + len + 2, var_len - 1);
-			new = ft_strjoin(new, new_line);
-			i += len + var_len;
-		}
-		else if (line[i + len] == '$')
-		{
-			var_len = 1;
-			while(line[i + len + var_len] && !delimiters(line[i + len + var_len]))
-				var_len++;
-			tmp_env = *env;
-			new_line = ft_substr(line, i + len + 1, var_len - 1);
-			while (tmp_env)
-			{
-				if (ft_strcmp(tmp_env->variable, new_line) == 0)
-				{
-					expander = tmp_env;
-					new = ft_strjoin(new, expander->value);
-					break ;
-				}
-				tmp_env = tmp_env->next;
-			}
-			i += len + var_len;
 		}
 		else
-			i += len;
+			j++;
 	}
-	printf("new = %s\n", new);
-	return (new);
+	return (valid);
 }
+
+char	*parse_protec(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (valid_meta(&line[i], i, 0, 1))
+		{
+			if (line[i] == '<' && line[i + 1] == '<')
+			{
+				line[i] = -2;
+				line[i + 1] = -2;
+				i++;
+			}
+			else if (line[i] == '>' && line[i + 1] == '>')
+			{
+				line[i] = -4;
+				line[i + 1] = -4;
+				i++;
+			}
+			else if (line[i] == '|')
+				line[i] = -5;
+			else if (line[i] == '<')
+				line[i] = -1;
+			else if (line[i] == '>')
+				line[i] = -3;
+		}
+		i++;
+	}
+	return (line);
+}
+int main() {
+    char line2[] = "< | << >>"; // Test with multiple characters
+	char *result = parse_protec(line2);
+
+    // Print the modified line to see the changes
+    for (int i = 0; result[i]; i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+
+
+
+
+// t_token *word(char *line, int *i)
+// {
+// 	char	*word;
+// 	t_token	*node;
+// 	int start;
+
+// 	start = *i;
+// 	while (line[*i] && !whitespaces(line[*i]))
+// 		(*i)++;
+// 	word = (char *)malloc(*i - start + 1);
+// 	if (!word)
+// 		return (NULL);
+// 	while(start < *i)
+// 	{
+// 		word[start - *i] = line[start];
+// 		start++;
+// 	}
+// 	word[start - *i] = '\0';
+// 	node = ft_lstnew(word, WORD);
+// 	if (!node)
+// 		return (NULL);
+// 	return (node);	
+// }
+
+// t_token *red_in_herdk(char *line, int *i)
+// {
+// 	char	*redir;
+// 	t_token	*node;
+
+// 	if (line[*i] == '<' && line[*i + 1] == '<')
+// 	{
+// 		redir = malloc(sizeof(char) * 3);
+// 		if(!redir)
+// 			return (NULL);
+// 		redir[0] = line[*i];
+// 		redir[1] = line[*i + 1];
+// 		redir[2] = '\0';
+// 		(*i)++;
+// 		node = ft_lstnew(redir, REDIR_HEREDOC);
+// 	}
+// 	else
+// 	{
+// 		redir = malloc(sizeof(char) * 2);
+// 		if (!redir)
+// 			return (NULL);
+// 		redir[0] = line[*i];
+// 		redir[1] = '\0';
+// 		(*i)++;
+// 		node = ft_lstnew(redir, REDIR_IN);
+// 	}
+// 	if (!node)
+// 		return (NULL);
+// 	return (node);
+// }
+
+// t_token *red_out_apnd(char *line, int *i)
+// {
+// 	char	*redir;
+// 	t_token	*node;
+
+// 	if (line[*i] == '>' && line[*i + 1] == '>')
+// 	{
+// 		redir = malloc(sizeof(char) * 3);
+// 		if (!redir)
+// 			return (NULL);
+// 		redir[0] = line[*i];
+// 		redir[1] = line[*i + 1];
+// 		redir[2] = '\0';
+// 		(*i)++;
+// 		node = ft_lstnew(redir, REDIR_APPEND);
+// 	}
+// 	else
+// 	{
+// 		redir = malloc(sizeof(char) * 2);
+// 		if(!redir)
+// 			return (NULL);
+// 		redir[0] = line[*i];
+// 		redir[1] = '\0';
+// 		(*i)++;
+// 		node = ft_lstnew(redir, REDIR_OUT);
+// 	}
+// 	if (!node)
+// 		return (NULL);
+// 	return (node);
+// }
+
+// t_token *ft_pipe(char *line, int *i)
+// {
+// 	char	*pipe;
+// 	t_token	*node;
+
+// 	pipe = (char *)malloc(2);
+// 	pipe[0] = line[*i];
+// 	pipe[1] = '\0'; 
+// 	(*i)++;
+// 	node = ft_lstnew(pipe, PIPE);
+// 	if (!node)
+// 		return (NULL);
+// 	return (node);
+// }
+
+// void	tokenizer(char *line, t_token **token)
+// {
+// 	int	i;
+// 	t_token *node;
+
+// 	i = 0;
+// 	while (line[i])
+// 	{
+// 		if (i == 0 || whitespaces(line[i]))
+// 		{
+// 			while (line[i] && whitespaces(line[i]))
+// 				i++;
+// 			if (line[i] != '|' && line[i] != '<' && line[i] != '>')
+// 				node = word(line, &i);
+// 			else if (line[i] == '|')
+// 				node = ft_pipe(line, &i);
+// 			else if (line[i] == '<')
+// 				node = red_in_herdk(line, &i);
+// 			else if (line[i] == '>')
+// 				node = red_out_apnd(line, &i);
+// 			if (node->token != NULL)
+// 				ft_lstadd_back(token, node);
+// 			else
+// 				i++;
+// 		}
+// 	}
+// }

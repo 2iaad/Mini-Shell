@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 03:09:32 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/13 02:34:23 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/19 12:39:32 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_token	*ft_lstlast(t_token *lst)
 {
 	t_token	*last;
 
+	if (!lst)
+		return (NULL);
 	last = NULL;
 	while (lst)
 	{

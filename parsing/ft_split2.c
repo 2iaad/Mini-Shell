@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:49:29 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/18 21:41:26 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/20 10:16:36 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,16 @@ static int count_words(char *line)
         while (line[i] && whitespaces(line[i]))
             i++;
         if (i == 0 && line[i])
-            count++;
-        else if (i > 0 && whitespaces(line[i - 1]))
+		{
+			count++;
+			if (line[i] == '\'' || line[i] == '\"')
+			{
+				quote = line[i++];
+				while (line[i] && line[i] != quote)
+					i++;
+			}
+		}
+        else if (i > 0 && whitespaces(line[i - 1]) && line[i] != '\0' && !whitespaces(line[i]))
         {
             count++;
             if (line[i] == '\'' || line[i] == '\"')
@@ -36,7 +44,10 @@ static int count_words(char *line)
                     i++;
             }
         }
+		// printf("line[%d]: %c, count: %d\n", i, line[i], count);
         i++;
+        if (i > ft_strlen(line))
+            break;
     }
     return (count);
 }
@@ -66,17 +77,18 @@ static int calc_len(char *line)
     }
     return (count);
 }
-
 static char *get_tok(char **line)
 {
     int i;
     char *subs;
     int len;
     // int in_quotes = 0;
-
+    subs = NULL;
     while (**line && whitespaces(**line))
         (*line)++;
     len = calc_len(*line);
+    if (len == 0)
+        return (NULL);
     subs = malloc(len + 1);
     if (!subs)
         return (NULL);
@@ -101,6 +113,8 @@ char **split_line(char *line)
     if (!line)
         return (NULL);
     nbr_toks = count_words(line);
+    if (nbr_toks == 0)
+        return (NULL);
     toks = malloc (sizeof(char*) * (nbr_toks + 1));
     if (!toks)
         return (NULL);
