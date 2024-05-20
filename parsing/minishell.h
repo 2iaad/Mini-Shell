@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/18 21:15:52 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/20 10:21:14 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,17 @@ typedef struct s_token
 typedef enum s_meta
 {
 	WORD,
+	CMD,
+	OPTION,
 	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
+	IN_FILE,
+	OUT_FILE,
+	APPEND_FILE,
+	HEREDOC_FILE
 } t_meta;
 
 char	**ft_split(const char *s, char *sub_s);
@@ -50,6 +56,7 @@ void	read_from_input(t_env **env);
 int		parce_line(char *line, t_env **env);
 int		check_quotes(char *line);
 int		whitespaces(char s);
+int		is_word(char *str);
 int 	ft_strlen(char *s);
 int		valid_meta(char *line, int i, int j, int valid);
 int		valid_meta2(char *line, int i, int j, int valid);
@@ -70,6 +77,7 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_isalnum(int c);
 int		ft_isnum(int n);
 int 	delimiters(char c);
+char	*parse_protec(char *line);
 char	*ft_substr(char *s, int start, int len);
 char	*ft_strdup(char *s1);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsiz);
@@ -83,4 +91,6 @@ t_env	*get_env(char **envp);
 int		ft_strcmp(char *s1, char *s2);
 char	*expand_env(char *line, t_env **env);
 char	*trim_line(char *line);
+void	tokenizer(char **splited, t_token **token);
+int		is_oper(char *tok, int asc, int len);
 #endif
