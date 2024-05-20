@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/18 18:13:09 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/20 12:19:23 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@ t_env	*get_env(char **envp)
 		}
 		envp++;
 	}
-	// env = env_list; // for beginning of list
-	// while (env)
-	// {
-	// 	printf("variable: %s, value: %s\n", env->variable, env->value);
-	// 	env = env->next;
-	// }
 	return (env_list);
 }
 
@@ -66,7 +60,8 @@ char	*expand_env(char *line, t_env **env)
 			new_line = ft_substr(line, i, len);
 			new = ft_strjoin(new, new_line);
 		}
-		if (line[i + len] == '$' && (line[i + len + 1] == '\0' || line[i + len + 1] == ' '))
+		if (line[i + len] == '$' && (line[i + len + 1] == '\0' || line[i + len + 1] == ' '
+			|| line[i + len + 1] == '\'' || line[i + len + 1] == '\"'))
 		{
 			new = ft_strjoin(new, "$");
 			i += len + 1;
@@ -103,7 +98,6 @@ char	*expand_env(char *line, t_env **env)
 		else
 			i += len;
 	}
-	printf("new = %s\n", new);
 	return (new);
 }
 
