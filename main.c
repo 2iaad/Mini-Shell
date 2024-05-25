@@ -1,23 +1,29 @@
 #include "includes/minishell.h"
 #include "includes/tools.h"
 #include <unistd.h>
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 
-void	f(char **str)
-{
-	int i = 0;
-	while (str[i])
-	{
-		printf("%s\n", str[i]);
-		i++;
-	}
-}
+// void	f(char **str)
+// {
+// 	int i = 0;
+// 	while (str[i])
+// 	{
+// 		printf("%s\n", str[i]);
+// 		i++;
+// 	}
+// }
 
 
 int main()
 {
-	int i = 0;
-	char **str = ft_split("salam ana smiti ziad", ' ');
+	char *str;
 
-	f(str + 1);	
+	while (1)
+	{
+		str = readline("----->>");
+		printf("%s\n", str);
+	}
 }
