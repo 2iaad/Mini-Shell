@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/13 16:40:41 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 09:44:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,19 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 
 // no env
 // unset path
+// unset multiple variables ==> ex:"unset a b c"
 
 // export ZZ+=33
 // export ZZ+=44$a
+// export $a=chihaja
+
 // export a="ls -la"
 
 // $a $hddhd -l
