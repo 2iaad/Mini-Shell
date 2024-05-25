@@ -4,7 +4,7 @@ CC = cc
 
 RM = rm -rf
 
-FLAGS = -g -fsanitize=address
+FLAGS = -lreadline -g -fsanitize=address
 
 SRCS =	builtins/echo.c \
 		builtins/cd.c \
