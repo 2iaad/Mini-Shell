@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 09:35:09 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 10:57:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,16 @@ int main(int ac, char **av, char **env)
 {
     // atexit(f);
     t_list *lst;
+	char *line;
 
     lst = malloc(sizeof(t_list));
 	init_env(lst, env);
 
 	while (1)
 	{
-		lst->cmd = ft_split(readline("----->"), ' ');
+		line = readline("--->");
+		lst->cmd = ft_split(line, ' ');
+		free(line);
 		if (!lst->cmd[0]) // if (readline return NULL)
 			return(1);
 		cmd_identifyer(lst);

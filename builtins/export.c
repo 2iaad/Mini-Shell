@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 10:36:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 11:00:02 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	export_var(t_env *env, char **str)
 	bool	flag;
 	t_env	*tmp;
 
+	flag = false;
 	tmp = env;
 	while (tmp)
 	{
@@ -85,7 +86,7 @@ void	export_var(t_env *env, char **str)
 		}
 		tmp = tmp->next;
 	}
-	if (flag == false)
+	if (flag == false) // ila mal9ach smit lvariable ay addih
 		ft_lstadd_back(&env, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
 }
 
