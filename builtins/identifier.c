@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/15 10:53:15 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 09:35:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,55 +56,20 @@ void f()
 
 int main(int ac, char **av, char **env)
 {
-    atexit(f);
+    // atexit(f);
     t_list *lst;
 
     lst = malloc(sizeof(t_list));
 	init_env(lst, env);
 
-	/* 		   ECHO			*/
-	// lst->cmd = ft_split("echo -n -nn -nnnn/nnnnn $PATH salam" , ' ');
-	// cmd_identifyer(lst);
-	// ft_free(lst->cmd);
-
-
-	/*			CD			*/
-    // lst->cmd = ft_split("cd /tmp", ' ');
-    // cmd_identifyer(lst->cmd);
-	
-	/*			PWD			*/
-    // lst->cmd = ft_split("pwd includes", ' ');
-    // cmd_identifyer(lst->cmd);
-
-	/*			ENV			*/
-    // lst->cmd = ft_split("env ", ' ');
-    // cmd_identifyer(lst);
-	// ft_free(lst->cmd);
-
-	/*			EXPORT			*/
-    lst->cmd = ft_split("export s=salam", ' ');
-    cmd_identifyer(lst);
-    ft_free(lst->cmd);
-
-	/*			EXPORT			*/
-    lst->cmd = ft_split("export s+=cv", ' ');
-    cmd_identifyer(lst);
-    ft_free(lst->cmd);
-
-	/*			EXPORT			*/
-    lst->cmd = ft_split("export s=+oui", ' ');
-    cmd_identifyer(lst);
-    ft_free(lst->cmd);
-
-	/*			EXPORT			*/
-    lst->cmd = ft_split("export", ' ');
-    cmd_identifyer(lst);
-    ft_free(lst->cmd);
-
-	// /*			UNSET			*/
-	// lst->cmd = ft_split("unset Bbb", ' ');
-	// cmd_identifyer(lst);
-	// ft_free(lst->cmd);
+	while (1)
+	{
+		lst->cmd = ft_split(readline("----->"), ' ');
+		if (!lst->cmd[0]) // if (readline return NULL)
+			return(1);
+		cmd_identifyer(lst);
+		ft_free(lst->cmd);
+	}
 
 	ft_lstclear(&lst->env);
     free(lst);
