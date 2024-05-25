@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/15 10:13:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 11:15:46 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,16 @@ void	d_node(t_env	**env, char *to_delete)
 
 void	unset(t_list	*lst)
 {
+	int		i;
 	t_env	*tmp;
 
+	i = 1;
 	tmp = lst->env;
 	if (!lst->cmd[1])
 		return ;
-	d_node(&tmp, lst->cmd[1]);
+	while (lst->cmd[i])
+	{
+		d_node(&tmp, lst->cmd[i]);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 11:00:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 14:20:05 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	alpha_arrang(t_env *env)
 			temp = tmp->key;
 			tmp->key = tmp->next->key;
 			tmp->next->key = temp;
+			
+			temp = tmp->value;
+			tmp->value = tmp->next->value;
+			tmp->next->value = temp;
+			
 			tmp = env;
 		}
 		else
@@ -98,29 +103,40 @@ void	export_solo(t_env *env)
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, "_", 1))
-			printf("declare -x %s=\"%s\"\n",tmp->key, tmp->value); // \" to print the double quotations
+		{
+			if (tmp->value && *tmp->value)
+				printf("declare -x %s=\"%s\"\n",tmp->key, tmp->value); // \" to print the double quotations
+			else
+				printf("declare -x %s\n", tmp->key); // hadi ila makanch chi key ando value deyalo
+		}
 		tmp = tmp->next;
 	}
 }
 
 void	export_data(t_list *lst) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
 {
+	int		i;
 	char	**str;
-	t_env	*tmp;
 
-	tmp = lst->env;
-	alpha_arrang(tmp);
+	i = 1;
+	alpha_arrang(lst->env);
 	if (!lst->cmd[1])
-		return export_solo(tmp);
+		return export_solo(lst->env);
 	
-	str = custumized_ft_split(lst->cmd[1], '=');
-	if (!str)
-		return ;
-	if (str[0][ft_strlen(str[0]) - 1] == '+') // case where there is "+=" --> join
-		export_join(lst->env, str);
-	else if (str[1][0] == '+') // case where there is "=+" --> replace
-		export_replace(lst->env, str);
-	else
-		export_var(lst->env,str);
-	ft_free(str);
+	while (lst->cmd[i])
+	{
+		str = custumized_ft_split(lst->cmd[i], '=');
+		if (!str)
+			return ;
+		if (str[0][ft_strlen(str[0]) - 1] == '+') // case where there is "+=" --> join
+			export_join(lst->env, str);
+		else if (str[1] && str[1][0] == '+') // case where there is "=+" --> replace // checking if str[1] in case i did "export salam"
+			export_replace(lst->env, str);
+		else
+			export_var(lst->env,str);
+		ft_free(str);
+		i++;
+	}
 }
+
+/* handle multiple exportations at the same time */
