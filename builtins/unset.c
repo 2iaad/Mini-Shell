@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 11:15:46 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:39:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	d_node(t_env	**env, char *to_delete)
 	tmp[1] = *env;
 	while (tmp[0])
 	{
-		if (!ft_strcmp(tmp[0]->key, to_delete, ft_strlen(to_delete)))
+		if (!ft_strncmp(tmp[0]->key, to_delete, ft_strlen(to_delete)))
 		{
 			tmp[2] = tmp[0]->next;
 			break;
@@ -39,7 +39,7 @@ void	d_node(t_env	**env, char *to_delete)
 	while (tmp[1])
 	{
 		if (tmp[1]->next)
-			if (!ft_strcmp(tmp[1]->next->key, to_delete, ft_strlen(to_delete)))
+			if (!ft_strncmp(tmp[1]->next->key, to_delete, ft_strlen(to_delete)))
 			{
 				ft_free_node(tmp[1]->next);
 				tmp[1]->next = tmp[2];

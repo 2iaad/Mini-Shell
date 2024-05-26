@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 14:20:05 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:39:23 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	export_replace(t_env *env, char **str)
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->key, str[0], ft_strlen(str[0])))
+		if (!ft_strncmp(tmp->key, str[0], ft_strlen(str[0])))
 		{
 			free(tmp->value); // free old value
 			tmp->value = ft_strdup(str[1]); // replace it with new allocated value(so i can free the linked list)
@@ -64,7 +64,7 @@ void	export_join(t_env *env, char **str)
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->key, str[0], ft_strlen(str[0]) - 2))
+		if (!ft_strncmp(tmp->key, str[0], ft_strlen(str[0]) - 2))
 		{
 			tmpo = tmp->value;
 			tmp->value = ft_strjoin(tmpo, str[1]);
@@ -83,7 +83,7 @@ void	export_var(t_env *env, char **str)
 	tmp = env;
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->key, str[0], ft_strlen(str[0])))
+		if (!ft_strncmp(tmp->key, str[0], ft_strlen(str[0])))
 		{
 			flag = true; // flag tells if there is the variable or it should be added
 			free(tmp->value);
@@ -102,7 +102,7 @@ void	export_solo(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->key, "_", 1))
+		if (ft_strncmp(tmp->key, "_", 1))
 		{
 			if (tmp->value && *tmp->value)
 				printf("declare -x %s=\"%s\"\n",tmp->key, tmp->value); // \" to print the double quotations

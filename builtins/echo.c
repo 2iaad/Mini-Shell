@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/15 10:12:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:39:14 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	expand(t_list	*lst, char *arg)
 		printf("$");
 	while (tmp)
 	{
-		if (!ft_strcmp(tmp->key, arg, ft_strlen(arg)))
+		if (!ft_strncmp(tmp->key, arg, ft_strlen(arg)))
 			printf("%s", tmp->value);
 		tmp = tmp->next;
 	}

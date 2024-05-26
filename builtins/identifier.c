@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 10:57:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:39:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ void	init_env(t_list *lst, char **env)
 
 void	cmd_identifyer(t_list *lst)
 {
-    if (!ft_strcmp(lst->cmd[0], "echo", 4))
+    if (!ft_strncmp(lst->cmd[0], "echo", 4))
         echo(lst);
-    if (!ft_strcmp(lst->cmd[0], "cd", 2))
+    if (!ft_strncmp(lst->cmd[0], "cd", 2))
         cd(lst->cmd);
-    if (!ft_strcmp(lst->cmd[0], "pwd", 3))
+    if (!ft_strncmp(lst->cmd[0], "pwd", 3))
         pwd();
-    if (!ft_strcmp(lst->cmd[0], "export", 6))
+    if (!ft_strncmp(lst->cmd[0], "export", 6))
         export_data(lst);
-    if (!ft_strcmp(lst->cmd[0], "unset", 5))
+    if (!ft_strncmp(lst->cmd[0], "unset", 5))
         unset(lst);
-    if (!ft_strcmp(lst->cmd[0], "env", 3))
+    if (!ft_strncmp(lst->cmd[0], "env", 3))
         env(lst);
-    // if (!ft_strcmp(lst->cmd[0], "exit"))
+    // if (!ft_strncmp(lst->cmd[0], "exit"))
     //     exit(lst->cmd);
 }
 
