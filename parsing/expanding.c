@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/20 12:19:23 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/27 22:20:58 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,29 @@ t_env	*get_env(char **envp)
 {
 	t_env *env_list;
 	t_env *env;
-	char **split;
 
 	env_list = NULL;
 	while (*envp)
 	{
-		split = ft_split(*envp, "=");
-		if (split && split[0] && split[1])
-		{
-			env = malloc(sizeof(t_env));
-			if (!env)
-				return (0);
-			env->variable = ft_strdup(split[0]);
-			env->value = ft_strdup(split[1]);
-			env->next = NULL;
-			ft_lstadd_back_2(&env_list, env);
-		}
+		int j = 0;
+		while ((*envp)[j] && (*envp)[j] != '=')
+			j++;
+		env = malloc(sizeof(t_env));
+		if (!env)
+			return (0);
+		env->variable = ft_substr((*envp), 0, j);
+		env->value = ft_strdup((*envp) + j + 1);
+		env->next = NULL;
+		ft_lstadd_back_2(&env_list, env);
 		envp++;
 	}
+	// t_env *tmp = env_list;
+	// while (tmp)
+	// {
+	// 	printf("variable = %s\n", tmp->variable);
+	// 	printf("value = %s\n", tmp->value);
+	// 	tmp = tmp->next;
+	// }
 	return (env_list);
 }
 
