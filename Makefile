@@ -18,6 +18,7 @@ TOOL_SRCS = tools/mini_utils.c \
 			tools/string_utils.c \
 			tools/lst_utils.c \
 			tools/equals_spliter.c \
+			tools/helper_utils.c \
 
 OBJS = $(SRCS:.c=.o)
 TOOL_OBJS = $(TOOL_SRCS:.c=.o)
@@ -39,5 +40,4 @@ clean:
 fclean:
 	$(RM) $(OBJS) $(TOOL_OBJS) $(NAME)
 
-re:
-	fclean all
+re:	fclean all
