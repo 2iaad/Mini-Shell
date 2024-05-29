@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 16:54:48 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:41:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@
 #include "tools.h"
 #include "../tools/get_next_line/get_next_line.h"
 
-void	ft_free(char **tab);
-void	error(char *str, int a);
-char	*look_for_paths(char **env);
-void	pipex(char *cmd, char **env);
-void	first_child(char **av, char **ev);
-void	heredoc_limiter(char **av, int ac);
-char	*right_path(char *cmd, char **env);
-void	execute_cmd(char *cmd, char **env);
-void	heredoc_file_opener(int ac, char **av);
-int		normal_file_opener(int a, char *file);
 
 // no env
 // unset path
@@ -72,6 +62,15 @@ void	export_data(t_list *lst);
 
 /*          EXECUTION       */
 
-char	*look_for_paths(char **ev);
+void	ft_free(char **tab);
+void	error(char *str, int a);
+char	*look_for_paths(char **env);
+void	pipex(char *cmd, char **env);
+void	first_child(char **av, char **ev);
+void	heredoc_limiter(char **av, int ac);
+char	*right_path(char *cmd, char **env);
+void	execute_cmd(char *cmd, char **env);
+void	heredoc_file_opener(int ac, char **av);
+int		normal_file_opener(int a, char *file);
 
 #endif
