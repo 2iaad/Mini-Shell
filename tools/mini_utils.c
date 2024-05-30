@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:14:32 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 16:39:47 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:30:00 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,19 @@ void    ft_free(char **str)
     while (str[++i])
         free(str[i]);
     free(str);
+}
+void	ft_putstr_fd(char *str, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return ;
+	while (str[i])
+	{
+		write(fd, &str[i], 1);
+		i++;
+	}
 }
 
 int ft_strlen(char *str)

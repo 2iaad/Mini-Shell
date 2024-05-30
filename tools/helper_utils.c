@@ -6,25 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 15:32:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:10:30 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-void	ft_putstr_fd(char *str, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return ;
-	while (str[i])
-	{
-		write(fd, &str[i], 1);
-		i++;
-	}
-}
+#include "../includes/tools.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
@@ -36,4 +22,33 @@ void	ft_putendl_fd(char *s, int fd)
 		s++;
 	}
 	write (fd, "\n", 1);
+}
+
+long	ft_atol(char *str)
+{
+	int		i;
+	int		s;
+	long	nb;
+
+	i = 0;
+	s = 1;
+	nb = 0;
+	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			s *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nb = nb * 10 + (str[i] - '0');
+		if (nb * s > INT_MAX)
+			return (LONG_MAX);
+		else if (nb * s < INT_MIN)
+			return (LONG_MIN);
+		i++;
+	}
+	return (nb * s);
 }
