@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:49:51 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/29 12:11:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:39:13 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	exit_command(char **cmd)
 {
-	exit(ft_atol(cmd[1]));
+	if (cmd[1])
+		exit(ft_atol(cmd[1]));
 }
