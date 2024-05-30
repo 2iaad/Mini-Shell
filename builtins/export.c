@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 16:39:23 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:50:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	export_solo(t_env *env)
 	}
 }
 
-void	export_data(t_list *lst) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
+void	export_command(t_list *lst) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
 {
 	int		i;
 	char	**str;

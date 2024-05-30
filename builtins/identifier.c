@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 16:39:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:49:52 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	cmd_identifyer(t_list *lst)
     if (!ft_strncmp(lst->cmd[0], "pwd", 3))
         pwd();
     if (!ft_strncmp(lst->cmd[0], "export", 6))
-        export_data(lst);
+        export_command(lst);
     if (!ft_strncmp(lst->cmd[0], "unset", 5))
         unset(lst);
     if (!ft_strncmp(lst->cmd[0], "env", 3))
