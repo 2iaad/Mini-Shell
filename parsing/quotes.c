@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:05:10 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/30 22:01:02 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/30 22:50:29 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,23 +102,57 @@ int	check_quotes(char *line)
 	return (1);
 }
 
+int	quotes_len(char *line)
+{
+	int	i;
+	int	len;
+	char	quote;
+
+	i = 0;
+	len = ft_strlen(line);
+	while (line[i])
+	{
+		if (line[i] == '\'' || line[i] == '\"')
+		{
+			quote = line[i];
+			len--;
+			i++;
+			while (line[i] && line[i] != quote)
+				i++;
+			len--;
+			i++;
+		}
+		else
+			i++;
+	}
+	return (len);
+}
+
 char	*remove_quotes(char *line)
 {
 	int i = 0;
 	int j = 0;
+	int	len;
+	char quote;
 	char *new_line;
 
-	new_line = malloc(ft_strlen(line) + 1);
+	len = quotes_len(line);
+	if (len == 0)
+		return (ft_strdup(""));
+	new_line = (char *)malloc(sizeof(char) * (len + 1));
 	if (!new_line)
 		return NULL;
 	while (line[i])
 	{
-		if ((line[i] == '\'' || line[i] == '\"') && valid_meta(line, i, 0, 1))
+		if (line[i] == '\'' || line[i] == '\"')
 		{
+			quote = line[i++];
+			while (line[i] && line[i] != quote)
+				new_line[j++] = line[i++];
 			i++;
-			continue;
 		}
-		new_line[j++] = line[i++];
+		else
+			new_line[j++] = line[i++];
 	}
 	new_line[j] = '\0';
 	return (new_line);
