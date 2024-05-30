@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/20 10:02:19 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/30 20:27:15 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,16 @@ int	is_oper(char *tok, int asc, int len)
 	return (0);
 }
 
-void	tokenizer(char **splited, t_token **token)
+void add_token(t_token **token, char *content, int type)
+{
+    t_token *node;
+    
+    node = ft_get_token(content, type);
+    if (node != NULL && node->token != NULL)
+        ft_lstadd_back(token, node);
+}
+
+void	tokenizer_1(char **splited, t_token **token)
 {
 	int	i;
 	t_token *node;
@@ -72,3 +81,64 @@ void	tokenizer(char **splited, t_token **token)
 		i++;
 	}
 }
+
+void	tokenizer_2(t_token **token)
+{
+	t_token *node;
+
+	node = *token;
+	while (node)
+	{
+        if (node->type == REDIR_IN)
+            node->next->type = IN_FILE;
+        else if (node->type == REDIR_OUT)
+            node->next->type = OUT_FILE;
+        else if (node->type == REDIR_APPEND)
+            node->next->type = AOUT_FILE;
+        else if (node->type == REDIR_HEREDOC)
+            node->next->type = DELIMITER;
+		node = node->next;
+	}
+}
+
+void    tokenizer_3(t_token **token)
+{
+    t_token *node;
+    int     cmd_found;
+
+    node = *token;
+    while (node)
+    {
+        if (node == *token || node->type == PIPE)
+        {
+			if (node->type == PIPE)
+				node = node->next;
+            cmd_found = 0;
+            while (node && node->type != PIPE)
+            {
+                if (node->type == WORD)
+                {
+                    if (cmd_found == 0)
+                    {
+                        node->type = CMD;
+                        cmd_found = 1;
+                    }
+                    else
+                        node->type = OPTION;
+                }
+                node = node->next;
+            }
+        }
+		else
+			node = node->next;
+    }
+}
+
+void    tokenizer(char **splited, t_token **token)
+{
+    tokenizer_1(splited, token);
+    tokenizer_2(token);
+	tokenizer_3(token);
+}
+// remove quotes
+// split by pipe
