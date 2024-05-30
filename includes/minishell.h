@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/26 10:41:04 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:56:08 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 #include <readline/history.h>
 #include "tools.h"
 #include "../tools/get_next_line/get_next_line.h"
+
+// unset HOME --> cd
+
+// mkdir -p 1/2/3 --> cd ..
+
+// pwd and oldpwd in the cd command
+
+// unset head 
+
 
 
 // no env
@@ -58,7 +67,8 @@ void    cd(char **cmd);
 void    pwd(void);
 void    env(t_list *cmd);
 void	unset(t_list	*lst);
-void	export_data(t_list *lst);
+void	export_command(t_list *lst);
+void	exit_command(char **cmd);
 
 /*          EXECUTION       */
 

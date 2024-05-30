@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:13:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/25 16:39:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:10:47 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void    ft_free(char **str);
 int     flag_check(char *s1);
 char	*ft_strdup(char *s1);
 int     ft_strlen(char *str);
+long	ft_atol(char *str);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putstr_fd(char *str, int fd);
 char	*ft_strjoin(char *s1, char *s2);
