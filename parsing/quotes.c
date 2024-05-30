@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:05:10 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/18 18:06:04 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/30 22:01:02 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,26 @@ int	check_quotes(char *line)
 			i++;
 	}
 	return (1);
+}
+
+char	*remove_quotes(char *line)
+{
+	int i = 0;
+	int j = 0;
+	char *new_line;
+
+	new_line = malloc(ft_strlen(line) + 1);
+	if (!new_line)
+		return NULL;
+	while (line[i])
+	{
+		if ((line[i] == '\'' || line[i] == '\"') && valid_meta(line, i, 0, 1))
+		{
+			i++;
+			continue;
+		}
+		new_line[j++] = line[i++];
+	}
+	new_line[j] = '\0';
+	return (new_line);
 }
