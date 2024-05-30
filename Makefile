@@ -12,6 +12,7 @@ SRCS =	builtins/echo.c \
 		builtins/export.c \
 		builtins/unset.c \
 		builtins/identifier.c \
+		builtins/exit.c \
 
 TOOL_SRCS = tools/mini_utils.c \
 			tools/split.c \
