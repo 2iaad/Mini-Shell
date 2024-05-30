@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/20 10:21:14 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/30 22:05:40 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef enum s_meta
 	REDIR_HEREDOC,
 	IN_FILE,
 	OUT_FILE,
-	APPEND_FILE,
-	HEREDOC_FILE
+	AOUT_FILE,
+	DELIMITER
 } t_meta;
 
 char	**ft_split(const char *s, char *sub_s);
@@ -69,10 +69,7 @@ t_token	*ft_lstlast(t_token *lst);
 t_env	*ft_lstlast2(t_env *lst);
 void	ft_lstadd_back(t_token **lst, t_token *new);
 void	ft_lstadd_back_2(t_env **lst, t_env *new);
-t_token *word(char *line, int *i);
-t_token *red_in_herdk(char *line, int *i);
-t_token *red_out_apnd(char *line, int *i);
-t_token *ft_pipe(char *line, int *i);
+void	tok_word(t_token *node, char **splited, int index);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_isalnum(int c);
 int		ft_isnum(int n);
@@ -90,6 +87,7 @@ int		syntax_error(char *line);
 t_env	*get_env(char **envp);
 int		ft_strcmp(char *s1, char *s2);
 char	*expand_env(char *line, t_env **env);
+char	*remove_quotes(char *line);
 char	*trim_line(char *line);
 void	tokenizer(char **splited, t_token **token);
 int		is_oper(char *tok, int asc, int len);
