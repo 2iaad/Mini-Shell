@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/30 15:49:52 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:15:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cmd_identifyer(t_list *lst)
     if (!ft_strncmp(lst->cmd[0], "echo", 4))
         echo(lst);
     if (!ft_strncmp(lst->cmd[0], "cd", 2))
-        cd(lst->cmd);
+        cd(lst);
     if (!ft_strncmp(lst->cmd[0], "pwd", 3))
         pwd();
     if (!ft_strncmp(lst->cmd[0], "export", 6))
@@ -45,8 +45,8 @@ void	cmd_identifyer(t_list *lst)
         unset(lst);
     if (!ft_strncmp(lst->cmd[0], "env", 3))
         env(lst);
-    // if (!ft_strncmp(lst->cmd[0], "exit"))
-    //     exit(lst->cmd);
+    if (!ft_strncmp(lst->cmd[0], "exit", 4))
+        exit_command(lst->cmd);
 }
 
 void f()
@@ -73,7 +73,6 @@ int main(int ac, char **av, char **env)
 		cmd_identifyer(lst);
 		ft_free(lst->cmd);
 	}
-
 	ft_lstclear(&lst->env);
     free(lst);
 }

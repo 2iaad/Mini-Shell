@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/30 10:56:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:33:00 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include <readline/history.h>
 #include "tools.h"
 #include "../tools/get_next_line/get_next_line.h"
-
-// unset HOME --> cd
 
 // mkdir -p 1/2/3 --> cd ..
 
@@ -63,7 +61,7 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 /*          BUILTINS        */
 
 void    echo(t_list	*lst);
-void    cd(char **cmd);
+void    cd(t_list *lst);
 void    pwd(void);
 void    env(t_list *cmd);
 void	unset(t_list	*lst);
