@@ -6,18 +6,21 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/20 10:13:30 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/30 22:13:28 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
- // ****TO DO****
+// ****TO DO****
 // 1. continue TOKENIZER
 // 2. STRUCT
 // 3. REMOVE QUOTES
-// 4. GARVAGE COLLECTOR
+// 4. GARBAGE COLLECTOR
 // 5. NORMINETTE
-
+// 6. SIGNALS
+// 7. exit status
+// $d | ls
+//export A="d d" | echo $A
 char	*parse_protec(char *line)
 {
 	int	i;
@@ -64,19 +67,37 @@ void print_struct(t_token *token)
 				printf("WORD\n");
 				break ;
 			case (1):
-				printf("PIPE\n");
+				printf("CMD\n");
 				break ;
 			case (2):
-				printf("REDIR_IN\n");
+				printf("OPTION\n");
 				break ;
 			case (3):
-				printf("REDIR_OUT\n");
+				printf("PIPE\n");
 				break ;
 			case (4):
-				printf("REDIR_APPEND\n");
+				printf("REDIR_IN\n");
 				break ;
 			case (5):
+				printf("REDIR_OUT\n");
+				break ;
+			case (6):
+				printf("REDIR_APPEND\n");
+				break ;
+			case (7):
 				printf("REDIR_HEREDOC\n");
+				break ;
+			case (8):
+				printf("IN_FILE\n");
+				break ;
+			case (9):
+				printf("OUT_FILE\n");
+				break ;
+			case (10):
+				printf("AOUT_FILE\n");
+				break ;
+			case (11):
+				printf("DELIMITER\n");
 				break ;
 		}
 		tmp_token = tmp_token->next;
@@ -103,6 +124,7 @@ int	parce_line(char *line, t_env **env)
 	if (syntax_error(line))
 		return (1);
 	line = parse_protec(line);
+	// line = remove_quotes(line);
 	line = expand_env(line, env);
 	split = split_line(line);
 	tokenizer(split, &token);
@@ -110,16 +132,18 @@ int	parce_line(char *line, t_env **env)
 	free(tmp);
 	return (0);
 }
-// $x > out = ls -la > out > s
-// $x: cmd
-// > : redir_out
-// out: out_file
+
 
 void	read_from_input(t_env **env)
 {
 	char *line;
+
+	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
+	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
 	while (1)
 	{
+		// printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
+		// printf("For more details, please visit https://github.com/2iaad/minishell.\n");
 		line = readline("minishell$ ");
 		//displays the prompt "minishell$ " and waits for the user to enter a command. 
 		// The entered command is stored in the line variable as a dynamically allocated string.
