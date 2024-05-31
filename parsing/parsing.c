@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/30 22:13:28 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:13:51 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,40 +103,43 @@ void print_struct(t_token *token)
 		tmp_token = tmp_token->next;
 	}
 }
-int	parce_line(char *line, t_env **env)
+t_final	*parce_line(char *line, t_env **env)
 {
 	char	*tmp;
 	t_token	*token;
 	token = NULL;
 	char	**split = NULL; // to free the line
+	t_final	*final_cmd;
 
 	if (!check_quotes(line))
 	{
 		free (line);
 		ft_putstr_fd("syntax error related to unclosed quote\n", 2);
-		return (0);
+		return (NULL);
 	}
 	tmp = line;
 	line = trim_line(line);
 	if (line == NULL)
-		return (1);
+		return (NULL);
 	line = space(line, 0, 0);
 	if (syntax_error(line))
-		return (1);
+		return (NULL);
 	line = parse_protec(line);
-	// line = remove_quotes(line);
 	line = expand_env(line, env);
 	split = split_line(line);
 	tokenizer(split, &token);
+	token_quotes(&token);
+	final_cmd = struct_init(&token);
 	print_struct(token);
 	free(tmp);
-	return (0);
+	return (final_cmd);
 }
 
 
-void	read_from_input(t_env **env)
+t_final	*read_from_input(t_env **env)
 {
 	char *line;
+	t_final *final_cmd;
 
 	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
@@ -158,7 +161,7 @@ void	read_from_input(t_env **env)
 			continue ;
 		}
 		add_history(line);
-		parce_line(line, env);
+		final_cmd = parce_line(line, env);
 	}
 }
 // void f(void)
@@ -167,6 +170,7 @@ void	read_from_input(t_env **env)
 // }
 int main(int ac, char **av, char **envp)
 {
+	t_final *final_cmd;
 	// atexit(f);
 	// rl_catch_signals = 0;
 	if (ac > 1)
@@ -177,5 +181,6 @@ int main(int ac, char **av, char **envp)
 	(void)av;
 	t_env *env;
 	env = get_env(envp);
-	read_from_input(&env);
+	final_cmd = read_from_input(&env);
+	// execution(final_cmd, &env);
 }
