@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/30 22:05:40 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:32:35 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,20 @@ typedef enum s_meta
 	DELIMITER
 } t_meta;
 
+typedef struct s_final
+{
+	char	*cmd;
+	char	**args;
+	char	**in_file;
+	char	**out_file;
+	char	**aout_file;
+	char	**heredoc;
+} t_final;
+
 char	**ft_split(const char *s, char *sub_s);
 char	**split_line(char *line);
-void	read_from_input(t_env **env);
-int		parce_line(char *line, t_env **env);
+t_final	*read_from_input(t_env **env);
+t_final	*parce_line(char *line, t_env **env);
 int		check_quotes(char *line);
 int		whitespaces(char s);
 int		is_word(char *str);
@@ -85,10 +95,16 @@ int		is_operator(char *line, int *i);
 void	skip_spaces(char *line, int *i, int inc);
 int		syntax_error(char *line);
 t_env	*get_env(char **envp);
+void	token_quotes(t_token **token);
 int		ft_strcmp(char *s1, char *s2);
 char	*expand_env(char *line, t_env **env);
 char	*remove_quotes(char *line);
 char	*trim_line(char *line);
 void	tokenizer(char **splited, t_token **token);
 int		is_oper(char *tok, int asc, int len);
+t_final	*struct_init(t_token **token);
+t_final	*init_final(t_token **nodee);
+int		count_len(t_token *node, int type);
+void	token_quotes(t_token **token);
+
 #endif
