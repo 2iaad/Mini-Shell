@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/30 18:31:45 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/31 11:00:27 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,35 @@ char	*home_path(t_env	*env)
 	return (NULL);
 }
 
+void	update_pwd(t_env	*env) // update pwd and oldpwd variables after using cd
+{
+	char	*oldpwd;
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->key, "PWD", 3))
+		{
+			oldpwd = tmp->value;
+			tmp->value = getcwd(NULL, -1337);
+			if (!tmp->value)
+				return (perror("getcwd"));
+		}
+		tmp = tmp->next;
+	}
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->key, "OLDPWD", 6))
+		{
+			free(tmp->value);
+			tmp->value = oldpwd;
+		}
+		tmp = tmp->next;
+	}
+}
+
 void    cd(t_list *lst)
 {
 	char	*dir;
@@ -48,7 +77,8 @@ void    cd(t_list *lst)
 	if (!access(dir, F_OK))
 	{
 		if (chdir(dir) == -1)
-			perror("chdir");
+			return (perror("chdir"));
+		update_pwd(lst->env); // update the PWD and the OLDPWD in the env variables after dir change
 	}
 	else
 	{
