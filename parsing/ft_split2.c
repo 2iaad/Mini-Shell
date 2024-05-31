@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:49:29 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/20 10:16:36 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:52:51 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,29 @@ static int count_words(char *line)
     return (count);
 }
 
+
 static int calc_len(char *line)
 {
-    int i;
-    int count;
+    int i = 0;
+    int count = 0;
     char quote;
 
-    count = 0;
-    i = 0;
     while (line[i] && !whitespaces(line[i]))
     {
         if (line[i] == '\'' || line[i] == '\"')
         {
-            (1) && (count++, quote = line[i++]);
+            quote = line[i++];
+            count++;
             while (line[i] && line[i] != quote)
-                (1) && (i++, count++);
-            (i++, count++);
+            {
+                i++;
+                count++;
+            }
+            if (line[i]) // Ensure we don't go out of bounds
+            {
+                i++;
+                count++;
+            }
         }
         else
         {
@@ -75,14 +82,14 @@ static int calc_len(char *line)
             i++;
         }
     }
-    return (count);
+    return count;
 }
 static char *get_tok(char **line)
 {
     int i;
     char *subs;
     int len;
-    // int in_quotes = 0;
+
     subs = NULL;
     while (**line && whitespaces(**line))
         (*line)++;
