@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/30 18:33:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:54:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,17 @@
 
 // mkdir -p 1/2/3 --> cd ..
 
-// pwd and oldpwd in the cd command
-
 // unset head 
 
 
 
 // no env
 // unset path
-// unset multiple variables ==> ex:"unset a b c"
 
 // export ZZ+=33
-// export ZZ+=44$a
-// export $a=chihaja
-
+// unset multiple variables ==> ex:"unset a b c"
 // export a="ls -la"
+
 
 // $a $hddhd -l
 
