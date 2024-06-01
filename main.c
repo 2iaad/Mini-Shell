@@ -19,11 +19,13 @@
 
 int main()
 {
-	char *str;
-
-	while (1)
+	int i = 0;
+	while (i++ < 10)
 	{
-		str = readline("----->>");
-		printf("%s\n", str);
+		if (i == 6)
+		{
+			continue ;
+		}
+		printf("i-->%d\n", i);
 	}
 }
