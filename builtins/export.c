@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/30 15:50:29 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/01 22:15:05 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void	export_solo(t_env *env)
 		{
 			if (tmp->value && *tmp->value)
 				printf("declare -x %s=\"%s\"\n",tmp->key, tmp->value); // \" to print the double quotations
+			else if (tmp->value && !*tmp->value) 
+				printf("declare -x %s=\"\"\n",tmp->key); // incase there was a "export VAR="
 			else
 				printf("declare -x %s\n", tmp->key); // hadi ila makanch chi key ando value deyalo
 		}
@@ -113,18 +115,20 @@ void	export_solo(t_env *env)
 	}
 }
 
+// there is a segf when i do -> export "=string"
+
 void	export_command(t_list *lst) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
 {
 	int		i;
 	char	**str;
 
-	i = 1;
-	alpha_arrang(lst->env);
+	i = 0;
 	if (!lst->cmd[1])
-		return export_solo(lst->env);
-	
-	while (lst->cmd[i])
+		return (alpha_arrang(lst->env), export_solo(lst->env)); // if there is "export" arrang and print
+	while (lst->cmd[++i])
 	{
+		if (!valid_check(lst->cmd[i]))
+			continue;
 		str = custumized_ft_split(lst->cmd[i], '=');
 		if (!str)
 			return ;
@@ -135,8 +139,7 @@ void	export_command(t_list *lst) // doesnt have to work if the key is a number o
 		else
 			export_var(lst->env,str);
 		ft_free(str);
-		i++;
 	}
 }
 
-/* handle multiple exportations at the same time */
+/* handle export errors */
