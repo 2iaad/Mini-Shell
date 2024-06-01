@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:13:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/29 12:10:47 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/31 22:24:24 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include "minishell.h"
 
+int		ft_isalpha(int c);
+int		valid_check(char *str);
 void    ft_free(char **str);
 int     flag_check(char *s1);
 char	*ft_strdup(char *s1);
