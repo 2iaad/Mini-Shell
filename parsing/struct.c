@@ -6,11 +6,68 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/31 23:46:12 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
+
+void print_final(t_final *final) {
+    int i;
+
+    if (!final) {
+        printf("Final struct is NULL\n");
+        return;
+    }
+
+    printf("Command: (%s)\n", final->cmd ? final->cmd : "NULL");
+
+    printf("Options:\n");
+    if (final->args && final->args[0]) {
+        for (i = 0; final->args[i]; i++) {
+            printf("  %s\n", final->args[i]);
+        }
+    } else {
+        printf("  NULL\n");
+    }
+
+    printf("Input Files:\n");
+    if (final->in_file && final->in_file[0]) {
+        for (i = 0; final->in_file[i]; i++) {
+            printf("  %s\n", final->in_file[i]);
+        }
+    } else {
+        printf("  NULL\n");
+    }
+
+    printf("Output Files:\n");
+    if (final->out_file && final->out_file[0]) {
+        for (i = 0; final->out_file[i]; i++) {
+            printf("  %s\n", final->out_file[i]);
+        }
+    } else {
+        printf("  NULL\n");
+    }
+
+    printf("Append Output Files:\n");
+    if (final->aout_file && final->aout_file[0]) {
+        for (i = 0; final->aout_file[i]; i++) {
+            printf("  %s\n", final->aout_file[i]);
+        }
+    } else {
+        printf("  NULL\n");
+    }
+
+    printf("Delimiter:\n");
+    if (final->heredoc && final->heredoc[0]) {
+        for (i = 0; final->heredoc[i]; i++) {
+            printf("  %s\n", final->heredoc[i]);
+        }
+    } else {
+        printf("  NULL\n");
+    }
+}
+
 
 int	count_len(t_token *node, int type)
 {
@@ -36,7 +93,6 @@ t_final	*init_final(t_token **nodee)
 	if (!final)
 		return (NULL);
 	final->cmd = NULL;
-	final->args = NULL;
 	if (count_len(node, OPTION) > 0)
 	{
 		final->args = malloc(sizeof(char *) * (count_len(node, OPTION) + 1));
@@ -44,6 +100,8 @@ t_final	*init_final(t_token **nodee)
 			return (NULL);
 		final->args[count_len(node, OPTION)] = NULL;
 	}
+	else
+		final->args = NULL;
 	if (count_len(node, IN_FILE) > 0)
 	{
 		final->in_file = malloc(sizeof(char *) * (count_len(node, IN_FILE) + 1));
@@ -51,6 +109,8 @@ t_final	*init_final(t_token **nodee)
 			return (NULL);
 		final->in_file[count_len(node, IN_FILE)] = NULL;
 	}
+	else
+		final->in_file = NULL;
 	if (count_len(node, OUT_FILE) > 0)
 	{
 		final->out_file = malloc(sizeof(char *) * (count_len(node, OUT_FILE) + 1));
@@ -58,6 +118,8 @@ t_final	*init_final(t_token **nodee)
 			return (NULL);
 		final->out_file[count_len(node, OUT_FILE)] = NULL;
 	}
+	else
+		final->out_file = NULL;
 	if (count_len(node, AOUT_FILE) > 0)
 	{
 		final->aout_file = malloc(sizeof(char *) * (count_len(node, AOUT_FILE) + 1));
@@ -65,13 +127,17 @@ t_final	*init_final(t_token **nodee)
 			return (NULL);
 		final->aout_file[count_len(node, AOUT_FILE)] = NULL;
 	}
+	else
+		final->aout_file = NULL;
 	if (count_len(node, REDIR_HEREDOC) > 0)
 	{
-		final->heredoc = malloc(sizeof(char *) * (count_len(node, REDIR_HEREDOC) + 1));
+		final->heredoc = malloc(sizeof(char *) * (count_len(node, DELIMITER) + 1));
 		if (!final->heredoc)
 			return (NULL);
-		final->heredoc[count_len(node, REDIR_HEREDOC)] = NULL;
+		final->heredoc[count_len(node, DELIMITER)] = NULL;
 	}
+	else
+		final->heredoc = NULL;
 	return (final);
 }
 
@@ -109,19 +175,15 @@ t_final	*struct_init(t_token **token)
 					final->out_file[out_index++] = ft_strdup(node->token);
 				else if (node->type == AOUT_FILE)
 					final->aout_file[aout_index++] = ft_strdup(node->token);
-				else if (node->type == REDIR_HEREDOC)
+				else if (node->type == DELIMITER)
 					final->heredoc[heredoc_index++] = ft_strdup(node->token);
 				node = node->next;
 			}
+			print_final(final);
 		}
 		else
 			node = node->next;
 	}
-	printf("cmd: %s\n", final->cmd);
-	printf("args: %s\n", final->args[0]);
-	printf("out_file: %s\n", final->out_file[0]);
-	printf("in_file: %s\n", final->in_file[0]);
-	printf("aout_file: %s\n", final->aout_file[0]);
-	printf("heredoc: %s\n", final->heredoc[0]);
+	// print_struct(*token);
 	return (final);
 }

@@ -6,21 +6,19 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/31 23:13:51 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 // ****TO DO****
-// 1. continue TOKENIZER
-// 2. STRUCT
-// 3. REMOVE QUOTES
-// 4. GARBAGE COLLECTOR
+
 // 5. NORMINETTE
 // 6. SIGNALS
 // 7. exit status
 // $d | ls
 //export A="d d" | echo $A
+// z"" z " "
 char	*parse_protec(char *line)
 {
 	int	i;
@@ -126,11 +124,12 @@ t_final	*parce_line(char *line, t_env **env)
 		return (NULL);
 	line = parse_protec(line);
 	line = expand_env(line, env);
+	// if find expand_env should stop the program
 	split = split_line(line);
 	tokenizer(split, &token);
 	token_quotes(&token);
 	final_cmd = struct_init(&token);
-	print_struct(token);
+	// print_struct(token);
 	free(tmp);
 	return (final_cmd);
 }

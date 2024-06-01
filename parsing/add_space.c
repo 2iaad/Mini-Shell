@@ -6,11 +6,11 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 05:57:38 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/14 02:22:15 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	space_len(char *line, int i)
 {

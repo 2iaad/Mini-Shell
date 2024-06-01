@@ -6,11 +6,11 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 03:09:32 by ibouram           #+#    #+#             */
-/*   Updated: 2024/05/19 12:39:32 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include"../minishell.h"
 
 t_token	*ft_lstnew(char *content, int type)
 {
