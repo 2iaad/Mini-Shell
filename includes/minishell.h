@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/31 10:54:29 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:45:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 #include "tools.h"
 #include "../tools/get_next_line/get_next_line.h"
 
+// parse the input of export command
+// export a= -> add =
+
 // mkdir -p 1/2/3 --> cd ..
-
-// unset head 
-
-
 
 // no env
 // unset path
@@ -51,8 +50,6 @@ t_env	*ft_lstnew(char *key, char *value);
 t_env	*ft_lstlast(t_env *lst);
 void	ft_lstclear(t_env **lst);
 void	ft_lstadd_back(t_env **lst, t_env *newn);
-
-
 
 /*          BUILTINS        */
 
