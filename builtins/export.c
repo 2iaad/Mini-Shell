@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/01 22:15:05 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:21:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,27 @@ void	export_replace(t_env *env, char **str)
 
 void	export_join(t_env *env, char **str)
 {
-	char	*tmpo;
+	bool	flag;
 	t_env	*tmp;
+	char	*tmpo;
 
+	flag = false;
 	tmp = env;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, str[0], ft_strlen(str[0]) - 2))
 		{
+			flag = true;
 			tmpo = tmp->value;
 			tmp->value = ft_strjoin(tmpo, str[1]);
 			free(tmpo);
 		}
 		tmp = tmp->next;
+	}
+	if (flag == false) // ila mal9ach smit lvariable ay addih
+	{
+		str[0][ft_strlen(str[0]) - 1] = '\0'; // atkoun str[0]="a+" donc blast + andir '\0' 3ad naddih
+		ft_lstadd_back(&env, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
 	}
 }
 
@@ -129,7 +137,7 @@ void	export_command(t_list *lst) // doesnt have to work if the key is a number o
 	{
 		if (!valid_check(lst->cmd[i]))
 			continue;
-		str = custumized_ft_split(lst->cmd[i], '=');
+		str = custumized_ft_split(lst->cmd[i], '='); // str = {"a","salam", NULL}
 		if (!str)
 			return ;
 		if (str[0][ft_strlen(str[0]) - 1] == '+') // case where there is "+=" --> join
