@@ -6,50 +6,12 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:49:29 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/02 15:55:53 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// static int count_words(char *line)
-// {
-//     int i;
-//     int count;
-//     char quote;
-
-//     i = 0;
-//     count = 0;
-//     while (line[i])
-//     {
-//         while (line[i] && whitespaces(line[i]))
-//             i++;
-//         if (i == 0 && line[i])
-// 		{
-// 			count++;
-// 			if (line[i] == '\'' || line[i] == '\"')
-// 			{
-// 				quote = line[i++];
-// 				while (line[i] && line[i] != quote)
-// 					i++;
-// 			}
-// 		}
-//         else if (i > 0 && whitespaces(line[i - 1]) && line[i] != '\0' && !whitespaces(line[i]))
-//         {
-//             count++;
-//             if (line[i] == '\'' || line[i] == '\"')
-//             {
-//                 quote = line[i++];
-//                 while (line[i] && line[i] != quote)
-//                     i++;
-//             }
-//         }
-//         i++;
-//         if (i > ft_strlen(line))
-//             break;
-//     }
-//     return (count);
-// }
 
 static int count_words(char *line)
 {

@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/02 17:00:37 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void add_token(t_token **token, char *content, int type)
     
     node = ft_get_token(content, type);
     if (node != NULL && node->token != NULL)
-        ft_lstadd_back(token, node);
+        ft_lstadd_back_parse(token, node);
 }
 
 void	tokenizer_1(char **splited, t_token **token)
@@ -77,7 +77,7 @@ void	tokenizer_1(char **splited, t_token **token)
 		else
 			node = ft_get_token(splited[i], WORD);
 		if (node != NULL && node->token != NULL)
-			ft_lstadd_back(token, node);
+			ft_lstadd_back_parse(token, node);
 		i++;
 	}
 }
