@@ -6,40 +6,26 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/02 20:08:54 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_env	*get_env(char **envp)
+void	init_env(t_final *lst, char **env)
 {
-	t_env *env_list;
-	t_env *env;
+	int		i;
+	char	**str;
 
-	env_list = NULL;
-	while (*envp)
-	{
-		int j = 0;
-		while ((*envp)[j] && (*envp)[j] != '=')
-			j++;
-		env = malloc(sizeof(t_env));
-		if (!env)
-			return (0);
-		env->variable = ft_substr((*envp), 0, j);
-		env->value = ft_strdup((*envp) + j + 1);
-		env->next = NULL;
-		ft_lstadd_back_2(&env_list, env);
-		envp++;
-	}
-	// t_env *tmp = env_list;
-	// while (tmp)
-	// {
-	// 	printf("variable = %s\n", tmp->variable);
-	// 	printf("value = %s\n", tmp->value);
-	// 	tmp = tmp->next;
-	// }
-	return (env_list);
+    i = 0;
+	lst->env = NULL;
+    while (env[i])
+    {
+        str = ft_split(env[i], '='); // i split with '=' and take the variable name
+		ft_lstadd_back(&lst->env, ft_lstnew(ft_strdup(str[0]), ft_strdup(getenv(str[0])))); // strdup bec bla strdup makhdmatch ez
+        ft_free(str);
+        i++;
+    }
 }
 
 char	*expand_env(char *line, t_env **env)
@@ -63,12 +49,12 @@ char	*expand_env(char *line, t_env **env)
 		if (len > 0) // if there is a string before the variable
 		{
 			new_line = ft_substr(line, i, len);
-			new = ft_strjoin(new, new_line);
+			new = ft_strjoin_parse(new, new_line);
 		}
 		if (line[i + len] == '$' && (line[i + len + 1] == '\0' || line[i + len + 1] == ' '
 			|| line[i + len + 1] == '\'' || line[i + len + 1] == '\"'))
 		{
-			new = ft_strjoin(new, "$");
+			new = ft_strjoin_parse(new, "$");
 			i += len + 1;
 		}
 		else if (line[i + len] == '$' && ft_isnum(line[i + len + 1]))
@@ -77,7 +63,7 @@ char	*expand_env(char *line, t_env **env)
 			while(line[i + len + var_len] && ft_isnum(line[i + len + var_len]))
 				var_len++;
 			new_line = ft_substr(line, i + len + 2, var_len - 2);
-			new = ft_strjoin(new, new_line);
+			new = ft_strjoin_parse(new, new_line);
 			i += len + var_len;
 		}
 		else if (line[i + len] == '$')
@@ -90,10 +76,10 @@ char	*expand_env(char *line, t_env **env)
 			new_line = ft_substr(line, i + len + 1, var_len - 1);
 			while (tmp_env)
 			{
-				if (ft_strcmp(tmp_env->variable, new_line) == 0)
+				if (ft_strcmp(tmp_env->key, new_line) == 0)
 				{
 					expander = tmp_env;
-					new = ft_strjoin(new, expander->value);
+					new = ft_strjoin_parse(new, expander->value);
 					break ;
 				}
 				tmp_env = tmp_env->next;

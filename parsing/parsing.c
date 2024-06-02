@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/02 21:46:36 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 // $d | ls
 //export A="d d" | echo $A
 // z"" z " "
+//  sss $USER_ SS
 char	*parse_protec(char *line)
 {
 	int	i;
@@ -101,7 +102,7 @@ void print_struct(t_token *token)
 		tmp_token = tmp_token->next;
 	}
 }
-t_final	*parce_line(char *line, t_env **env)
+void	parce_line(char *line, t_env **env)
 {
 	char	*tmp;
 	t_token	*token;
@@ -113,43 +114,38 @@ t_final	*parce_line(char *line, t_env **env)
 	{
 		free (line);
 		ft_putstr_fd("syntax error related to unclosed quote\n", 2);
-		return (NULL);
+		return ;
 	}
 	tmp = line;
 	line = trim_line(line);
 	if (line == NULL)
-		return (NULL);
+		return ;
 	line = space(line, 0, 0);
 	if (syntax_error(line))
-		return (NULL);
+		return ;
 	line = parse_protec(line);
 	line = expand_env(line, env);
 	// if find expand_env should stop the program
 	split = split_line(line);
 	tokenizer(split, &token);
 	token_quotes(&token);
-	final_cmd = struct_init(&token);
 	// print_struct(token);
+	// exit(0);
+	final_cmd = struct_init(&token);
 	free(tmp);
-	return (final_cmd);
 }
 
 
-t_final	*read_from_input(t_env **env)
+void	read_from_input(t_final *final_cmd)
 {
 	char *line;
-	t_final *final_cmd;
 
 	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
 	while (1)
 	{
-		// printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
-		// printf("For more details, please visit https://github.com/2iaad/minishell.\n");
 		line = readline("minishell$ ");
-		//displays the prompt "minishell$ " and waits for the user to enter a command. 
-		// The entered command is stored in the line variable as a dynamically allocated string.
-		if (!line)//If the user presses Ctrl-D, the program should exit. this if the user wanna exit
+		if (!line)
 		{
 			printf("exit\n");
 			exit(0);
@@ -160,26 +156,53 @@ t_final	*read_from_input(t_env **env)
 			continue ;
 		}
 		add_history(line);
-		final_cmd = parce_line(line, env);
+		parce_line(line, &final_cmd->env);
 	}
 }
+
+// {
+// 	char *line;
+
+// 	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
+// 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
+// 	while (1)
+// 	{
+// 		// printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
+// 		// printf("For more details, please visit https://github.com/2iaad/minishell.\n");
+// 		line = readline("minishell$ ");
+// 		//displays the prompt "minishell$ " and waits for the user to enter a command. 
+// 		// The entered command is stored in the line variable as a dynamically allocated string.
+// 		if (!line)//If the user presses Ctrl-D, the program should exit. this if the user wanna exit
+// 		{
+// 			printf("exit\n");
+// 			exit(0);
+// 		}
+// 		if (!line[0])
+// 		{
+// 			free(line);
+// 			continue ;
+// 		}
+// 		add_history(line);
+// 		parce_line(line, env);
+// 	}
+// }
 // void f(void)
 // {
 // 	system("leaks minishell");
 // }
-int main(int ac, char **av, char **envp)
-{
-	t_final *final_cmd;
-	// atexit(f);
-	// rl_catch_signals = 0;
-	if (ac > 1)
-	{
-		write(2, "Error: too many arguments\n", 26);
-		return (1);
-	}
-	(void)av;
-	t_env *env;
-	env = get_env(envp);
-	final_cmd = read_from_input(&env);
-	// execution(final_cmd, &env);
-}
+// int main(int ac, char **av, char **envp)
+// {
+// 	t_final *final_cmd;
+// 	// atexit(f);
+// 	// rl_catch_signals = 0;
+// 	if (ac > 1)
+// 	{
+// 		write(2, "Error: too many arguments\n", 26);
+// 		return (1);
+// 	}
+// 	(void)av;
+// 	t_env *env;
+// 	env = get_env(envp);
+// 	final_cmd = read_from_input(&env);
+// 	// execution(final_cmd, &env);
+// }
