@@ -1,0 +1,99 @@
+name: Documentation CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  HOMEBREW_DEVELOPER: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_ENV_HINTS: 1
+  HOMEBREW_BOOTSNAP: 1
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
+
+jobs:
+  linting:
+    if: github.repository == 'Homebrew/brew'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+        with:
+          core: false
+          cask: false
+          test-bot: false
+
+      - name: Install vale
+        run: brew install vale
+
+      - name: Lint docs
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        run: |
+          set -euo pipefail
+
+          # Avoid failing on broken symlinks.
+          rm Library/Homebrew/os/mac/pkgconfig/fuse/fuse.pc
+          rm Library/Homebrew/os/mac/pkgconfig/fuse/osxfuse.pc
+
+          # No ignore support (https://github.com/errata-ai/vale/issues/131).
+          rm -r Library/Homebrew/vendor
+
+          vale .
+
+          # Restore removed files.
+          git reset --hard
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@0cde4689ba33c09f1b890c1725572ad96751a3fc # v1.178.0
+        with:
+          bundler-cache: true
+          working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}/docs
+
+      - name: Check Markdown syntax
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}/docs
+        run: bundle exec rake lint
+
+      - name: Check code blocks conform to our Ruby style guide
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}/docs
+        run: brew style .
+
+      - name: Build the site and check for broken links
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}/docs
+        run: |
+          bundle exec rake test
+
+  rubydoc:
+    if: github.repository == 'Homebrew/brew'
+    runs-on: ubuntu-22.04
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/rubydoc/Gemfile
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+        with:
+          core: false
+          cask: false
+          test-bot: false
+
+      - name: Checkout Homebrew/rubydoc.brew.sh
+        uses: actions/checkout@v4
+        with:
+          repository: Homebrew/rubydoc.brew.sh
+          path: rubydoc
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@0cde4689ba33c09f1b890c1725572ad96751a3fc # v1.178.0
+        with:
+          bundler-cache: true
+          working-directory: rubydoc
+
+      - name: Process rubydoc comments
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}/Library/Homebrew
+        run: bundle exec yard doc --no-output --fail-on-warning
