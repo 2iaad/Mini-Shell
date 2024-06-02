@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 15:29:03 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:11:49 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	init_env(t_list *lst, char **env)
 {
 	int		i;
 	char	**str;
-	t_env	*tmp;
 
     i = 0;
 	lst->env = NULL;
