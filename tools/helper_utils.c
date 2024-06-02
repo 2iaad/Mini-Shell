@@ -6,11 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/01 18:54:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:59:07 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/tools.h"
+#include "../includes/minishell.h"
 
 int	ft_isalpha(int c)
 {

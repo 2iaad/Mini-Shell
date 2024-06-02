@@ -6,11 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:14:32 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/29 11:30:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:58:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/tools.h"
+# include "../includes/minishell.h"
 
 void    ft_free(char **str)
 {
