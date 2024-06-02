@@ -29,10 +29,7 @@ all: $(NAME)
 $(NAME) : $(OBJS) $(TOOL_OBJS)
 	$(CC) $(FLAGS) $^ -o $@
 
-$(OBJS): %.o: %.c includes/minishell.h
-	$(CC) $(FLAGS) -c $< -o $@
-
-$(TOOL_OBJS): %.o: %.c includes/tools.h
+$(OBJS) $(TOOL_OBJS): %.o: %.c includes/minishell.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:12:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/31 16:45:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/02 16:04:56 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,11 @@
 
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "tools.h"
-#include "../tools/get_next_line/get_next_line.h"
-
-// parse the input of export command
-// export a= -> add =
-
-// mkdir -p 1/2/3 --> cd ..
-
-// no env
-// unset path
-
-// export ZZ+=33
-// unset multiple variables ==> ex:"unset a b c"
-// export a="ls -la"
+# include <stdio.h>
+# include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
 
 // $a $hddhd -l
@@ -45,11 +36,6 @@ typedef struct s_list
 	char	**cmd;
 	t_env	*env;
 }	t_list;
-
-t_env	*ft_lstnew(char *key, char *value);
-t_env	*ft_lstlast(t_env *lst);
-void	ft_lstclear(t_env **lst);
-void	ft_lstadd_back(t_env **lst, t_env *newn);
 
 /*          BUILTINS        */
 
@@ -73,5 +59,29 @@ char	*right_path(char *cmd, char **env);
 void	execute_cmd(char *cmd, char **env);
 void	heredoc_file_opener(int ac, char **av);
 int		normal_file_opener(int a, char *file);
+
+/*			TOOLS			*/
+
+int		ft_isalpha(int c);
+int		valid_check(char *str);
+void    ft_free(char **str);
+int     flag_check(char *s1);
+char	*ft_strdup(char *s1);
+int     ft_strlen(char *str);
+long	ft_atol(char *str);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putstr_fd(char *str, int fd);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(const char *s, int c);
+char	**ft_split(const char *s, char c);
+int     ft_strncmp(char *s1, char *s2, int len);
+char	**custumized_ft_split(const char *str, char c);
+char	*ft_strnstr(const char *haystack, const char *needle, int len);
+
+		//			 linked list
+t_env	*ft_lstnew(char *key, char *value);
+t_env	*ft_lstlast(t_env *lst);
+void	ft_lstclear(t_env **lst);
+void	ft_lstadd_back(t_env **lst, t_env *newn);
 
 #endif
