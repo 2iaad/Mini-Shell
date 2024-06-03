@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/03 04:02:17 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/03 06:01:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,20 @@
 void	merg_cmd(t_final	**lst)
 {
 	int		i;
-	int		j;
 	char	**full_cmd;
 
-	j = 0;
+	i = 0;
+	while ((*lst)->args[i]) // there is a segf here if there is only one arg
+		i++;
+	full_cmd = (char **)malloc(sizeof(char *) * (i + 2));
+	full_cmd[0] = ft_strdup((*lst)->cmd);
 	i = 0;
 	while ((*lst)->args[i])
-		i++;
-	full_cmd = malloc(sizeof(char *) * i + 2);
-	full_cmd[0] = (*lst)->cmd;
-	while ((*lst)->args[j])
 	{
-		full_cmd[j + 1] = (*lst)->args[j];
-		j++;
+		full_cmd[i + 1] = ft_strdup((*lst)->args[i]);
+		i++;
 	}
-	full_cmd[j + 1] = NULL;
+	full_cmd[i + 1] = NULL;
 	(*lst)->final_cmd = full_cmd;
 }
 
@@ -56,6 +55,6 @@ void	builtins(t_final *lst)
 
 void    execution(t_final **lst)
 {
-	// merg_cmd(lst); // function li kadir lia l final cmd 
-    // builtins(lst);
+	merg_cmd(lst); // function li kadir lia l final cmd 
+    builtins(*lst);
 }
