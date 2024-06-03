@@ -25,70 +25,69 @@ void print_final(t_final *final) {
     printf("Command: %s\n", final->cmd ? final->cmd : "NULL");
 	printf("--------------------\n");
 
-    printf("Options:\n");
+    printf("Options: ");
     if (final->args && final->args[i] && final->args[i][0])
 	{
         while (final->args && final->args[i] != NULL && final->args[i][0])
 		{
-				// printf("  %s\n", final->args[i]);
-				puts(final->args[i]);
-            // printf("  %s\n", final->args[i]);
+			puts(final->args[i]);
 			i++;
         }
         if (i == 0) {
-            printf("  NULL\n");
+            printf("NULL\n");
         }
     } else {
-        printf("  NULL\n");
+        printf("NULL\n");
     }
-
-    printf("Input Files:\n");
+	printf("--------------------\n");
+    printf("Input Files: ");
     if (final->in_file) {
         for (i = 0; final->in_file[i]; i++) {
             printf("  %s\n", final->in_file[i]);
-        }
+		}
         if (i == 0) {
-            printf("  NULL\n");
+            printf("NULL\n");
         }
     } else {
-        printf("  NULL\n");
+        printf("NULL\n");
     }
-
-    printf("Output Files:\n");
+	printf("--------------------\n");
+    printf("Output Files: ");
     if (final->out_file) {
         for (i = 0; final->out_file[i]; i++) {
             printf("  %s\n", final->out_file[i]);
         }
         if (i == 0) {
-            printf("  NULL\n");
+            printf("NULL\n");
         }
     } else {
-        printf("  NULL\n");
+        printf("NULL\n");
     }
-
-    printf("Append Output Files:\n");
+	printf("--------------------\n");
+    printf("Appnd Out_Files: ");
     if (final->aout_file) {
         for (i = 0; final->aout_file[i]; i++) {
             printf("  %s\n", final->aout_file[i]);
         }
         if (i == 0) {
-            printf("  NULL\n");
+            printf("NULL\n");
         }
     } else {
-        printf("  NULL\n");
+        printf("NULL\n");
     }
-
-    printf("Delimiter:\n");
+	printf("--------------------\n");
+    printf("Delimiter: ");
     if (final->heredoc) {
         for (i = 0; final->heredoc[i]; i++) {
             printf("  %s\n", final->heredoc[i]);
         }
         if (i == 0) {
-            printf("  NULL\n");
+            printf("NULL\n");
         }
     } else {
-        printf("  NULL\n");
+        printf("NULL\n");
     }
+	printf("--------------------\n");
 }
 
 int	count_len(t_token *node, int type)
