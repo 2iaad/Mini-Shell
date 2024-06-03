@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 22:25:24 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/03 04:10:53 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <stdbool.h>
 
 
 typedef struct s_env
@@ -67,7 +68,7 @@ typedef struct s_final
 	char	**out_file;
 	char	**aout_file;
 	char	**heredoc;
-	char	**exec_cmd;
+	char	**final_cmd;
 	t_env	*env;
 } 	t_final;
 
@@ -170,12 +171,13 @@ int		count_len(t_token *node, int type);
 
 //*---------------------BUILTINS--------------------------*//
 
-void    echo(t_list	*lst);
-void    cd(t_list *lst);
+void    execution(t_final **lst);
+void    echo(t_final	*lst);
+void    cd(t_final	*lst);
 void    pwd(void);
-void    env(t_list *cmd);
-void	unset(t_list	*lst);
-void	export_command(t_list *lst);
+void    env(t_final	*cmd);
+void	unset(t_final	*lst);
+void	export_command(t_final	*lst);
 void	exit_command(char **cmd);
 
 //*---------------------EXECUTION--------------------------*//

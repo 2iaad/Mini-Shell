@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:06:29 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/03 04:09:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,24 @@ void	d_node(t_env	**env, char *to_delete)
 	}
 }
 
-void	unset(t_list	*lst)
+void	unset(t_final	*lst)
 {
 	int		i;
 	t_env	*tmp;
 
 	i = 1;
-	if (!lst->cmd[1])
+	if (!lst->final_cmd[1])
 		return ;
-	while (lst->cmd[i])
+	while (lst->final_cmd[i])
 	{
-		if (!ft_strncmp(lst->env->key, lst->cmd[i], ft_strlen(lst->cmd[i]))) // ila kan dak arg f lwl dlinked list
+		if (!ft_strncmp(lst->env->key, lst->final_cmd[i], ft_strlen(lst->final_cmd[i]))) // ila kan dak arg f lwl dlinked list
 		{
 			tmp = lst->env;
 			lst->env = lst->env->next;
 			free(tmp);
 		}
 		else
-			d_node(&lst->env, lst->cmd[i]); // ila kan arg lwst
+			d_node(&lst->env, lst->final_cmd[i]); // ila kan arg lwst
 		i++;
 	}
 }
