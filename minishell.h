@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/03 04:10:53 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/03 04:41:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 //*----------------------------------PARSING--------------------------------------------------------------*//
 
 void	read_from_input(t_final *final_cmd);
-void	parce_line(char *line, t_env **env);
+void	parce_line(t_final **final_cmd, t_env **env, char *line);
 char	*parse_protec(char *line);
 
 //*----------------------CHECK_QOUTES-----------------------------*//
