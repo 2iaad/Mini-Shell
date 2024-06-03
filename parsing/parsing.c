@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 21:46:36 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/03 05:50:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,12 @@ void print_struct(t_token *token)
 		tmp_token = tmp_token->next;
 	}
 }
-void	parce_line(char *line, t_env **env)
+void	parce_line(t_final **final_cmd, t_env **env, char *line)
 {
 	char	*tmp;
 	t_token	*token;
 	token = NULL;
 	char	**split = NULL; // to free the line
-	t_final	*final_cmd;
 
 	if (!check_quotes(line))
 	{
@@ -131,7 +130,7 @@ void	parce_line(char *line, t_env **env)
 	token_quotes(&token);
 	// print_struct(token);
 	// exit(0);
-	final_cmd = struct_init(&token);
+	*final_cmd = struct_init(&token);
 	free(tmp);
 }
 
@@ -156,7 +155,15 @@ void	read_from_input(t_final *final_cmd)
 			continue ;
 		}
 		add_history(line);
-		parce_line(line, &final_cmd->env);
+		parce_line(&final_cmd, &final_cmd->env, line);
+		execution(&final_cmd);
+		// int i = 0;
+		// while (final_cmd->final_cmd && final_cmd->final_cmd[i])
+		// {
+		// 	printf("--------->%s", final_cmd->final_cmd[i]);
+		// 	i++;
+		// }
+		// printf("\n\n");
 	}
 }
 
