@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/03 06:01:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/03 23:21:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 // builltins need to work without execve, if there is a pipe i need to fork then call the builtin.
 
-void	merg_cmd(t_final	**lst)
+void	merg_cmd(t_final	***lst)
 {
 	int		i;
 	char	**full_cmd;
 
 	i = 0;
-	while ((*lst)->args[i]) // there is a segf here if there is only one arg
+	while ((*(*lst))->args && (*(*lst))->args[i]) // check if (*(*lst))->args true incase there was only one argument "ls" there wont be any args then
 		i++;
-	full_cmd = (char **)malloc(sizeof(char *) * (i + 2));
-	full_cmd[0] = ft_strdup((*lst)->cmd);
+	full_cmd = (char **) malloc (sizeof(char *) * (i + 2));
+	full_cmd[0] = ft_strdup((*(*lst))->cmd);
 	i = 0;
-	while ((*lst)->args[i])
+	while ((*(*lst))->args && (*(*lst))->args[i])
 	{
-		full_cmd[i + 1] = ft_strdup((*lst)->args[i]);
+		full_cmd[i + 1] = ft_strdup((*(*lst))->args[i]);
 		i++;
 	}
 	full_cmd[i + 1] = NULL;
-	(*lst)->final_cmd = full_cmd;
+	(*(*lst))->final_cmd = full_cmd;
 }
 
 void	builtins(t_final *lst)
@@ -52,9 +52,8 @@ void	builtins(t_final *lst)
         exit_command(lst->final_cmd);
 }
 
-
 void    execution(t_final **lst)
 {
-	merg_cmd(lst); // function li kadir lia l final cmd 
+	merg_cmd(&lst); // function li kadir lia l final cmd 
     builtins(*lst);
 }
