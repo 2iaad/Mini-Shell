@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 15:07:28 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 22:27:40 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/03 04:30:43 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,4 @@ int main (int ac, char **av, char **envp)
 	}
 	init_env(&final_cmd, envp);
 	read_from_input(&final_cmd);
-	// execution(final_cmd);
 }
