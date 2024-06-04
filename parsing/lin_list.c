@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 03:09:32 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 19:24:59 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/04 02:41:55 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,40 @@ void	ft_lstadd_back_parse(t_token **lst, t_token *new)
 	else
 	{
 		last = ft_lstlast_parse(*lst);
+		last->next = new;
+	}
+}
+
+
+t_final	*ft_lstlast3_parse(t_final *lst)
+{
+	t_final	*last;
+
+	if (!lst)
+		return (NULL);
+	last = NULL;
+	while (lst)
+	{
+		last = lst;
+		lst = lst->next;
+	}
+	return (last);
+}
+
+void	ft_lstadd_back3_parse(t_final **lst, t_final *new)
+{
+	t_final	*last;
+
+	if (!new || !lst)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	else
+	{
+		last = ft_lstlast3_parse(*lst);
 		last->next = new;
 	}
 }
