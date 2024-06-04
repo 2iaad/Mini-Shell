@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/04 17:07:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/04 23:13:34 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,35 +77,36 @@ void    execution(t_final *lst, t_env *env, char **envp)
 	int	pid;
 
 
-	// while (lst)
-	// {
-	// 	if (pipe(fds) == -1)
-	// 		perror("pipe");
-	// 	pid = fork();
-	// 	if (pid == -1)
-	// 		perror("fork");
-	// 	if (!pid)
-	// 	{
-	// 		close(fds[0]);
-	// 		dup2(fds[1], 1);
-	// 		close(fds[1]);
-	// 		if (builtins(lst, env))
-	// 		{
-	// 			puts("HEERE\n\n\n");
-	// 			exit(0);
-	// 		}
-	// 		else
-	// 			execute_cmd(lst, envp);
-	// 	}
-	// 	else
-	// 	{
-	// 		dup2(fds[0], 0);
-	// 		close(fds[0]);
-	// 		close(fds[1]);
-	// 		while (wait(NULL) == -1)
-	// 			;
-	// 	}
-	// 	lst = lst->next;
+	while (lst)
+	{
+		if (pipe(fds) == -1)
+			perror("pipe");
+		pid = fork();
+		if (!pid)
+		{
+			if (lst->next)
+			{
+				close(fds[0]);
+				dup2(fds[1], 1);
+				close(fds[1]);
+			}
+			if (builtins(lst, env))
+				exit(0);
+			execute_cmd(lst, envp);
+		}
+		else
+		{
+			if (lst->next)
+			{
+				dup2(fds[0], 0);
+				close(fds[0]);
+				close(fds[1]);
+			}
+			while (wait(NULL) == -1)
+				;
+			lst = lst->next;
+		}
+	}
 }
 
 
