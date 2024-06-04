@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/03 04:08:20 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:17:08 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,14 @@ void	export_solo(t_env *env)
 
 // there is a segf when i do -> export "=string"
 
-void	export_command(t_final *lst) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
+void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
 {
 	int		i;
 	char	**str;
 
 	i = 0;
 	if (!lst->final_cmd[1])
-		return (alpha_arrang(lst->env), export_solo(lst->env)); // if there is "export" arrang and print
+		return (alpha_arrang(*env_list), export_solo(*env_list)); // if there is "export" arrang and print
 	while (lst->final_cmd[++i])
 	{
 		if (!valid_check(lst->final_cmd[i]))
@@ -140,11 +140,11 @@ void	export_command(t_final *lst) // doesnt have to work if the key is a number 
 		if (!str)
 			return ;
 		if (str[0][ft_strlen(str[0]) - 1] == '+') // case where there is "+=" --> join
-			export_join(lst->env, str);
+			export_join(*env_list, str);
 		else if (str[1] && str[1][0] == '+') // case where there is "=+" --> replace // checking if str[1] in case i did "export salam"
-			export_replace(lst->env, str);
+			export_replace(*env_list, str);
 		else
-			export_var(lst->env,str);
+			export_var(*env_list,str);
 		ft_free(str);
 	}
 }

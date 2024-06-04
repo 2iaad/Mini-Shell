@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/03 05:50:31 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:25:38 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void print_struct(t_token *token)
 		tmp_token = tmp_token->next;
 	}
 }
-void	parce_line(t_final **final_cmd, t_env **env, char *line)
+void	parce_line(t_final **final_cmd, t_env *env, char *line)
 {
 	char	*tmp;
 	t_token	*token;
@@ -135,7 +135,7 @@ void	parce_line(t_final **final_cmd, t_env **env, char *line)
 }
 
 
-void	read_from_input(t_final *final_cmd)
+void	read_from_input(t_final *final_cmd, t_env *env_list)
 {
 	char *line;
 
@@ -155,15 +155,8 @@ void	read_from_input(t_final *final_cmd)
 			continue ;
 		}
 		add_history(line);
-		parce_line(&final_cmd, &final_cmd->env, line);
-		execution(&final_cmd);
-		// int i = 0;
-		// while (final_cmd->final_cmd && final_cmd->final_cmd[i])
-		// {
-		// 	printf("--------->%s", final_cmd->final_cmd[i]);
-		// 	i++;
-		// }
-		// printf("\n\n");
+		parce_line(&final_cmd, env_list, line);
+		execution(&final_cmd, env_list); // pass &env_list here
 	}
 }
 
