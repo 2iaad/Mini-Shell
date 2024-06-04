@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:07:44 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:19:05 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ char	*right_path(char *cmd, char **env)
 	return (ft_free(s_cmd), ft_free(s_path), s_cmd[0]);
 }
 
-void	execute_cmd(char *cmd, char **env)
+void	execute_cmd(char *cmd, char **envp)
 {
 	char	**s_cmd;
 	char	*path;
 
 	s_cmd = ft_split(cmd, ' ');
 	if (access(s_cmd[0], F_OK | X_OK) == 0)
-		execve(s_cmd[0], s_cmd, env);
-	path = right_path(cmd, env);
-	if (execve(path, s_cmd, env) == -1)
+		execve(s_cmd[0], s_cmd, envp);
+	path = right_path(cmd, envp);
+	if (execve(path, s_cmd, envp) == -1)
 	{
 		ft_putstr_fd("pipex: command not found: ", 2);
 		ft_putendl_fd(s_cmd[0], 2);
