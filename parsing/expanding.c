@@ -6,29 +6,29 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 20:08:54 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/03 21:25:28 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	init_env(t_final *lst, char **env)
+void	init_env(t_env **env_list, char **env)
 {
 	int		i;
 	char	**str;
 
     i = 0;
-	lst->env = NULL;
+	*env_list = NULL;
     while (env[i])
     {
         str = ft_split(env[i], '='); // i split with '=' and take the variable name
-		ft_lstadd_back(&lst->env, ft_lstnew(ft_strdup(str[0]), ft_strdup(getenv(str[0])))); // strdup bec bla strdup makhdmatch ez
+		ft_lstadd_back(env_list, ft_lstnew(ft_strdup(str[0]), ft_strdup(getenv(str[0])))); // strdup bec bla strdup makhdmatch ez
         ft_free(str);
         i++;
     }
 }
 
-char	*expand_env(char *line, t_env **env)
+char	*expand_env(char *line, t_env *env)
 {
 	int 	i;
 	int		len;
@@ -72,7 +72,7 @@ char	*expand_env(char *line, t_env **env)
 			var_len = 1;
 			while(line[i + len + var_len] && !delimiters(line[i + len + var_len]))
 				var_len++;
-			tmp_env = *env;
+			tmp_env = env;
 			new_line = ft_substr(line, i + len + 1, var_len - 1);
 			while (tmp_env)
 			{

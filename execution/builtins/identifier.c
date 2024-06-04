@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/03 23:21:57 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:22:58 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,27 @@ void	merg_cmd(t_final	***lst)
 	(*(*lst))->final_cmd = full_cmd;
 }
 
-void	builtins(t_final *lst)
+void	builtins(t_final *lst, t_env *env_list)
 {
     if (!ft_strncmp(lst->final_cmd[0], "echo", 4))
         echo(lst);
     if (!ft_strncmp(lst->final_cmd[0], "cd", 2))
-        cd(lst);
+        cd(lst, &env_list);
     if (!ft_strncmp(lst->final_cmd[0], "pwd", 3))
         pwd();
     if (!ft_strncmp(lst->final_cmd[0], "export", 6))
-        export_command(lst);
+        export_command(lst, &env_list);
     if (!ft_strncmp(lst->final_cmd[0], "unset", 5))
-        unset(lst);
+        unset(lst, env_list);
     if (!ft_strncmp(lst->final_cmd[0], "env", 3))
-        env(lst);
+        env(lst, env_list);
     if (!ft_strncmp(lst->final_cmd[0], "exit", 4))
         exit_command(lst->final_cmd);
 }
 
-void    execution(t_final **lst)
+
+void    execution(t_final **lst, t_env *env)
 {
 	merg_cmd(&lst); // function li kadir lia l final cmd 
-    builtins(*lst);
+    builtins(*lst, env);
 }
