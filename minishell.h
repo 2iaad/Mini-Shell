@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 12:08:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:33:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 
 //*----------------------------------PARSING--------------------------------------------------------------*//
 
-void	read_from_input(t_final *final_cmd, t_env *env_list);
+void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp);
 void	parce_line(t_final **final_cmd, t_env *env, char *line);
 char	*parse_protec(char *line);
 
@@ -173,7 +173,7 @@ int		count_len(t_token *node, int type);
 //*---------------------BUILTINS--------------------------*//
 
 // void	merg_cmd(t_final	***lst);
-void    execution(t_final *lst, t_env *env);
+void    execution(t_final *lst, t_env *env, char **envp);
 void    echo(t_final	*lst);
 void    cd(t_final	*lst, t_env **env);
 void    pwd(void);
@@ -184,16 +184,22 @@ void	exit_command(char **cmd);
 
 //*---------------------EXECUTION--------------------------*//
 
-void	ft_free(char **tab);
-void	error(char *str, int a);
-char	*look_for_paths(char **env);
-void	pipex(char *cmd, char **env);
-void	first_child(char **av, char **ev);
-void	heredoc_limiter(char **av, int ac);
-char	*right_path(char *cmd, char **env);
-void	execute_cmd(char *cmd, char **env);
-void	heredoc_file_opener(int ac, char **av);
-int		normal_file_opener(int a, char *file);
 void	init_env(t_env **env_list, char **env);
+char	*right_path(char **cmd, char **env);
+void	execute_cmd(t_final	*lst, char **env);
+char	*right_path(char **s_cmd, char **env);
+char	*look_for_paths(char **ev);
+
+
+
+// void	ft_free(char **tab);
+// void	error(char *str, int a);
+// char	*look_for_paths(char **env);
+// void	pipex(char *cmd, char **env);
+// void	first_child(char **av, char **ev);
+// void	heredoc_limiter(char **av, int ac);
+// char	*right_path(char *cmd, char **env);
+// void	heredoc_file_opener(int ac, char **av);
+// int		normal_file_opener(int a, char *file);
 
 #endif

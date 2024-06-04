@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 12:09:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:05:08 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,40 @@
 //export A="d d" | echo $A
 // z"" z " "
 //  sss $USER_ SS
+
+char	**merg_cmd(t_final	*lst)
+{
+	int		i;
+	char	**full_cmd;
+
+	i = 0;
+	while ((lst)->args && ((lst))->args[i]) // check if (lst)->args true incase there was only one argument "ls" there wont be any args then
+		i++;
+	full_cmd = (char **) malloc (sizeof(char *) * (i + 2));
+	full_cmd[0] = ft_strdup((lst)->cmd);
+	i = 0;
+	while ((lst)->args && (lst)->args[i])
+	{
+		full_cmd[i + 1] = ft_strdup((lst)->args[i]);
+		i++;
+	}
+	full_cmd[i + 1] = NULL;
+	return (full_cmd);
+}
+
+void	init_final_cmd(t_final ***lst)
+{
+	char **str;
+
+	t_final	*tmp = *(*lst);
+	while (tmp)
+	{
+		str = merg_cmd(tmp);
+		(tmp)->final_cmd = str;
+		(tmp) = (tmp)->next;
+	}
+}
+
 char	*parse_protec(char *line)
 {
 	int	i;
@@ -131,11 +165,12 @@ void	parce_line(t_final **final_cmd, t_env *env, char *line)
 	// print_struct(token);
 	// exit(0);
 	*final_cmd = struct_init(&token);
+	init_final_cmd(&final_cmd);
 	free(tmp);
 }
 
 
-void	read_from_input(t_final *final_cmd, t_env *env_list)
+void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 {
 	char *line;
 
@@ -156,7 +191,7 @@ void	read_from_input(t_final *final_cmd, t_env *env_list)
 		}
 		add_history(line);
 		parce_line(&final_cmd, env_list, line);
-		execution(final_cmd, env_list); // pass &env_list here
+		execution(final_cmd, env_list, envp); // pass &env_list here
 	}
 }
 
