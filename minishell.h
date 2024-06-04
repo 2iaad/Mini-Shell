@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 22:25:24 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/04 02:38:14 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <stdbool.h>
 
 
 typedef struct s_env
@@ -67,8 +68,8 @@ typedef struct s_final
 	char	**out_file;
 	char	**aout_file;
 	char	**heredoc;
-	char	**exec_cmd;
-	t_env	*env;
+	char	**final_cmd;
+	struct s_final *next;
 } 	t_final;
 
 
@@ -108,6 +109,8 @@ t_token	*ft_lstlast_parse(t_token *lst);
 t_env	*ft_lstlast2_parse(t_env *lst);
 void	ft_lstadd_back_parse(t_token **lst, t_token *new);
 void	ft_lstadd_back_2_parse(t_env **lst, t_env *new);
+void	ft_lstadd_back3_parse(t_final **lst, t_final *new);
+t_final	*ft_lstlast3_parse(t_final *lst);
 //*---Execution---*
 t_env	*ft_lstnew(char *key, char *value);
 t_env	*ft_lstlast(t_env *lst);
@@ -116,8 +119,8 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 
 //*----------------------------------PARSING--------------------------------------------------------------*//
 
-void	read_from_input(t_final *final_cmd);
-void	parce_line(char *line, t_env **env);
+void	read_from_input(t_final *final_cmd, t_env *env_list);
+void	parce_line(t_final **final_cmd, t_env *env, char *line);
 char	*parse_protec(char *line);
 
 //*----------------------CHECK_QOUTES-----------------------------*//
@@ -143,8 +146,7 @@ char	*trim_line(char *line);
 //*----------------------EXPANDING---------------------------*//
 
 int		delimiters(char c);
-t_env	*get_env(char **envp);
-char	*expand_env(char *line, t_env **env);
+char	*expand_env(char *line, t_env *env);
 
 //*----------------------SYNTAX_ERROR---------------------------*//
 
@@ -170,12 +172,13 @@ int		count_len(t_token *node, int type);
 
 //*---------------------BUILTINS--------------------------*//
 
-void    echo(t_list	*lst);
-void    cd(t_list *lst);
+void    execution(t_final **lst, t_env **env);
+void    echo(t_final	*lst);
+void    cd(t_final	*lst, t_env **env);
 void    pwd(void);
-void    env(t_list *cmd);
-void	unset(t_list	*lst);
-void	export_command(t_list *lst);
+void    env(t_final	*lst, t_env *env_list);
+void	unset(t_final	*lst, t_env *env_list);
+void	export_command(t_final *lst, t_env **env_list);
 void	exit_command(char **cmd);
 
 //*---------------------EXECUTION--------------------------*//
@@ -190,8 +193,6 @@ char	*right_path(char *cmd, char **env);
 void	execute_cmd(char *cmd, char **env);
 void	heredoc_file_opener(int ac, char **av);
 int		normal_file_opener(int a, char *file);
-void	init_env(t_final *lst, char **env);
-
-
+void	init_env(t_env **env_list, char **env);
 
 #endif
