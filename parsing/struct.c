@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 21:50:32 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/04 02:54:15 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,79 +15,82 @@
 // ls -la < lsls >> slsl -l | cat -e
 
 void print_final(t_final *final) {
-    int i = 0;
-
-    if (!final) {
-        printf("Final struct is NULL\n");
-        return;
-    }
-	printf("--------------------\n");
-    printf("Command: %s\n", final->cmd ? final->cmd : "NULL");
-	printf("--------------------\n");
-
-    printf("Options: ");
-    if (final->args && final->args[i] && final->args[i][0])
+	t_final *tmp;
+	tmp = final;
+	while (tmp)
 	{
-        while (final->args && final->args[i] != NULL && final->args[i][0])
+		int i = 0;
+		printf("--------------------\n");
+		printf("Command: %s\n", tmp->cmd ? tmp->cmd : "NULL");
+		printf("--------------------\n");
+
+		printf("Options: ");
+		if (tmp->args)
 		{
-			puts(final->args[i]);
-			i++;
-        }
-        if (i == 0) {
-            printf("NULL\n");
-        }
-    } else {
-        printf("NULL\n");
-    }
-	printf("--------------------\n");
-    printf("Input Files: ");
-    if (final->in_file) {
-        for (i = 0; final->in_file[i]; i++) {
-            printf("  %s\n", final->in_file[i]);
+			while (tmp->args[i] != NULL)
+			{
+					// printf("  %s\n", tmp->args[i]);
+					puts(tmp->args[i]);
+				// printf("  %s\n", tmp->args[i]);
+				i++;
+			}
+			if (i == 0) {
+				printf("  NULL\n");
+			}
+		} else {
+			printf("  NULL\n");
 		}
-        if (i == 0) {
-            printf("NULL\n");
-        }
-    } else {
-        printf("NULL\n");
-    }
-	printf("--------------------\n");
-    printf("Output Files: ");
-    if (final->out_file) {
-        for (i = 0; final->out_file[i]; i++) {
-            printf("  %s\n", final->out_file[i]);
-        }
-        if (i == 0) {
-            printf("NULL\n");
-        }
-    } else {
-        printf("NULL\n");
-    }
-	printf("--------------------\n");
-    printf("Appnd Out_Files: ");
-    if (final->aout_file) {
-        for (i = 0; final->aout_file[i]; i++) {
-            printf("  %s\n", final->aout_file[i]);
-        }
-        if (i == 0) {
-            printf("NULL\n");
-        }
-    } else {
-        printf("NULL\n");
-    }
-	printf("--------------------\n");
-    printf("Delimiter: ");
-    if (final->heredoc) {
-        for (i = 0; final->heredoc[i]; i++) {
-            printf("  %s\n", final->heredoc[i]);
-        }
-        if (i == 0) {
-            printf("NULL\n");
-        }
-    } else {
-        printf("NULL\n");
-    }
-	printf("--------------------\n");
+
+		printf("Input Files: ");
+		if (tmp->in_file) {
+			for (i = 0; tmp->in_file[i]; i++) {
+				printf("  %s\n", tmp->in_file[i]);
+			}
+			if (i == 0) {
+				printf("  NULL\n");
+			}
+		} else {
+			printf("  NULL\n");
+		}
+
+		printf("Output Files: ");
+		if (tmp->out_file) {
+			for (i = 0; tmp->out_file[i]; i++) {
+				printf("  %s\n", tmp->out_file[i]);
+			}
+			if (i == 0) {
+				printf("  NULL\n");
+			}
+		} else {
+			printf("  NULL\n");
+		}
+
+		printf("Append Output Files: ");
+		if (tmp->aout_file) {
+			for (i = 0; tmp->aout_file[i]; i++) {
+				printf("  %s\n", tmp->aout_file[i]);
+			}
+			if (i == 0) {
+				printf("  NULL\n");
+			}
+		} else {
+			printf("  NULL\n");
+		}
+
+		printf("Delimiter: ");
+		if (tmp->heredoc) {
+			for (i = 0; tmp->heredoc[i]; i++) {
+				printf("  %s\n", tmp->heredoc[i]);
+			}
+			if (i == 0) {
+				printf("  NULL\n");
+			}
+		} else {
+			printf("  NULL\n");
+		}
+		printf("*++++++++++++++++++++++++++*\n");
+		tmp = tmp->next;
+	}
 }
 
 int	count_len(t_token *node, int type)
@@ -167,7 +170,7 @@ t_final	*struct_init(t_token **token)
 {
 	t_token *node;
 	t_final *final;
-	int 	i;
+	t_final *tmp;
 	int		opt_index;
 	int     in_index;
 	int     out_index;
@@ -175,38 +178,41 @@ t_final	*struct_init(t_token **token)
 	int     heredoc_index;
 
 	node = *token;
+	final = NULL;
 	while (node)
 	{
-		(1) && (i = 0, opt_index = 0, in_index = 0, out_index = 0, aout_index = 0, heredoc_index = 0);
 		if (node == *token || node->type == PIPE)
 		{
+			(1) && (opt_index = 0, in_index = 0, out_index = 0, aout_index = 0, heredoc_index = 0);
 			if (node->type == PIPE)
 				node = node->next;
-			final = init_final(&node);
-			if (!final)
+			tmp = init_final(&node);
+			if (!tmp)
 				return (NULL);
 			while (node && node->type != PIPE)
 			{
 				if (node->type == CMD)
-					final->cmd = ft_strdup(node->token);
+					tmp->cmd = ft_strdup(node->token);
 				else if (node->type == OPTION)
 				{
-					final->args[opt_index++] = ft_strdup(node->token);
+					tmp->args[opt_index++] = ft_strdup(node->token);
 				}
 				else if (node->type == IN_FILE)
-					final->in_file[in_index++] = ft_strdup(node->token);
+					tmp->in_file[in_index++] = ft_strdup(node->token);
 				else if (node->type == OUT_FILE)
-					final->out_file[out_index++] = ft_strdup(node->token);
+					tmp->out_file[out_index++] = ft_strdup(node->token);
 				else if (node->type == AOUT_FILE)
-					final->aout_file[aout_index++] = ft_strdup(node->token);
+					tmp->aout_file[aout_index++] = ft_strdup(node->token);
 				else if (node->type == DELIMITER)
-					final->heredoc[heredoc_index++] = ft_strdup(node->token);
+					tmp->heredoc[heredoc_index++] = ft_strdup(node->token);
 				node = node->next;
 			}
-			print_final(final);
+			tmp->next = NULL;
+			ft_lstadd_back3_parse(&final, tmp);
 		}
 		else
 			node = node->next;
 	}
+	print_final(final);
 	return (final);
 }
