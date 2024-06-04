@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 18:47:58 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/04 01:58:40 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,24 @@ void	update_pwd(t_env	*env) // update pwd and oldpwd variables after using cd
 	}
 }
 
-void    cd(t_list *lst)
+void    cd(t_final	*lst, t_env **env)
 {
 	char	*dir;
 
-	if (!lst->cmd[1]) // ila makanch second argument
-		dir = home_path(lst->env); // kan9leb 3la HOME
+	if (!lst->final_cmd[1]) // ila makanch second argument
+		dir = home_path(*env); // kan9leb 3la HOME
 	else
-	 	dir = lst->cmd[1];
+	 	dir = lst->final_cmd[1];
 
 	if (!access(dir, F_OK))
 	{
 		if (chdir(dir) == -1)
 			return (perror("chdir"));
-		update_pwd(lst->env); // update the PWD and the OLDPWD in the env variables after dir change
+		update_pwd(*env); // update the PWD and the OLDPWD in the env variables after dir change
 	}
 	else
 	{
-		if (!lst->cmd[1])
+		if (!lst->final_cmd[1])
 			write(2, "cd: HOME not set\n", 17);
 		else
 			cd_error(dir);

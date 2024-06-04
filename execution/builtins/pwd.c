@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:09:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:06:24 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/04 01:56:01 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void    pwd(void)
     free(c_path);
 }
 
-void    env(t_list *lst) // didnt handle "no envirement" case!!
+void    env(t_final	*lst, t_env *env_list) // didnt handle "no envirement" case!!
 {
 	t_env *tmp;
-
-	tmp = lst->env; // to keep the linked list preserved for later freeing of the linked list
+	(void)lst;
+	tmp = env_list; // to keep the linked list preserved for later freeing of the linked list
 	while (tmp)
 	{
 		printf("%s------>%s\n", tmp->key, tmp->value);

@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 22:36:51 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/04 01:59:53 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,52 @@
 
 // builltins need to work without execve, if there is a pipe i need to fork then call the builtin.
 
-// void	init_env(t_list *lst, char **env)
-// {
-// 	int		i;
-// 	char	**str;
-
-//     i = 0;
-// 	lst->env = NULL;
-//     while (env[i])
-//     {
-//         str = ft_split(env[i], '='); // i split with '=' and take the variable name
-// 		ft_lstadd_back(&lst->env, ft_lstnew(ft_strdup(str[0]), ft_strdup(getenv(str[0])))); // strdup bec bla strdup makhdmatch ez
-//         ft_free(str);
-//         i++;
-//     }
-// }
-
-void	builtins(t_final *lst)
+void	merg_cmd(t_final	**lst)
 {
-    if (!ft_strncmp(lst->exec_cmd[0], "echo", 4))
-        echo(lst);
-    if (!ft_strncmp(lst->exec_cmd[0], "cd", 2))
-        cd(lst);
-    if (!ft_strncmp(lst->exec_cmd[0], "pwd", 3))
-        pwd();
-    if (!ft_strncmp(lst->exec_cmd[0], "export", 6))
-        export_command(lst);
-    if (!ft_strncmp(lst->exec_cmd[0], "unset", 5))
-        unset(lst);
-    if (!ft_strncmp(lst->exec_cmd[0], "env", 3))
-        env(lst);
-    if (!ft_strncmp(lst->exec_cmd[0], "exit", 4))
-        exit_command(lst->exec_cmd);
+	int		i;
+	char	**full_cmd;
+
+	i = 0;
+	while ((*lst)->args[i]) // there is a segf here if there is only one arg
+		i++;
+	full_cmd = (char **)malloc(sizeof(char *) * (i + 2));
+	full_cmd[0] = ft_strdup((*lst)->cmd);
+	i = 0;
+	while ((*lst)->args[i])
+	{
+		full_cmd[i + 1] = ft_strdup((*lst)->args[i]);
+		i++;
+	}
+	full_cmd[i + 1] = NULL;
+	(*lst)->final_cmd = full_cmd;
 }
 
-void    execution(t_final *lst)
+void	builtins(t_final *lst, t_env *env_list)
 {
-    char    **command;
+    if (!ft_strncmp(lst->final_cmd[0], "echo", 4))
+        echo(lst);
+    if (!ft_strncmp(lst->final_cmd[0], "cd", 2))
+        cd(lst, &env_list);
+    if (!ft_strncmp(lst->final_cmd[0], "pwd", 3))
+        pwd();
+    if (!ft_strncmp(lst->final_cmd[0], "export", 6))
+        export_command(lst, &env_list);
+    if (!ft_strncmp(lst->final_cmd[0], "unset", 5))
+        unset(lst, env_list);
+    if (!ft_strncmp(lst->final_cmd[0], "env", 3))
+        env(lst, env_list);
+    if (!ft_strncmp(lst->final_cmd[0], "exit", 4))
+        exit_command(lst->final_cmd);
+}
 
-    // function li ghadi naddi (char *)cmd --- (char **)args = command
-    builtins(lst);
+
+void    execution(t_final **lst, t_env **env)
+{
+	merg_cmd(lst); // function li kadir lia l final cmd 
+	while (env)
+	{
+		printf("%s\n", (*env)->key);
+		env = &(*env)->next;
+	}
+    // builtins(*lst);
 }

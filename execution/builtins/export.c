@@ -6,12 +6,11 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:06:17 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/04 01:54:16 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <stdbool.h>
 
 /* 								EXPORT								*/
 
@@ -125,27 +124,27 @@ void	export_solo(t_env *env)
 
 // there is a segf when i do -> export "=string"
 
-void	export_command(t_list *lst) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
+void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
 {
 	int		i;
 	char	**str;
 
 	i = 0;
-	if (!lst->cmd[1])
-		return (alpha_arrang(lst->env), export_solo(lst->env)); // if there is "export" arrang and print
-	while (lst->cmd[++i])
+	if (!lst->final_cmd[1])
+		return (alpha_arrang(*env_list), export_solo(*env_list)); // if there is "export" arrang and print
+	while (lst->final_cmd[++i])
 	{
-		if (!valid_check(lst->cmd[i]))
+		if (!valid_check(lst->final_cmd[i]))
 			continue;
-		str = custumized_ft_split(lst->cmd[i], '='); // str = {"a","salam", NULL}
+		str = custumized_ft_split(lst->final_cmd[i], '='); // str = {"a","salam", NULL}
 		if (!str)
 			return ;
 		if (str[0][ft_strlen(str[0]) - 1] == '+') // case where there is "+=" --> join
-			export_join(lst->env, str);
+			export_join(*env_list, str);
 		else if (str[1] && str[1][0] == '+') // case where there is "=+" --> replace // checking if str[1] in case i did "export salam"
-			export_replace(lst->env, str);
+			export_replace(*env_list, str);
 		else
-			export_var(lst->env,str);
+			export_var(*env_list,str);
 		ft_free(str);
 	}
 }
