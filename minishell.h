@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 10:22:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:34:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,8 @@ int		count_len(t_token *node, int type);
 
 //*---------------------BUILTINS--------------------------*//
 
-void    execution(t_final **lst, t_env *env);
+// void	merg_cmd(t_final	***lst);
+void    execution(t_final *lst, t_env *env);
 void    echo(t_final	*lst);
 void    cd(t_final	*lst, t_env **env);
 void    pwd(void);

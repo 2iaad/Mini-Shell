@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 10:25:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:33:54 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void	read_from_input(t_final *final_cmd, t_env *env_list)
 		}
 		add_history(line);
 		parce_line(&final_cmd, env_list, line);
-		execution(&final_cmd, env_list); // pass &env_list here
+		execution(final_cmd, env_list); // pass &env_list here
 	}
 }
 
