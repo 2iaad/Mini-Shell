@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
+#    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/06/04 01:51:28 by ibouram          ###   ########.fr        #
+#    Updated: 2024/06/04 11:56:23 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ EXECUTIONSRC = execution/builtins/cd.c execution/builtins/echo.c execution/built
 RM = rm -rf
 NAME = minishell
 CC = cc
-FLAGS = -fsanitize=address -g -Wall -Wextra -Werror
+FLAGS = -fsanitize=address -g #-Wall -Wextra -Werror
 
 PARSINGOBJS = $(PARSINGSRC:.c=.o)
 EXECUTIONOBJS = $(EXECUTIONSRC:.c=.o)
