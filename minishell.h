@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 16:33:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:06:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,8 @@ char	*right_path(char **cmd, char **env);
 void	execute_cmd(t_final	*lst, char **env);
 char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
+void	infile_opener(char **infile);
+void	outfile_opener(char **infile);
 
 
 
