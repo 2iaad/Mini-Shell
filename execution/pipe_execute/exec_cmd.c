@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:58 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:40:40 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,28 +67,3 @@ void	execute_cmd(t_final	*lst, char **env)
 		exit(1);
 	}
 }
-
-// void	first_child(char **av, char **ev)
-// {
-// 	int	fds[2];
-// 	int	pid;
-
-// 	if (pipe(fds) == -1)
-// 		error("pipe", 0);
-// 	pid = fork();
-// 	if (pid == -1)
-// 		error("fork", 0);
-// 	if (!pid)
-// 	{
-// 		close(fds[0]);
-// 		dup2(fds[1], 1);
-// 		close(fds[1]);
-// 		execute_cmd(av[2], ev);
-// 	}
-// 	else
-// 	{
-// 		close(fds[1]);
-// 		dup2(fds[0], 0);
-// 		close(fds[0]);
-// 	}
-// }
