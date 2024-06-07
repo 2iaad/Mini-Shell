@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 10:59:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:01:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,6 @@ t_final	*struct_init(t_token **token)
 		else
 			node = node->next;
 	}
-	print_final(final);
+	// print_final(final);
 	return (final);
 }
