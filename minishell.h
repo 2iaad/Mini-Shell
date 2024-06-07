@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/06 16:37:58 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/07 00:30:34 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,8 @@ void	outfile_opener(char **outfile);
 void	first_cmd(t_final *lst, char **envp);
 void	execute_cmd(t_final	*lst, char **env);
 
+
+void	error(char *str, int a);
 
 // void	ft_free(char **tab);
 // void	error(char *str, int a);
