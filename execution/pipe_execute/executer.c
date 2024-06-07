@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/07 00:51:27 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:08:28 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,18 @@ void	pipe_cmd(t_final *lst, int *fds, int flag)
 
 void	child(t_final *lst, int *fds, char **envp)
 {
-	if (lst->in_file || lst->out_file)
+	if (lst->in_file || lst->out_file || lst->aout_file || lst->heredoc)
 	{
+		heredoc_opener(lst->heredoc);
 		infile_opener(lst->in_file);
 		outfile_opener(lst->out_file);
+		aoutfile_opener(lst->aout_file);
 	}
 	else
 		pipe_cmd(lst, &fds[0], 1);
 	execute_cmd(lst, envp);
 }
-// ls >$f
-// cat | ls
+
 void    execution(t_final *lst, t_env *env, char **envp)
 {
 	int	pid;
@@ -77,4 +78,3 @@ void    execution(t_final *lst, t_env *env, char **envp)
 	if (dup2(sec_fd[0], 0) == -1 || dup2(sec_fd[1], 1) == -1)
 		error("perror", 1337);
 }
-

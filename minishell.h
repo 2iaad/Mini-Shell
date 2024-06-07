@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/07 01:44:28 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:08:32 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <limits.h>
 # include <stdbool.h>
 
+// ls >$f
+// cat | ls
+// cat << salam << hello
 
 typedef struct s_env
 {
@@ -189,8 +192,10 @@ char	*right_path(char **cmd, char **env);
 char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
 
+void	heredoc_opener(char **heredoc);
 void	infile_opener(char **infile);
 void	outfile_opener(char **outfile);
+void	aoutfile_opener(char **aout_file);
 
 void	first_cmd(t_final *lst, char **envp);
 void	execute_cmd(t_final	*lst, char **env);

@@ -6,11 +6,48 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/06 16:41:07 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:03:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	heredoc_limiter(char *DELIMITER, int fd)
+{
+	char	*line;
+	
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL)
+			break ;
+		if (!ft_strncmp(line, DELIMITER, ft_strlen(DELIMITER)))
+		{
+			free (line);
+			break ;
+		}
+		ft_putendl_fd(line, fd);
+		free(line);
+	}
+}
+
+void	heredoc_opener(char **heredoc)
+{
+	int		i;
+	int		fd;
+
+	i = 0;
+	if (!heredoc)
+		return ;
+	while (heredoc[i])
+		i++;
+	fd = open("/tmp/here_doc", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	heredoc_limiter(heredoc[i - 1], fd); // give the delimiter here
+	close(fd);
+	fd = open("/tmp/here_doc", O_RDONLY | O_CREAT, 0644);
+	dup2(fd, 0);
+	close(fd);
+}
 
 void	infile_opener(char **infile)
 {
@@ -78,36 +115,3 @@ void	aoutfile_opener(char **outfile)
 	}
 }
 
-void	heredoc_limiter(char *DELIMITER, int fd)
-{
-	char	*line;
-	
-	while (1)
-	{
-		line = readline("> ");
-		if (line == NULL)
-			break ;
-		if (ft_strncmp(line, DELIMITER, ft_strlen(DELIMITER)) == 0
-			&& !(ft_strlen(DELIMITER) + 1 - ft_strlen(line)))
-		{
-			free (line);
-			break ;
-		}
-		ft_putstr_fd(line, fd);
-		free(line);
-	}
-}
-
-void	heredoc_opener(char **heredoc)
-{
-	int		i;
-	int		fd;
-
-	i = 0;
-	fd = open("/tmp/here_doc", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	heredoc_limiter("delimiter",fd); // give the delimiter here
-	close(fd);
-	fd = open("/tmp/here_doc", O_RDONLY | O_CREAT, 0644);
-	dup2(fd, 0);
-	close(fd);
-}
