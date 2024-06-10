@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 02:54:28 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/10 03:48:00 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,40 @@
 //export A="d d" | echo $A
 // z"" z " "
 //  sss $USER_ SS
+
+char	**merg_cmd(t_final	*lst)
+{
+	int		i;
+	char	**full_cmd;
+
+	i = 0;
+	while ((lst)->args && ((lst))->args[i]) // check if (lst)->args true incase there was only one argument "ls" there wont be any args then
+		i++;
+	full_cmd = (char **) malloc (sizeof(char *) * (i + 2));
+	full_cmd[0] = ft_strdup((lst)->cmd);
+	i = 0;
+	while ((lst)->args && (lst)->args[i])
+	{
+		full_cmd[i + 1] = ft_strdup((lst)->args[i]);
+		i++;
+	}
+	full_cmd[i + 1] = NULL;
+	return (full_cmd);
+}
+
+void	init_final_cmd(t_final ***lst)
+{
+	char **str;
+
+	t_final	*tmp = *(*lst);
+	while (tmp)
+	{
+		str = merg_cmd(tmp);
+		(tmp)->final_cmd = str;
+		(tmp) = (tmp)->next;
+	}
+}
+
 char	*parse_protec(char *line)
 {
 	int	i;
@@ -121,32 +155,33 @@ void	parce_line(t_final **final_cmd, t_env *env, char *line)
 		return ;
 	line = space(line, 0, 0);
 	if (syntax_error(line))
-		return ;
+		return ; // exit(1);
 	line = parse_protec(line);
-	line = expand_env(line, env);
-	// if find expand_env should stop the program
+	// wiil be removed afetr finishing
 	split = split_line(line);
-	tokenizer(split, &token);
+	tokenizer(split, &token, env);
 	token_quotes(&token);
 	// print_struct(token);
-	// exit(0);
 	*final_cmd = struct_init(&token);
+	init_final_cmd(&final_cmd);
 	free(tmp);
 }
 
 
-void	read_from_input(t_final *final_cmd, t_env *env_list)
+void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 {
 	char *line;
 
 	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
+	rl_catch_signals = 0;
+	init_signals();
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (!line)
 		{
-			printf("exit\n");
+			ft_putstr_fd("exit\n", 2);
 			exit(0);
 		}
 		if (!line[0])
@@ -156,60 +191,6 @@ void	read_from_input(t_final *final_cmd, t_env *env_list)
 		}
 		add_history(line);
 		parce_line(&final_cmd, env_list, line);
-		// execution(&final_cmd, &env_list); // pass &env_list here
-		// int i = 0;
-		// while (final_cmd->final_cmd && final_cmd->final_cmd[i])
-		// {
-		// 	printf("--------->%s", final_cmd->final_cmd[i]);
-		// 	i++;
-		// }
-		// printf("\n\n");
+		execution(final_cmd, env_list, envp); // pass &env_list here
 	}
 }
-
-// {
-// 	char *line;
-
-// 	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
-// 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
-// 	while (1)
-// 	{
-// 		// printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
-// 		// printf("For more details, please visit https://github.com/2iaad/minishell.\n");
-// 		line = readline("minishell$ ");
-// 		//displays the prompt "minishell$ " and waits for the user to enter a command. 
-// 		// The entered command is stored in the line variable as a dynamically allocated string.
-// 		if (!line)//If the user presses Ctrl-D, the program should exit. this if the user wanna exit
-// 		{
-// 			printf("exit\n");
-// 			exit(0);
-// 		}
-// 		if (!line[0])
-// 		{
-// 			free(line);
-// 			continue ;
-// 		}
-// 		add_history(line);
-// 		parce_line(line, env);
-// 	}
-// }
-// void f(void)
-// {
-// 	system("leaks minishell");
-// }
-// int main(int ac, char **av, char **envp)
-// {
-// 	t_final *final_cmd;
-// 	// atexit(f);
-// 	// rl_catch_signals = 0;
-// 	if (ac > 1)
-// 	{
-// 		write(2, "Error: too many arguments\n", 26);
-// 		return (1);
-// 	}
-// 	(void)av;
-// 	t_env *env;
-// 	env = get_env(envp);
-// 	final_cmd = read_from_input(&env);
-// 	// execution(final_cmd, &env);
-// }
