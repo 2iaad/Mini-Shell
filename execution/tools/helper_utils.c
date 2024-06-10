@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:07:10 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:51:50 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_isalpha(int c)
 void	ft_putendl_fd(char *s, int fd)
 {
 	if (!s)
-		return ;
+		return (void) write(fd, "\n", 1);
 	while (*s)
 	{
 		write(fd, s, 1);

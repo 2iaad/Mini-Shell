@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 02:54:15 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/07 22:01:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void print_final(t_final *final) {
 		} else {
 			printf("  NULL\n");
 		}
-		printf("*++++++++++++++++++++++++++*\n");
+		printf("*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*\n");
 		tmp = tmp->next;
 	}
 }
@@ -213,6 +213,6 @@ t_final	*struct_init(t_token **token)
 		else
 			node = node->next;
 	}
-	print_final(final);
+	// print_final(final);
 	return (final);
 }
