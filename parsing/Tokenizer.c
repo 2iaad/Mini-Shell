@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 17:00:37 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/10 02:45:16 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,17 @@ void	tokenizer_2(t_token **token)
 	node = *token;
 	while (node)
 	{
-        if (node->type == REDIR_IN)
-            node->next->type = IN_FILE;
-        else if (node->type == REDIR_OUT)
-            node->next->type = OUT_FILE;
-        else if (node->type == REDIR_APPEND)
-            node->next->type = AOUT_FILE;
-        else if (node->type == REDIR_HEREDOC)
-            node->next->type = DELIMITER;
+		if (node->next)
+		{
+			if (node->type == REDIR_IN)
+				node->next->type = IN_FILE;
+			else if (node->type == REDIR_OUT)
+				node->next->type = OUT_FILE;
+			else if (node->type == REDIR_APPEND)
+				node->next->type = AOUT_FILE;
+			else if (node->type == REDIR_HEREDOC)
+				node->next->type = DELIMITER;
+		}
 		node = node->next;
 	}
 }
@@ -134,10 +137,11 @@ void    tokenizer_3(t_token **token)
     }
 }
 
-void    tokenizer(char **splited, t_token **token)
+void    tokenizer(char **splited, t_token **token, t_env *env)
 {
     tokenizer_1(splited, token);
     tokenizer_2(token);
+	expanding(*token, env);
 	tokenizer_3(token);
 }
 // remove quotes
