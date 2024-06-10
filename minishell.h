@@ -6,22 +6,31 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 02:38:14 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/10 03:52:00 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdio.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
 
+// cat | ls
+// | s
+// sytx error exit before execution
+// << s >
+// I handle signals
+// I handle herdooc not expanding
+// you have to do ziad:
+// after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
+// command not found li gt lik lbarh
 
 typedef struct s_env
 {
@@ -119,9 +128,10 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 
 //*----------------------------------PARSING--------------------------------------------------------------*//
 
-void	read_from_input(t_final *final_cmd, t_env *env_list);
+void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp);
 void	parce_line(t_final **final_cmd, t_env *env, char *line);
 char	*parse_protec(char *line);
+void	init_signals(void);
 
 //*----------------------CHECK_QOUTES-----------------------------*//
 
@@ -147,6 +157,7 @@ char	*trim_line(char *line);
 
 int		delimiters(char c);
 char	*expand_env(char *line, t_env *env);
+void	expanding(t_token *token, t_env *env);
 
 //*----------------------SYNTAX_ERROR---------------------------*//
 
@@ -156,7 +167,7 @@ int		syntax_error(char *line);
 
 //*----------------------TOKENIZER---------------------------*//
 
-void	tokenizer(char **splited, t_token **token);
+void	tokenizer(char **splited, t_token **token, t_env *env);
 t_token	*ft_get_token(char *content, int type);
 int		is_oper(char *tok, int asc, int len);
 
@@ -172,7 +183,8 @@ int		count_len(t_token *node, int type);
 
 //*---------------------BUILTINS--------------------------*//
 
-void    execution(t_final **lst, t_env **env);
+// void	merg_cmd(t_final	***lst);
+void    execution(t_final *lst, t_env *env, char **envp);
 void    echo(t_final	*lst);
 void    cd(t_final	*lst, t_env **env);
 void    pwd(void);
@@ -183,16 +195,26 @@ void	exit_command(char **cmd);
 
 //*---------------------EXECUTION--------------------------*//
 
-void	ft_free(char **tab);
-void	error(char *str, int a);
-char	*look_for_paths(char **env);
-void	pipex(char *cmd, char **env);
-void	first_child(char **av, char **ev);
-void	heredoc_limiter(char **av, int ac);
-char	*right_path(char *cmd, char **env);
-void	execute_cmd(char *cmd, char **env);
-void	heredoc_file_opener(int ac, char **av);
-int		normal_file_opener(int a, char *file);
 void	init_env(t_env **env_list, char **env);
+char	*right_path(char **cmd, char **env);
+char	*right_path(char **s_cmd, char **env);
+char	*look_for_paths(char **ev);
+
+void	heredoc_opener(char **heredoc);
+void	infile_opener(char **infile);
+void	outfile_opener(char **outfile);
+void	aoutfile_opener(char **aout_file);
+
+void	first_cmd(t_final *lst, char **envp);
+void	execute_cmd(t_final	*lst, char **env);
+
+
+void	error(char *str, int a);
+
+
+
+// void	pipex(char *cmd, char **env);
+// void	heredoc_limiter(char **av, int ac);
+// void	heredoc_file_opener(int ac, char **av);
 
 #endif
