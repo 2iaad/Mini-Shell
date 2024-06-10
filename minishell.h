@@ -6,25 +6,31 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/09 22:22:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:51:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdio.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
 
-// ls >$f
 // cat | ls
-// cat << salam << hello
+// | s
+// sytx error exit before execution
+// << s >
+// I handle signals
+// I handle herdooc not expanding
+// you have to do ziad:
+// after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
+// command not found li gt lik lbarh
 
 typedef struct s_env
 {
@@ -125,6 +131,7 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp);
 void	parce_line(t_final **final_cmd, t_env *env, char *line);
 char	*parse_protec(char *line);
+void	init_signals(void);
 
 //*----------------------CHECK_QOUTES-----------------------------*//
 
@@ -150,6 +157,7 @@ char	*trim_line(char *line);
 
 int		delimiters(char c);
 char	*expand_env(char *line, t_env *env);
+void	expanding(t_token *token, t_env *env);
 
 //*----------------------SYNTAX_ERROR---------------------------*//
 
@@ -159,7 +167,7 @@ int		syntax_error(char *line);
 
 //*----------------------TOKENIZER---------------------------*//
 
-void	tokenizer(char **splited, t_token **token);
+void	tokenizer(char **splited, t_token **token, t_env *env);
 t_token	*ft_get_token(char *content, int type);
 int		is_oper(char *tok, int asc, int len);
 

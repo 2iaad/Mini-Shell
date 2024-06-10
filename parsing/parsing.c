@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 17:05:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:52:20 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,15 +155,13 @@ void	parce_line(t_final **final_cmd, t_env *env, char *line)
 		return ;
 	line = space(line, 0, 0);
 	if (syntax_error(line))
-		return ;
+		return ; // exit(1);
 	line = parse_protec(line);
-	line = expand_env(line, env);
-	// if find expand_env should stop the program
+	// wiil be removed afetr finishing
 	split = split_line(line);
-	tokenizer(split, &token);
+	tokenizer(split, &token, env);
 	token_quotes(&token);
 	// print_struct(token);
-	// exit(0);
 	*final_cmd = struct_init(&token);
 	init_final_cmd(&final_cmd);
 	free(tmp);
@@ -176,12 +174,14 @@ void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 
 	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
+	rl_catch_signals = 0;
+	init_signals();
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (!line)
 		{
-			printf("exit\n");
+			ft_putstr_fd("exit\n", 2);
 			exit(0);
 		}
 		if (!line[0])
@@ -194,50 +194,3 @@ void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 		execution(final_cmd, env_list, envp); // pass &env_list here
 	}
 }
-
-// {
-// 	char *line;
-
-// 	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
-// 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
-// 	while (1)
-// 	{
-// 		// printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
-// 		// printf("For more details, please visit https://github.com/2iaad/minishell.\n");
-// 		line = readline("minishell$ ");
-// 		//displays the prompt "minishell$ " and waits for the user to enter a command. 
-// 		// The entered command is stored in the line variable as a dynamically allocated string.
-// 		if (!line)//If the user presses Ctrl-D, the program should exit. this if the user wanna exit
-// 		{
-// 			printf("exit\n");
-// 			exit(0);
-// 		}
-// 		if (!line[0])
-// 		{
-// 			free(line);
-// 			continue ;
-// 		}
-// 		add_history(line);
-// 		parce_line(line, env);
-// 	}
-// }
-// void f(void)
-// {
-// 	system("leaks minishell");
-// }
-// int main(int ac, char **av, char **envp)
-// {
-// 	t_final *final_cmd;
-// 	// atexit(f);
-// 	// rl_catch_signals = 0;
-// 	if (ac > 1)
-// 	{
-// 		write(2, "Error: too many arguments\n", 26);
-// 		return (1);
-// 	}
-// 	(void)av;
-// 	t_env *env;
-// 	env = get_env(envp);
-// 	final_cmd = read_from_input(&env);
-// 	// execution(final_cmd, &env);
-// }
