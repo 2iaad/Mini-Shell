@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/03 21:25:28 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/06/10 02:34:14 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,3 +92,22 @@ char	*expand_env(char *line, t_env *env)
 	return (new);
 }
 
+void	expanding(t_token *token, t_env *env)
+{
+	t_token	*tmp_token;
+	char	*tmp;
+
+	tmp_token = token;
+	while (tmp_token)
+	{
+		if (tmp_token->type != REDIR_IN && tmp_token->type != REDIR_OUT
+			&& tmp_token->type != REDIR_APPEND && tmp_token->type != REDIR_HEREDOC
+			&& tmp_token->type != DELIMITER)
+		{
+			tmp = tmp_token->token;
+			tmp_token->token = expand_env(tmp_token->token, env);
+			free(tmp);
+		}
+		tmp_token = tmp_token->next;
+	}
+}
