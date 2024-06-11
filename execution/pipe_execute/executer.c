@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/11 19:54:24 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:58:07 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ void    execution(t_final *lst, t_env *env, char **envp)
 	}
 	if (dup2(sec_fd[0], 0) == -1 || dup2(sec_fd[1], 1) == -1)
 		error("dup2", 1337);
-	close(sec_fd[0]);
-	close(sec_fd[1]);
 	while (wait(&exit_status) != -1)
 		;
+	return ((void)close(sec_fd[0]), (void)close(sec_fd[1]));
 }
