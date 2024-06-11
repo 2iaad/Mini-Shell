@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/10 11:51:45 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:01:01 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@
 # include <limits.h>
 # include <stdbool.h>
 
-// cat | ls
 // | s
 // sytx error exit before execution
 // << s >
 // I handle signals
 // I handle herdooc not expanding
-// you have to do ziad:
+// ziad:
+
 // after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
-// command not found li gt lik lbarh
+// handle expanding in the heredoc
+
 
 typedef struct s_env
 {
@@ -46,12 +47,6 @@ typedef struct s_token
 	int		index;
 	struct s_token	*next;
 }				t_token;
-
-typedef struct s_list
-{
-	char	**cmd;
-	t_env	*env;
-}	t_list;
 
 typedef enum s_meta
 {
@@ -210,13 +205,6 @@ void	aoutfile_opener(char **aout_file);
 void	first_cmd(t_final *lst, char **envp);
 void	execute_cmd(t_final	*lst, char **env);
 
-
 void	error(char *str, int a);
-
-
-
-// void	pipex(char *cmd, char **env);
-// void	heredoc_limiter(char **av, int ac);
-// void	heredoc_file_opener(int ac, char **av);
 
 #endif
