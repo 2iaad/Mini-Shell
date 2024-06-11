@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/07 18:08:28 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:52:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,25 @@
 
 void	pipe_cmd(t_final *lst, int *fds, int flag)
 {
+	if (!lst->next)	
+		return ;
 	if (flag == 0)
-		if (lst->next)
-			if(pipe(fds) == -1)
-					error("pipe", 1337);
+		if(pipe(fds) == -1)
+				error("pipe", 1337);
 	if (flag == 1)
-		if (lst->next)
-			{
-				if (dup2(fds[1], 1) == -1)
-					error("dup2", 1337);
-				close(fds[0]);
-				close(fds[1]);
-			}
+	{	
+		close(fds[0]);
+		if (dup2(fds[1], 1) == -1)
+			error("dup2", 1337);
+		close(fds[1]);
+	}
 	if (flag == 2)
-		if (lst->next)
-		{
+	{	
+			close(fds[1]);	
 			if (dup2(fds[0], 0) == -1)
 					error("dup2", 1337);
 			close(fds[0]);
-			close(fds[1]);	
-		}
+	}
 }
 
 void	child(t_final *lst, int *fds, char **envp)
@@ -53,6 +52,7 @@ void	child(t_final *lst, int *fds, char **envp)
 void    execution(t_final *lst, t_env *env, char **envp)
 {
 	int	pid;
+	int exit_status;
 	int	fds[2];
 	int	sec_fd[2];
 
@@ -70,11 +70,13 @@ void    execution(t_final *lst, t_env *env, char **envp)
 		else
 		{
 			pipe_cmd(lst, &fds[0], 2);
-			while (wait(NULL) == -1)
-				;
 			lst = lst->next;
 		}
 	}
+	while (wait(&exit_status) != -1)
+		;
 	if (dup2(sec_fd[0], 0) == -1 || dup2(sec_fd[1], 1) == -1)
-		error("perror", 1337);
+		error("dup2", 1337);
+	close(sec_fd[0]);
+	close(sec_fd[1]);
 }
