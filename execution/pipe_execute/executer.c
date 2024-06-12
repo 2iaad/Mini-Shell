@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/11 19:58:07 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:26:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	pipe_cmd(t_final *lst, int *fds, int flag)
 	}
 }
 
-void	child(t_final *lst, int *fds, char **envp)
+void	child(t_final *lst, t_env *env, int *fds, char **envp)
 {
 	if (lst->in_file || lst->out_file || lst->aout_file || lst->heredoc)
 	{
-		heredoc_opener(lst->heredoc);
+		heredoc_opener(lst->heredoc, env);
 		infile_opener(lst->in_file);
 		outfile_opener(lst->out_file);
 		aoutfile_opener(lst->aout_file);
@@ -66,7 +66,7 @@ void    execution(t_final *lst, t_env *env, char **envp)
 		if (pid == -1)
 			error("fork", 1337);
 		if (!pid)
-			child(lst, fds, envp);
+			child(lst, env, fds, envp);
 		else
 		{
 			pipe_cmd(lst, &fds[0], 2);
