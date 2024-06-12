@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/11 20:01:01 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:29:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 
 // after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
 // handle expanding in the heredoc
+// cat Makefile | grep clean >> /dev/stdout | cat -e
+
 
 
 typedef struct s_env
@@ -197,7 +199,7 @@ char	*right_path(char **cmd, char **env);
 char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
 
-void	heredoc_opener(char **heredoc);
+void	heredoc_opener(char **heredoc, t_env *env);
 void	infile_opener(char **infile);
 void	outfile_opener(char **outfile);
 void	aoutfile_opener(char **aout_file);
