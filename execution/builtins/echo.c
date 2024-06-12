@@ -6,25 +6,25 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/03 04:01:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:15:03 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	exit_status(t_list	*lst, char *str)
-{
-	int i;
+// void	exit_status(t_list	*lst, char *str)
+// {
+// 	int i;
 
-	(void)lst;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$' && str[i + 1] == '?')
-			printf("khasni mprinti exit status deyal last command executed");
-		i++;
-	}
-}
+// 	(void)lst;
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '$' && str[i + 1] == '?')
+// 			printf("khasni mprinti exit status deyal last command executed");
+// 		i++;
+// 	}
+// }
 
 void    echo(t_final	*lst)
 {
