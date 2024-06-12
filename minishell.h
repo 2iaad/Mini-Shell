@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/12 16:29:57 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:44:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@
 # include <limits.h>
 # include <stdbool.h>
 
+// sytx error exit before execution:
 // | s
-// sytx error exit before execution
 // << s >
 // I handle signals
-// I handle herdooc not expanding
-// ziad:
 
+// ziad:
 // after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
-// handle expanding in the heredoc
 // cat Makefile | grep clean >> /dev/stdout | cat -e
 
 
@@ -86,7 +84,6 @@ int		ft_strlen(char *s);
 int		whitespaces(char s);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_isalnum(int c);
-int		ft_isnum(int n);
 char	*ft_substr(char *s, int start, int len);
 char	*ft_strdup(char *s1);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsiz);
@@ -96,6 +93,7 @@ int		ft_strlen(char *s);
 int		ft_strcmp(char *s1, char *s2);
 //*//*---Execution---*
 int		ft_isalpha(int c);
+int		ft_isnum(int c);
 int		valid_check(char *str);
 void    ft_free(char **str);
 int     flag_check(char *s1);
