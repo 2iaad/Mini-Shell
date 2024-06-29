@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/12 18:44:04 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/29 21:04:56 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 // ziad:
 // after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
 // cat Makefile | grep clean >> /dev/stdout | cat -e
+// < Makefile cat | grep clean > a
+// echo HELLO > a >> b > c
+// // < a export a="ls -la"
 
 
 
@@ -45,7 +48,7 @@ typedef struct s_token
 	char	*token;
 	int		type;
 	int		index;
-	struct s_token	*next;
+	struct	s_token	*next;
 }				t_token;
 
 typedef enum s_meta
@@ -73,7 +76,7 @@ typedef struct s_final
 	char	**aout_file;
 	char	**heredoc;
 	char	**final_cmd;
-	struct s_final *next;
+	struct	s_final *next;
 } 	t_final;
 
 
@@ -180,7 +183,7 @@ int		count_len(t_token *node, int type);
 
 // void	merg_cmd(t_final	***lst);
 
-bool	builtins(t_final *lst, t_env *env_list);
+void	builtins(t_final *lst, t_env *env_list, bool *flag);
 void    execution(t_final *lst, t_env *env, char **envp);
 void    echo(t_final	*lst);
 void    cd(t_final	*lst, t_env **env);
