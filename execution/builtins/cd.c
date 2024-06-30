@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/04 10:16:36 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/30 01:31:28 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void    cd(t_final	*lst, t_env **env)
 {
 	char	*dir;
 
-	if (!lst->final_cmd[1]) // ila makanch second argument
+	if (!lst->final_cmd[1]|| !lst->final_cmd[1][0]
+	|| !ft_strncmp(lst->final_cmd[1], ".", ft_strlen(lst->final_cmd[1]))) // cd || cd $ladksfj || cd .
 		dir = home_path(*env); // kan9leb 3la HOME
 	else
 	 	dir = lst->final_cmd[1];

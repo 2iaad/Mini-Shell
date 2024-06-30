@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/04 10:17:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/30 03:15:38 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,14 @@ void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if th
 		return (alpha_arrang(*env_list), export_solo(*env_list)); // if there is "export" arrang and print
 	while (lst->final_cmd[++i])
 	{
-		if (!valid_check(lst->final_cmd[i]))
-			continue;
 		str = custumized_ft_split(lst->final_cmd[i], '='); // str = {"a","salam", NULL}
 		if (!str)
 			return ;
+		if (!valid_check(str[0]))
+		{
+			ft_free(str);
+			continue;
+		}
 		if (str[0][ft_strlen(str[0]) - 1] == '+') // case where there is "+=" --> join
 			export_join(*env_list, str);
 		else if (str[1] && str[1][0] == '+') // case where there is "=+" --> replace // checking if str[1] in case i did "export salam"
