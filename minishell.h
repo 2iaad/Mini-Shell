@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/29 21:26:34 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/30 05:48:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_final
 	char	**aout_file;
 	char	**heredoc;
 	char	**final_cmd;
+	char	**outfiles;
 	struct	s_final *next;
 } 	t_final;
 
@@ -205,7 +206,9 @@ void	infile_opener(char **infile);
 void	outfile_opener(char **outfile);
 void	aoutfile_opener(char **aout_file);
 
-void	first_cmd(t_final *lst, char **envp);
+
+void	pipe_cmd(t_final *lst, int *fds, int flag);
+void	child(t_final *lst, t_env *env, int *fds, char **envp);
 void	execute_cmd(t_final	*lst, char **env);
 
 void	error(char *str, int a);
