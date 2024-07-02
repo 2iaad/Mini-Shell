@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/30 05:48:09 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:03:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,17 @@
 // | s
 // << s >
 // I handle signals
+// khass tzid wahd l3iba struct bash n3rf chnahowa akhir outfile nktb fih
 
-// ziad:
-// after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
-// cat Makefile | grep clean >> /dev/stdout | cat -e
-// < Makefile cat | grep clean > a
-// echo HELLO > a >> b > c
-// // < a export a="ls -la"
+/*
+ziad:
 
+		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
+		echo HELLO > a >> b > c
+		< a export a="ls -la"
+		i have a use-after-free when unsetting the first element of the env_list
+
+*/
 
 
 typedef struct s_env
