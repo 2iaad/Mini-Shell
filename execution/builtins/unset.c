@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/04 10:17:46 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/02 11:42:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ void	ft_free_node(t_env *node)
 	free(node->key);
 	free(node->value);
 	free(node);
+}
+
+void	free_first_node(t_env **env_list)
+{
+	t_env	*tmp;
+	t_env	*to_delete;
+
+	to_delete = *env_list;
+	tmp = (*env_list)->next;
+	
+	to_delete->next = NULL;
+	ft_free_node(to_delete);
+
+	*env_list = tmp;
 }
 
 void	d_node(t_env	**env, char *to_delete)
@@ -52,7 +66,6 @@ void	d_node(t_env	**env, char *to_delete)
 void	unset(t_final	*lst, t_env *env_list)
 {
 	int		i;
-	t_env	*tmp;
 
 	i = 1;
 	if (!lst->final_cmd[1])
@@ -61,12 +74,12 @@ void	unset(t_final	*lst, t_env *env_list)
 	{
 		if (!ft_strncmp(env_list->key, lst->final_cmd[i], ft_strlen(lst->final_cmd[i]))) // ila kan dak arg f lwl dlinked list
 		{
-			tmp = env_list;
-			env_list = env_list->next;
-			free(tmp);
+			free_first_node(&env_list);
 		}
 		else
+		{
 			d_node(&env_list, lst->final_cmd[i]); // ila kan arg lwst
+		}
 		i++;
 	}
 }
