@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:58:31 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/02 17:31:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/04 08:12:37 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <stdio.h>
 #include <unistd.h>
 
 void	pipe_cmd(t_final *lst, int *fds, int flag)
@@ -36,14 +37,14 @@ void	pipe_cmd(t_final *lst, int *fds, int flag)
 	}
 }
 
-void	child(t_final *lst, t_env *env, int *fds, char **envp)
+void	child(t_final *lst, t_env *env, int *fds, char **envp, int sec_fd)
 {
 	bool	flag;
 
 	if (lst->in_file || lst->heredoc || lst->out_file || lst->aout_file)
 	{
 		if (lst->heredoc)
-			heredoc_opener(lst->heredoc, env);
+			heredoc_opener(lst->heredoc, env, sec_fd);
 		if (lst->in_file)
 			infile_opener(lst->in_file);
 		if (lst->out_file)
