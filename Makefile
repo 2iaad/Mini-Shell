@@ -6,12 +6,12 @@
 #    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/06/30 05:50:54 by zderfouf         ###   ########.fr        #
+#    Updated: 2024/07/04 16:48:39 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c \
-				parsing/add_space.c parsing/syntax_error.c parsing/Tokenizer.c parsing/lin_list.c  main.c parsing/signals.c\
+PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c parsing/env_init.c main.c \
+				parsing/add_space.c parsing/syntax_error.c parsing/Tokenizer.c parsing/lin_list.c parsing/signals.c\
 				parsing/utils2.c parsing/expanding.c parsing/ft_split2.c parsing/remove_quotes.c parsing/struct.c \
 
 EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/builtins/exit.c execution/builtins/caller.c \

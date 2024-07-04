@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/10 12:44:17 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:56:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <paths.h>
 
 void	error(char *str, int a)
 {
@@ -23,6 +24,8 @@ void	error(char *str, int a)
 
 char	*look_for_paths(char **ev)
 {
+	if (!*ev)
+		return ("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
 	while (*ev)
 	{
 		if (ft_strnstr(*ev, "PATH=", ft_strlen(*ev)))
