@@ -6,7 +6,7 @@
 #    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/07/04 16:48:39 by zderfouf         ###   ########.fr        #
+#    Updated: 2024/07/04 16:53:33 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/buil
 RM = rm -rf
 NAME = minishell
 CC = cc
-FLAGS = -fsanitize=address -g #-Wall -Wextra -Werror
+FLAGS = -fsanitize=address -ggdb3 #-Wall -Wextra -Werror
 READLINE = $(shell brew --prefix readline)
 
 PARSINGOBJS = $(PARSINGSRC:.c=.o)
