@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/10 02:34:14 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/04 11:35:23 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+ void	env_i(t_env **env, char **envp)
+{
+	int i;
+	char **tmp;
+	char **str;
+	
+	i = 0;
+	str = (char **) malloc (sizeof(char *) * 4);
+	str[0] = ft_strdup("PWD=/Users/zderfouf/Desktop/minishell");
+	str[1] = ft_strdup("SHLVL=1");
+	str[2] = ft_strdup("_=/usr/bin/env");
+	str[3] = NULL;
+	while (str[i])
+	{
+		tmp = ft_split(str[i], '=');
+		ft_lstadd_back(env,ft_lstnew(ft_strdup(tmp[0]), ft_strdup(tmp[1])));
+		ft_free(tmp);
+		i++;
+	}
+	ft_free(str);
+	printf("\n\n");
+}
 
 void	init_env(t_env **env_list, char **env)
 {
@@ -19,13 +42,16 @@ void	init_env(t_env **env_list, char **env)
 
     i = 0;
 	*env_list = NULL;
-    while (env[i])
-    {
-        str = ft_split(env[i], '='); // i split with '=' and take the variable name
-		ft_lstadd_back(env_list, ft_lstnew(ft_strdup(str[0]), ft_strdup(getenv(str[0])))); // strdup bec bla strdup makhdmatch ez
-        ft_free(str);
-        i++;
-    }
+	if (*env) // ila kan *env --> kayn env variables
+		while (env[i])
+		{
+			str = ft_split(env[i], '='); // i split with '=' and take the variable name
+			ft_lstadd_back(env_list, ft_lstnew(ft_strdup(str[0]), ft_strdup(getenv(str[0])))); // strdup bec bla strdup makhdmatch ez
+			ft_free(str);
+			i++;
+		}
+	else
+		env_i(env_list, env);
 }
 
 char	*expand_env(char *line, t_env *env)
