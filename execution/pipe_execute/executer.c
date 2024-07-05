@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/04 08:36:34 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/05 08:58:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	single(t_final *lst, t_env *env, char **envp)
 
 	flag = false;
 	sec_fd = dup(STDIN_FILENO);
-	builtins(lst, env, &flag);
 	if (!flag)
 	{
 		pid = fork();
