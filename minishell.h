@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/04 08:10:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:22:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@
 /*
 ziad:
 
+		< a export a="ls -la"
 		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
 		echo HELLO > a >> b > c
-		< a export a="ls -la"
 		use-after-free when unsetting the first element of the env_list
+		<< a cat -e | << a >> file.txt
+		ls > a > b < c > d > r
 */
-
 
 typedef struct s_env
 {
@@ -203,7 +204,7 @@ char	*right_path(char **cmd, char **env);
 char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
 
-void	heredoc_opener(char **heredoc, t_env *env, int fd_stdin);
+void	heredoc_opener(char **heredoc, t_env *env);
 void	infile_opener(char **infile);
 void	outfile_opener(char **outfile);
 void	aoutfile_opener(char **aout_file);

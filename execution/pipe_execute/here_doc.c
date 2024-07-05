@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/04 08:41:55 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:04:35 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd)
 	}
 }
 
-void	heredoc_opener(char **heredoc, t_env *env, int sec_fd)
+void	heredoc_opener(char **heredoc, t_env *env)
 {
 	int		i;
 	int		fd;
@@ -61,7 +61,6 @@ void	heredoc_opener(char **heredoc, t_env *env, int sec_fd)
 	i = 0;
 	if (!heredoc)
 		return ;
-	dup2(sec_fd, 0); // makanclosich sec_fd hna m7it kanhtajo f multiple function
 	while (heredoc[i + 1])
 	{
 		heredoc_limiter(heredoc[i], env, 1337); // give the delimiter here
