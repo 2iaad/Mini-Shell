@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   equals_spliter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:53:30 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:07:10 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/06 11:52:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,46 @@ char **custumized_ft_split(const char *str, char c)
 	s[1] = second_word(str, c);
 	s[2] = NULL;
 	return (s);
+}
+
+static int	ft_countnumbers(int n)
+{
+	int	i;
+
+	i = 0;
+	if (n == 0)
+		return (1);
+	while (n)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_itoa(int n)
+{
+	long	nb;
+	int		cn;
+	char	*ptr;
+
+	nb = n;
+	cn = ft_countnumbers(nb);
+	if (nb < 0)
+	{
+		nb *= -1;
+		cn++;
+	}
+	ptr = (char *) malloc (sizeof(char) * (cn + 1));
+	if (!ptr)
+		return (NULL);
+	ptr[cn] = '\0';
+	while (cn-- > 0)
+	{
+		ptr[cn] = nb % 10 + '0';
+		nb /= 10;
+	}
+	if (n < 0)
+		ptr[0] = '-';
+	return (ptr);
 }
