@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/06 13:32:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:46:27 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	single(t_final *lst, t_env *env, char **envp)
 {
 	pid_t	pid;
 	bool	flag;
+	int		sec_fd[2];
 
+	sec_fd[0] = dup(0);
+	sec_fd[1] = dup(1);
 	flag = false;
 	single_redirect(lst, env);
 	builtins(lst, env, &flag);
@@ -53,6 +56,9 @@ void	single(t_final *lst, t_env *env, char **envp)
 		else
 		 	wait(NULL);
 	}
+	dup2(sec_fd[0], 0);
+	dup2(sec_fd[1], 1);
+	
 }
 
 void    execution(t_final *lst, t_env *env, char **envp)
