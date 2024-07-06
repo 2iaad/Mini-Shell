@@ -6,7 +6,7 @@
 #    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/07/04 16:53:33 by zderfouf         ###   ########.fr        #
+#    Updated: 2024/07/06 13:33:07 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/buil
 				execution/tools/equals_spliter.c execution/tools/helper_utils.c execution/pipe_execute/executer.c \
 				execution/tools/lst_utils.c execution/tools/mini_utils.c execution/tools/split.c execution/tools/string_utils.c \
 				execution/pipe_execute/exec_tools.c execution/pipe_execute/file_opener.c execution/pipe_execute/here_doc.c \
-				execution/pipe_execute/pipex.c \
+				execution/pipe_execute/pipex.c execution/pipe_execute/executer_helper.c \
 
 RM = rm -rf
 NAME = minishell

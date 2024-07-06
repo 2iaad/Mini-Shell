@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/05 12:22:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:31:44 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ ziad:
 		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
 		echo HELLO > a >> b > c
 		use-after-free when unsetting the first element of the env_list
-		<< a cat -e | << a >> file.txt
 		ls > a > b < c > d > r
+		mat Makefile | cat << salam
+		<< a cat -e | << a
 */
 
 typedef struct s_env
@@ -105,6 +106,7 @@ int		valid_check(char *str);
 void    ft_free(char **str);
 int     flag_check(char *s1);
 long	ft_atol(char *str);
+char	*ft_itoa(int n);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
@@ -208,11 +210,16 @@ void	heredoc_opener(char **heredoc, t_env *env);
 void	infile_opener(char **infile);
 void	outfile_opener(char **outfile);
 void	aoutfile_opener(char **aout_file);
+void	single_redirect(t_final *lst, t_env *env);
+void	init_secfds(int *sec_fd);
+void	multiple_helper(int *sec_fd, int exit_status);
 
 
 void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env *env, int *fds, char **envp, int sec_fd);
 void	execute_cmd(t_final	*lst, char **env);
+
+
 
 void	error(char *str, int a);
 
