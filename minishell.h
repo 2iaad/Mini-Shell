@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/07 08:06:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 09:59:02 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ ziad:
 		echo HELLO > a >> b > c
 		use-after-free when unsetting the first element of the env_list
 		ls > a > b < c > d > r
-		mat Makefile | cat << salam
-		<< a cat -e | << a
 */
 
 typedef struct s_env

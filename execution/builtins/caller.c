@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/07 09:35:32 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 10:00:54 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	cmd_checker(t_final	**lst)
 		ft_free((*lst)->final_cmd);
 		(*lst)->final_cmd = str;
 	}
+	else
+		ft_free(str);
 }
 
 void	builtins(t_final *lst, t_env *env_list, bool *flag)

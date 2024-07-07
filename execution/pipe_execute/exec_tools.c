@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/07 09:49:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 10:01:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	execute_cmd(t_final	*lst, char **env)
 {
 	char	*path;
 
-	// if (strchr(lst->cmd, ' '))
-	// 	lst->final_cmd = ft_split(lst->cmd, ' ');
 	if (!lst->final_cmd[0]) // in the case "< $PWD"
 		exit(0);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
