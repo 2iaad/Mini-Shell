@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/07 09:59:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 11:20:11 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ ziad:
 		echo HELLO > a >> b > c
 		use-after-free when unsetting the first element of the env_list
 		ls > a > b < c > d > r
+		mat Makefile | cat << salam
+		<< a cat -e | << a
 */
 
 typedef struct s_env
@@ -69,16 +71,23 @@ typedef enum s_meta
 	DELIMITER
 } t_meta;
 
+typedef struct s_file
+{
+	char	*file;
+	int		type;
+	struct	s_file	*next;
+}				t_file;
+
 typedef struct s_final
 {
 	char	*cmd;
 	char	**args;
-	char	**in_file;
-	char	**out_file;
-	char	**aout_file;
-	char	**heredoc;
+	// char	**in_file;
+	// char	**out_file;
+	// char	**aout_file;
+	// char	**heredoc;
 	char	**final_cmd;
-	char	**outfiles;
+	t_file	*files;
 	struct	s_final *next;
 } 	t_final;
 
