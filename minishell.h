@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/06 13:31:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 08:06:18 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ char	*right_path(char **cmd, char **env);
 char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
 
-void	heredoc_opener(char **heredoc, t_env *env);
+void	heredoc_opener(char **heredoc, t_env *env, int stdin_fd);
 void	infile_opener(char **infile);
 void	outfile_opener(char **outfile);
 void	aoutfile_opener(char **aout_file);

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/06 13:39:14 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 08:12:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd)
 	
 	while (1)
 	{
-		// printf("in heredoc: %s\n", DELIMITER);
 		line = readline("> ");
-		printf("{%s}", line);
 		if (line == NULL)
 			break ;
 		// if (line[0] == '$' && line[1])
@@ -83,13 +81,16 @@ void	reset_offset(char **filename, int fd)
 	close(fd);
 }
 
-void	heredoc_opener(char **heredoc, t_env *env)
+void	heredoc_opener(char **heredoc, t_env *env, int stdin_fd)
 {
 	int		i;
 	int		fd;
 	char	*filename;
 
 	i = 0;
+	if (stdin_fd != 1337)
+		if (dup2(stdin_fd, 0) == -1)
+			error("dup2", 1337);
 	while (heredoc[i + 1])
 	{
 		heredoc_limiter(heredoc[i], env, 1337); // give the delimiter here

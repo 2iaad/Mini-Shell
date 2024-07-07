@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:58:31 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/06 13:28:57 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 08:03:43 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ void	child(t_final *lst, t_env *env, int *fds, char **envp, int sec_fd)
 {
 	bool	flag;
 
-	if (lst->heredoc)
-	{
-		dup2(sec_fd, 0);
-		heredoc_opener(lst->heredoc, env);
-	}
 	if (lst->in_file)
 		infile_opener(lst->in_file);
 	if (lst->out_file)
