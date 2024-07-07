@@ -3,27 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
+#    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/06/10 04:01:54 by ibouram          ###   ########.fr        #
+#    Updated: 2024/07/06 13:33:07 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c \
-				parsing/add_space.c parsing/syntax_error.c parsing/Tokenizer.c parsing/lin_list.c  main.c parsing/signals.c\
+PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c parsing/env_init.c main.c \
+				parsing/add_space.c parsing/syntax_error.c parsing/Tokenizer.c parsing/lin_list.c parsing/signals.c\
 				parsing/utils2.c parsing/expanding.c parsing/ft_split2.c parsing/remove_quotes.c parsing/struct.c \
 
 EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/builtins/exit.c execution/builtins/caller.c \
 				execution/builtins/export.c execution/builtins/pwd.c execution/builtins/unset.c \
 				execution/tools/equals_spliter.c execution/tools/helper_utils.c execution/pipe_execute/executer.c \
 				execution/tools/lst_utils.c execution/tools/mini_utils.c execution/tools/split.c execution/tools/string_utils.c \
-				execution/pipe_execute/exec_tools.c execution/pipe_execute/file_opener.c \
+				execution/pipe_execute/exec_tools.c execution/pipe_execute/file_opener.c execution/pipe_execute/here_doc.c \
+				execution/pipe_execute/pipex.c execution/pipe_execute/executer_helper.c \
 
 RM = rm -rf
 NAME = minishell
 CC = cc
-FLAGS = -fsanitize=address -g #-Wall -Wextra -Werror
+FLAGS = -fsanitize=address -ggdb3 #-Wall -Wextra -Werror
 READLINE = $(shell brew --prefix readline)
 
 PARSINGOBJS = $(PARSINGSRC:.c=.o)
