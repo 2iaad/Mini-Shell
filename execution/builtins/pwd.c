@@ -6,11 +6,13 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:09:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/04 10:17:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:07:55 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <stdbool.h>
+#include <stdio.h>
 
 void    pwd(void)
 {
@@ -26,6 +28,20 @@ void    pwd(void)
     free(c_path);
 }
 
+bool	env_checker(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 void    env(t_final	*lst, t_env *env_list) // didnt handle "no envirement" case!!
 {
 	t_env *tmp;
@@ -33,7 +49,8 @@ void    env(t_final	*lst, t_env *env_list) // didnt handle "no envirement" case!
 	tmp = env_list; // to keep the linked list preserved for later freeing of the linked list
 	while (tmp)
 	{
-		printf("%s------>%s\n", tmp->key, tmp->value);
+		if (tmp->value)
+			printf("%s=%s\n", tmp->key, tmp->value); // so i can print only variables that has a value(like bash)
 		tmp = tmp->next;
 	}
 }

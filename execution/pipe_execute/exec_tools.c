@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/10 02:50:33 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/04 15:56:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <paths.h>
 
 void	error(char *str, int a)
 {
@@ -23,6 +24,8 @@ void	error(char *str, int a)
 
 char	*look_for_paths(char **ev)
 {
+	if (!*ev)
+		return ("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
 	while (*ev)
 	{
 		if (ft_strnstr(*ev, "PATH=", ft_strlen(*ev)))
@@ -57,6 +60,8 @@ void	execute_cmd(t_final	*lst, char **env)
 {
 	char	*path;
 
+	if (!lst->final_cmd[0]) // in the case "< $PWD"
+		exit(0);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
 		execve(lst->final_cmd[0], lst->final_cmd, env);
 	path = right_path(lst->final_cmd, env);

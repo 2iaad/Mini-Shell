@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/04 10:16:36 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/03 08:41:48 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	update_pwd(t_env	*env) // update pwd and oldpwd variables after using cd
 		if (!ft_strncmp(tmp->key, "PWD", 3))
 		{
 			oldpwd = tmp->value;
-			tmp->value = getcwd(NULL, -1337);
+			tmp->value = getcwd(NULL, -1337); // 3titha NULL bash talloci lia space
 			if (!tmp->value)
 				return (perror("getcwd"));
 		}
@@ -56,7 +56,7 @@ void	update_pwd(t_env	*env) // update pwd and oldpwd variables after using cd
 		if (!ft_strncmp(tmp->key, "OLDPWD", 6))
 		{
 			free(tmp->value);
-			tmp->value = oldpwd;
+			tmp->value = ft_strdup(oldpwd); // it was tmp->value = oldpwd; but it caused me a free addy which was not mallocated
 		}
 		tmp = tmp->next;
 	}
@@ -66,7 +66,8 @@ void    cd(t_final	*lst, t_env **env)
 {
 	char	*dir;
 
-	if (!lst->final_cmd[1]) // ila makanch second argument
+	if (!lst->final_cmd[1]|| !lst->final_cmd[1][0]
+	|| !ft_strncmp(lst->final_cmd[1], ".", ft_strlen(lst->final_cmd[1]))) // cd || cd $ladksfj || cd .
 		dir = home_path(*env); // kan9leb 3la HOME
 	else
 	 	dir = lst->final_cmd[1];

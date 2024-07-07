@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/07 17:51:50 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/06/30 03:17:40 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	ft_isalpha(int c)
 {
-	if ((c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A'))
+	if (c == '_' || (c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A'))
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 void	ft_putendl_fd(char *s, int fd)
@@ -32,12 +31,12 @@ void	ft_putendl_fd(char *s, int fd)
 	write (fd, "\n", 1);
 }
 
-int	valid_check(char *str) // fix this
+int	valid_check(char *str)
 {
 	int i;
 
 	i = 0;
-	if (!(ft_isalpha(str[0]) || str[0] == '_'))
+	if (!(ft_isalpha(str[0])))
 	{
 		write(2, "export: `", 9);
 		ft_putstr_fd(str, 2);
@@ -46,7 +45,7 @@ int	valid_check(char *str) // fix this
 	}
 	while (str[++i])
 	{
-		if (!(ft_isalpha(str[i]) || !(str[i] >= '0' && str[i] <= '9')))
+		if (!(ft_isalpha(str[i]) && !(str[i] >= '0' && str[i] <= '9')))
 		{
 			write(2, "export: `", 9);
 			ft_putstr_fd(str, 2);
