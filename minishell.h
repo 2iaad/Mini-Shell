@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/10 03:52:00 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/07 10:37:28 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,23 @@
 # include <limits.h>
 # include <stdbool.h>
 
-// cat | ls
+// sytx error exit before execution:
 // | s
-// sytx error exit before execution
 // << s >
 // I handle signals
-// I handle herdooc not expanding
-// you have to do ziad:
-// after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
-// command not found li gt lik lbarh
+// khass tzid wahd l3iba struct bash n3rf chnahowa akhir outfile nktb fih
+
+/*
+ziad:
+
+		< a export a="ls -la"
+		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
+		echo HELLO > a >> b > c
+		use-after-free when unsetting the first element of the env_list
+		ls > a > b < c > d > r
+		mat Makefile | cat << salam
+		<< a cat -e | << a
+*/
 
 typedef struct s_env
 {
@@ -44,14 +52,8 @@ typedef struct s_token
 	char	*token;
 	int		type;
 	int		index;
-	struct s_token	*next;
+	struct	s_token	*next;
 }				t_token;
-
-typedef struct s_list
-{
-	char	**cmd;
-	t_env	*env;
-}	t_list;
 
 typedef enum s_meta
 {
@@ -69,16 +71,24 @@ typedef enum s_meta
 	DELIMITER
 } t_meta;
 
+typedef struct s_file
+{
+	char	*file;
+	int		type;
+	struct	s_file	*next;
+}				t_file;
+
 typedef struct s_final
 {
 	char	*cmd;
 	char	**args;
-	char	**in_file;
-	char	**out_file;
-	char	**aout_file;
-	char	**heredoc;
+	// char	**in_file;
+	// char	**out_file;
+	// char	**aout_file;
+	// char	**heredoc;
 	char	**final_cmd;
-	struct s_final *next;
+	t_file	*files;
+	struct	s_final *next;
 } 	t_final;
 
 
@@ -89,7 +99,6 @@ int		ft_strlen(char *s);
 int		whitespaces(char s);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_isalnum(int c);
-int		ft_isnum(int n);
 char	*ft_substr(char *s, int start, int len);
 char	*ft_strdup(char *s1);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsiz);
@@ -99,10 +108,12 @@ int		ft_strlen(char *s);
 int		ft_strcmp(char *s1, char *s2);
 //*//*---Execution---*
 int		ft_isalpha(int c);
+int		ft_isnum(int c);
 int		valid_check(char *str);
 void    ft_free(char **str);
 int     flag_check(char *s1);
 long	ft_atol(char *str);
+char	*ft_itoa(int n);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
@@ -184,6 +195,8 @@ int		count_len(t_token *node, int type);
 //*---------------------BUILTINS--------------------------*//
 
 // void	merg_cmd(t_final	***lst);
+
+void	builtins(t_final *lst, t_env *env_list, bool *flag);
 void    execution(t_final *lst, t_env *env, char **envp);
 void    echo(t_final	*lst);
 void    cd(t_final	*lst, t_env **env);
@@ -200,21 +213,21 @@ char	*right_path(char **cmd, char **env);
 char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
 
-void	heredoc_opener(char **heredoc);
+void	heredoc_opener(char **heredoc, t_env *env, int stdin_fd);
 void	infile_opener(char **infile);
 void	outfile_opener(char **outfile);
 void	aoutfile_opener(char **aout_file);
+void	single_redirect(t_final *lst, t_env *env);
+void	init_secfds(int *sec_fd);
+void	multiple_helper(int *sec_fd, int exit_status);
 
-void	first_cmd(t_final *lst, char **envp);
+
+void	pipe_cmd(t_final *lst, int *fds, int flag);
+void	child(t_final *lst, t_env *env, int *fds, char **envp, int sec_fd);
 void	execute_cmd(t_final	*lst, char **env);
 
 
+
 void	error(char *str, int a);
-
-
-
-// void	pipex(char *cmd, char **env);
-// void	heredoc_limiter(char **av, int ac);
-// void	heredoc_file_opener(int ac, char **av);
 
 #endif
