@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/07 22:01:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 10:40:19 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,83 +14,33 @@
 
 // ls -la < lsls >> slsl -l | cat -e
 
-void print_final(t_final *final) {
-	t_final *tmp;
-	tmp = final;
-	while (tmp)
-	{
-		int i = 0;
-		printf("--------------------\n");
-		printf("Command: %s\n", tmp->cmd ? tmp->cmd : "NULL");
-		printf("--------------------\n");
+void print_final(t_final *final)
+{
+    t_final *tmp = final;
+    int i;
 
-		printf("Options: ");
-		if (tmp->args)
-		{
-			while (tmp->args[i] != NULL)
-			{
-					// printf("  %s\n", tmp->args[i]);
-					puts(tmp->args[i]);
-				// printf("  %s\n", tmp->args[i]);
-				i++;
-			}
-			if (i == 0) {
-				printf("  NULL\n");
-			}
-		} else {
-			printf("  NULL\n");
-		}
-
-		printf("Input Files: ");
-		if (tmp->in_file) {
-			for (i = 0; tmp->in_file[i]; i++) {
-				printf("  %s\n", tmp->in_file[i]);
-			}
-			if (i == 0) {
-				printf("  NULL\n");
-			}
-		} else {
-			printf("  NULL\n");
-		}
-
-		printf("Output Files: ");
-		if (tmp->out_file) {
-			for (i = 0; tmp->out_file[i]; i++) {
-				printf("  %s\n", tmp->out_file[i]);
-			}
-			if (i == 0) {
-				printf("  NULL\n");
-			}
-		} else {
-			printf("  NULL\n");
-		}
-
-		printf("Append Output Files: ");
-		if (tmp->aout_file) {
-			for (i = 0; tmp->aout_file[i]; i++) {
-				printf("  %s\n", tmp->aout_file[i]);
-			}
-			if (i == 0) {
-				printf("  NULL\n");
-			}
-		} else {
-			printf("  NULL\n");
-		}
-
-		printf("Delimiter: ");
-		if (tmp->heredoc) {
-			for (i = 0; tmp->heredoc[i]; i++) {
-				printf("  %s\n", tmp->heredoc[i]);
-			}
-			if (i == 0) {
-				printf("  NULL\n");
-			}
-		} else {
-			printf("  NULL\n");
-		}
-		printf("*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*\n");
-		tmp = tmp->next;
-	}
+    while (tmp)
+    {
+        printf("Command: %s\n", tmp->cmd);
+        printf("Options: ");
+        if (tmp->args)
+        {
+            for (i = 0; tmp->args[i]; i++)
+            {
+                printf("%s ", tmp->args[i]);
+            }
+        }
+        printf("\nFiles: ");
+        if (tmp->files)
+        {
+            for (i = 0; tmp->files[i].file; i++)
+            {
+                printf("%s (type: %d) ", tmp->files[i].file, tmp->files[i].type);
+            }
+        }
+        printf("\n");
+        tmp = tmp->next;
+    }
 }
 
 int	count_len(t_token *node, int type)
@@ -126,42 +76,16 @@ t_final	*init_final(t_token **nodee)
 	}
 	else
 		final->args = NULL;
-	if (count_len(node, IN_FILE) > 0)
+	int files_len = count_len(node, IN_FILE) + count_len(node, OUT_FILE) + count_len(node, AOUT_FILE) + count_len(node, DELIMITER);
+	if (files_len > 0)
 	{
-		final->in_file = malloc(sizeof(char *) * (count_len(node, IN_FILE) + 1));
-		if (!final->in_file)
+		final->files = malloc(sizeof(t_file) * (files_len + 1));
+		if (!final->files)
 			return (NULL);
-		final->in_file[count_len(node, IN_FILE)] = NULL;
+		final->files[files_len].file = NULL;
 	}
 	else
-		final->in_file = NULL;
-	if (count_len(node, OUT_FILE) > 0)
-	{
-		final->out_file = malloc(sizeof(char *) * (count_len(node, OUT_FILE) + 1));
-		if (!final->out_file)
-			return (NULL);
-		final->out_file[count_len(node, OUT_FILE)] = NULL;
-	}
-	else
-		final->out_file = NULL;
-	if (count_len(node, AOUT_FILE) > 0)
-	{
-		final->aout_file = malloc(sizeof(char *) * (count_len(node, AOUT_FILE) + 1));
-		if (!final->aout_file)
-			return (NULL);
-		final->aout_file[count_len(node, AOUT_FILE)] = NULL;
-	}
-	else
-		final->aout_file = NULL;
-	if (count_len(node, REDIR_HEREDOC) > 0)
-	{
-		final->heredoc = malloc(sizeof(char *) * (count_len(node, DELIMITER) + 1));
-		if (!final->heredoc)
-			return (NULL);
-		final->heredoc[count_len(node, DELIMITER)] = NULL;
-	}
-	else
-		final->heredoc = NULL;
+		final->files = NULL;
 	return (final);
 }
 
@@ -172,10 +96,7 @@ t_final	*struct_init(t_token **token)
 	t_final *final;
 	t_final *tmp;
 	int		opt_index;
-	int     in_index;
-	int     out_index;
-	int     aout_index;
-	int     heredoc_index;
+	int     files_index;
 
 	node = *token;
 	final = NULL;
@@ -183,7 +104,7 @@ t_final	*struct_init(t_token **token)
 	{
 		if (node == *token || node->type == PIPE)
 		{
-			(1) && (opt_index = 0, in_index = 0, out_index = 0, aout_index = 0, heredoc_index = 0);
+			(1) && (opt_index = 0, files_index = 0);
 			if (node->type == PIPE)
 				node = node->next;
 			tmp = init_final(&node);
@@ -198,13 +119,25 @@ t_final	*struct_init(t_token **token)
 					tmp->args[opt_index++] = ft_strdup(node->token);
 				}
 				else if (node->type == IN_FILE)
-					tmp->in_file[in_index++] = ft_strdup(node->token);
+				{
+					tmp->files[files_index++].file = ft_strdup(node->token);
+					tmp->files[files_index].type = IN_FILE;
+				}
 				else if (node->type == OUT_FILE)
-					tmp->out_file[out_index++] = ft_strdup(node->token);
+				{
+					tmp->files[files_index++].file = ft_strdup(node->token);
+					tmp->files[files_index].type = OUT_FILE;
+				}
 				else if (node->type == AOUT_FILE)
-					tmp->aout_file[aout_index++] = ft_strdup(node->token);
+				{
+					tmp->files[files_index++].file = ft_strdup(node->token);
+					tmp->files[files_index].type = AOUT_FILE;
+				}
 				else if (node->type == DELIMITER)
-					tmp->heredoc[heredoc_index++] = ft_strdup(node->token);
+				{
+					tmp->files[files_index++].file = ft_strdup(node->token);
+					tmp->files[files_index].type = DELIMITER;
+				}
 				node = node->next;
 			}
 			tmp->next = NULL;
