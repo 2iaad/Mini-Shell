@@ -6,16 +6,29 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/29 20:46:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/07 09:35:32 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+void	cmd_checker(t_final	**lst)
+{
+	char **str;
+	
+	str = ft_split((*lst)->cmd, ' ');
+	if (str[1])
+	{
+		ft_free((*lst)->final_cmd);
+		(*lst)->final_cmd = str;
+	}
+}
+
 void	builtins(t_final *lst, t_env *env_list, bool *flag)
 {
 	if (!lst->final_cmd[0])
 		return ;
+	cmd_checker(&lst); // incase there was export x="export y=salam"
     if (!ft_strncmp(lst->final_cmd[0], "echo", 4))
         echo(lst), *flag = true;
     if (!ft_strncmp(lst->final_cmd[0], "cd", 2))
