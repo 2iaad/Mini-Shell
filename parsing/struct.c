@@ -146,6 +146,14 @@ t_final	*struct_init(t_token **token)
 		else
 			node = node->next;
 	}
+	tmp->files[files_index++].type = 42;
+	/*
+	to loop over the files array:
+	while (files.type != 42)
+	{
+		....
+	}
+	 */
 	// print_final(final);
 	return (final);
 }

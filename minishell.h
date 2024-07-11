@@ -75,7 +75,6 @@ typedef struct s_file
 {
 	char	*file;
 	int		type;
-	struct	s_file	*next;
 }				t_file;
 
 typedef struct s_final
