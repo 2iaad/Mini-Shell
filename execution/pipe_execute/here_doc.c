@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/07 08:12:29 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:17:17 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ void	heredoc_expander(char **line, t_env *env)
 void	heredoc_limiter(char *DELIMITER, t_env *env, int fd)
 {
 	char	*line;
-	
+	t_file	*file;
+
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		// if (line[0] == '$' && line[1])
-		// {
-		// 	heredoc_expander(&line, env);
-		// }
+		if (line[0] == '$' && line[1] && file->flg == 0)
+			expand_herdoc(&line, env);
 		if (!ft_strncmp(line, DELIMITER, ft_strlen(DELIMITER)))
 		{
 			free (line);
