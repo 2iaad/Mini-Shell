@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/07 10:40:19 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/11 18:13:12 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,10 @@ t_final	*struct_init(t_token **token)
 				{
 					tmp->files[files_index++].file = ft_strdup(node->token);
 					tmp->files[files_index].type = DELIMITER;
+					if (node->flg == 1)
+						tmp->files[files_index].flg = 1;
+					else
+						tmp->files[files_index].flg = 0;
 				}
 				node = node->next;
 			}
