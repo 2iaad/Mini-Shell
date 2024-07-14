@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/13 19:44:06 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/15 00:30:43 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_final	*struct_init(t_token **token)
 
 	node = *token;
 	final = NULL;
+	files_index = -1;
 	while (node)
 	{
 		if (node == *token || node->type == PIPE)
@@ -119,9 +120,11 @@ t_final	*struct_init(t_token **token)
 		}
 		else
 			node = node->next;
+		if (files_index > 0)
+		{
+			tmp->files[files_index].type = 42;
+		}
 	}
-	if (files_index > 0)
-		tmp->files[files_index].type = 42;
 	/*
 	to loop over the files array:
 	while (files.type != 42)
