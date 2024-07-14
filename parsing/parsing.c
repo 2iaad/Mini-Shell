@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/02 10:17:37 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:08:10 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,9 @@ void	parce_line(t_final **final_cmd, t_env *env, char *line)
 	// wiil be removed afetr finishing
 	split = split_line(line);
 	tokenizer(split, &token, env);
-	token_quotes(&token);
 	// print_struct(token);
+	read_herdoc(token);
+	token_quotes(&token);
 	*final_cmd = struct_init(&token);
 	init_final_cmd(&final_cmd);
 	free(tmp);

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/07 11:20:11 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:56:37 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_token
 	char	*token;
 	int		type;
 	int		index;
+	int		flg;
 	struct	s_token	*next;
 }				t_token;
 
@@ -75,17 +76,13 @@ typedef struct s_file
 {
 	char	*file;
 	int		type;
-	struct	s_file	*next;
+	int		flg;
 }				t_file;
 
 typedef struct s_final
 {
 	char	*cmd;
 	char	**args;
-	// char	**in_file;
-	// char	**out_file;
-	// char	**aout_file;
-	// char	**heredoc;
 	char	**final_cmd;
 	t_file	*files;
 	struct	s_final *next;
@@ -154,7 +151,6 @@ int		valid_meta2(char *line, int i, int j, int valid);
 
 void	token_quotes(t_token **token);
 char	*remove_quotes(char *line);
-void	token_quotes(t_token **token);
 
 //*----------------------ADD_SPACE--------------------------*//
 
@@ -169,6 +165,8 @@ char	*trim_line(char *line);
 int		delimiters(char c);
 char	*expand_env(char *line, t_env *env);
 void	expanding(t_token *token, t_env *env);
+char	*expand_herdoc(char *line, t_env *env);
+void	read_herdoc(t_token *token);
 
 //*----------------------SYNTAX_ERROR---------------------------*//
 

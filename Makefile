@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
+#    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/07/06 13:33:07 by zderfouf         ###   ########.fr        #
+#    Updated: 2024/07/13 12:41:24 by ibouram          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c parsing/env_init.c main.c \
 				parsing/add_space.c parsing/syntax_error.c parsing/Tokenizer.c parsing/lin_list.c parsing/signals.c\
 				parsing/utils2.c parsing/expanding.c parsing/ft_split2.c parsing/remove_quotes.c parsing/struct.c \
+				parsing/her_doc_expd.c parsing/trim_line.c parsing/lin_list2.c \
 
 EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/builtins/exit.c execution/builtins/caller.c \
 				execution/builtins/export.c execution/builtins/pwd.c execution/builtins/unset.c \

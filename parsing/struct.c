@@ -6,42 +6,13 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/07 10:40:19 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/13 19:44:06 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // ls -la < lsls >> slsl -l | cat -e
-
-void print_final(t_final *final)
-{
-    t_final *tmp = final;
-    int i;
-
-    while (tmp)
-    {
-        printf("Command: %s\n", tmp->cmd);
-        printf("Options: ");
-        if (tmp->args)
-        {
-            for (i = 0; tmp->args[i]; i++)
-            {
-                printf("%s ", tmp->args[i]);
-            }
-        }
-        printf("\nFiles: ");
-        if (tmp->files)
-        {
-            for (i = 0; tmp->files[i].file; i++)
-            {
-                printf("%s (type: %d) ", tmp->files[i].file, tmp->files[i].type);
-            }
-        }
-        printf("\n");
-        tmp = tmp->next;
-    }
-}
 
 int	count_len(t_token *node, int type)
 {
@@ -82,7 +53,6 @@ t_final	*init_final(t_token **nodee)
 		final->files = malloc(sizeof(t_file) * (files_len + 1));
 		if (!final->files)
 			return (NULL);
-		final->files[files_len].file = NULL;
 	}
 	else
 		final->files = NULL;
@@ -92,11 +62,11 @@ t_final	*init_final(t_token **nodee)
 
 t_final	*struct_init(t_token **token)
 {
-	t_token *node;
-	t_final *final;
-	t_final *tmp;
+	t_token	*node;
+	t_final	*final;
+	t_final	*tmp;
 	int		opt_index;
-	int     files_index;
+	int		files_index;
 
 	node = *token;
 	final = NULL;
@@ -120,23 +90,27 @@ t_final	*struct_init(t_token **token)
 				}
 				else if (node->type == IN_FILE)
 				{
-					tmp->files[files_index++].file = ft_strdup(node->token);
-					tmp->files[files_index].type = IN_FILE;
+					tmp->files[files_index].file = ft_strdup(node->token);
+					tmp->files[files_index++].type = IN_FILE;
 				}
 				else if (node->type == OUT_FILE)
 				{
-					tmp->files[files_index++].file = ft_strdup(node->token);
-					tmp->files[files_index].type = OUT_FILE;
+					tmp->files[files_index].file = ft_strdup(node->token);
+					tmp->files[files_index++].type = OUT_FILE;
 				}
 				else if (node->type == AOUT_FILE)
 				{
-					tmp->files[files_index++].file = ft_strdup(node->token);
-					tmp->files[files_index].type = AOUT_FILE;
+					tmp->files[files_index].file = ft_strdup(node->token);
+					tmp->files[files_index++].type = AOUT_FILE;
 				}
 				else if (node->type == DELIMITER)
 				{
-					tmp->files[files_index++].file = ft_strdup(node->token);
-					tmp->files[files_index].type = DELIMITER;
+					tmp->files[files_index].file = ft_strdup(node->token);
+					tmp->files[files_index++].type = DELIMITER;
+					if (node->flg == 1)
+						tmp->files[files_index].flg = 1;
+					else
+						tmp->files[files_index].flg = 0;
 				}
 				node = node->next;
 			}
@@ -146,6 +120,14 @@ t_final	*struct_init(t_token **token)
 		else
 			node = node->next;
 	}
-	// print_final(final);
+	if (files_index > 0)
+		tmp->files[files_index].type = 42;
+	/*
+	to loop over the files array:
+	while (files.type != 42)
+	{
+		....
+	}
+	 */
 	return (final);
 }

@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:05:10 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/13 12:46:40 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	valid_meta2(char *line, int i, int j, int valid)
 			if (line[j] == quote)
 			{
 				in2 = j;
-				j++; // to skip the quote
+				j++;
 			}
 			if (i > in1 && i < in2)
 			{
@@ -78,7 +78,6 @@ int	valid_meta2(char *line, int i, int j, int valid)
 	}
 	return (valid);
 }
-
 
 int	check_quotes(char *line)
 {
@@ -102,5 +101,3 @@ int	check_quotes(char *line)
 	}
 	return (1);
 }
-
-
