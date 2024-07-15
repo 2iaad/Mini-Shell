@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/07 08:11:21 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:56:25 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ void	init_secfds(int *sec_fd)
 
 void	single_redirect(t_final *lst, t_env *env)
 {
-	if (lst->heredoc)
-		heredoc_opener(lst->heredoc, env, 1337);
-	if (lst->in_file)
-		infile_opener(lst->in_file);
-	if (lst->out_file)
-		outfile_opener(lst->out_file);
-	if (lst->aout_file)
-		aoutfile_opener(lst->aout_file);
+	in(lst->files);
+	out(lst->files);
 }

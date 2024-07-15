@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/07 11:22:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:02:05 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ char	*right_path(char **s_cmd, char **env)
 	}
 	return (ft_free(s_path), s_cmd[0]);
 }
-
-#include "string.h"
 
 void	execute_cmd(t_final	*lst, char **env)
 {

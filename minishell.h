@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/14 21:56:37 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:15:36 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_file
 	char	*file;
 	int		type;
 	int		flg;
+	bool	last;
 }				t_file;
 
 typedef struct s_final
@@ -211,10 +212,13 @@ char	*right_path(char **cmd, char **env);
 char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
 
-void	heredoc_opener(char **heredoc, t_env *env, int stdin_fd);
-void	infile_opener(char **infile);
-void	outfile_opener(char **outfile);
-void	aoutfile_opener(char **aout_file);
+
+bool file_checker(t_file *files, int type);
+void	parce_files(t_file **files);
+
+void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
+void	in(t_file *files);
+void	out(t_file *files);
 void	single_redirect(t_final *lst, t_env *env);
 void	init_secfds(int *sec_fd);
 void	multiple_helper(int *sec_fd, int exit_status);

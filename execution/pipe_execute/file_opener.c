@@ -1,109 +1,71 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   file_opener.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/29 14:40:40 by zderfouf         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+// /* ************************************************************************** */
+// /*                                                                            */
+// /*                                                        :::      ::::::::   */
+// /*   file_opener.c                                      :+:      :+:    :+:   */
+// /*                                                    +:+ +:+         +:+     */
+// /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+// /*                                                +#+#+#+#+#+   +#+           */
+// /*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
+// /*   Updated: 2024/07/15 10:35:01 by zderfouf         ###   ########.fr       */
+// /*                                                                            */
+// /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	infile_opener(char **infile)
+void	in(t_file *files)
 {
 	int i;
 	int	fd;
 
 	i = 0;
 	fd = 0;
-	while (infile && infile[i])
+	while (files && files[i].type != 42)
 	{
-		fd = open(infile[i], O_RDONLY, 0644);
-		if (fd == -1)
+		if (files[i].type == IN_FILE)
 		{
-			ft_putstr_fd("./minishell: no such file or directory: ", 2);
-			ft_putendl_fd(infile[i], 2);
-			exit(1);
+
+			fd = open(files[i].file, O_RDONLY, 0644);
+			if (fd == -1)
+			{
+				ft_putstr_fd("./minishell: no such file or directory: ", 2);
+				ft_putendl_fd(files[i].file, 2);
+				exit(1);
+			}
+			if (files[i].last == true)
+				if (dup2(fd, 0) == -1)
+					error("dup2", 1337);
+			close(fd);
 		}
-		if (!infile[i + 1])
-			if (dup2(fd, 0) == -1)
-				error("dup2", 1337);
-		close(fd);
 		i++;
 	}
 }
 
-void	outfile_opener(char **outfile)
+void	out(t_file *files)
 {
 	int i;
 	int	fd;
 
 	i = 0;
 	fd = 0;
-	while (outfile && outfile[i])
+	while (files && files[i].type != 42)
 	{
-		fd = open(outfile[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd == -1)
+		if (files[i].type == OUT_FILE || files[i].type == AOUT_FILE)
 		{
-			ft_putstr_fd("./minishell: no such file or directory: ", 2);
-			ft_putendl_fd(outfile[i], 2);
-			exit(1);
+			if (files[i].type == OUT_FILE)
+				fd = open(files[i].file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else if (files[i].type == AOUT_FILE)
+				fd = open(files[i].file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (fd == -1)
+			{
+				ft_putstr_fd("./minishell: no such file or directory: ", 2);
+				ft_putendl_fd(files[i].file, 2);
+				exit(1);
+			}
+			if (files[i].last == true)
+				if (dup2(fd, 1) == -1)
+					error("dup22222", 1337);
+			close(fd);
 		}
-		if (!outfile[i + 1])
-		{
-			if (dup2(fd, 1) == -1) // fd & stdout_fd ===refers to===> file opene == -1)
-				error("dup2", 1337);
-		}
-		close(fd); // close fd
 		i++;
 	}
 }
-
-void	aoutfile_opener(char **aoutfile)
-{
-	int i;
-	int	fd;
-
-	i = 0;
-	fd = 0;
-	while (aoutfile && aoutfile[i])
-	{
-		fd = open(aoutfile[i], O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd == -1)
-		{
-			ft_putstr_fd("./minishell: no such file or directory: ", 2);
-			ft_putendl_fd(aoutfile[i], 2);
-			exit(1);
-		}
-		if (!aoutfile[i + 1])
-			if (dup2(fd, 1) == -1) // fd & stdout_fd ===refers to===> file opene == -1)
-				error("dup2", 1337);
-		close(fd); // close fd
-		i++;
-	}
-}
-
-// void	outfiles(t_final	*lst)
-// {
-// 	int	i;
-// 	int fd;
-
-// 	i = 0;
-// 	while (lst->aout_file[i] && lst->out_file[i])
-// 	{
-// 		if (lst->out_file[i])
-// 			fd = open(lst->out_file[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 		else
-// 		 	fd = open(lst->aout_file[i], O_WRONLY | O_CREAT | O_APPEND, 0644);
-// 		if (fd == -1)
-// 		{
-// 			ft_putstr_fd("./minishell: no such file or directory: ", 2);
-// 			ft_putendl_fd("SMIT LFILE", 2);
-// 			exit(1);
-// 		}
-// 		i++;
-// 	}
-// }
