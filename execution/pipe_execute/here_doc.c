@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/16 10:09:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:11:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,16 @@ void	heredoc_opener(t_file **files, t_env *env, int stdin_fd)
 	int		flag;
 	char	*filename;
 
-	i = 0;
-	if (!file_checker(*files, DELIMITER))
-		return ;
+	i = -1;
 	if (dup2(stdin_fd, 0) == -1)
 		error("dup2", 1337);
-	while ((*files) && (*files)[i + 1].type != 42)
-	{
+	if (!file_checker(*files, DELIMITER))
+		return ;
+	final_heredoc(*files, &flag); // kanflagi last heredoc
+	while ((*files) && (*files)[++i].type != 42 && i < flag) // kanreadi 7tal akhir heredoc
 		if ((*files)[i].type == DELIMITER)
 			heredoc_limiter((*files)[i].file, env, 1337);
-		i++;
-	}
-	if ((*files)[i].type == DELIMITER)
-	{
-		heredoc_maker(&filename, (*files)[i].file, env);
-		(*files)[i].file = filename;
-		(*files)[i].type = IN_FILE;
-	}
+	heredoc_maker(&filename, (*files)[flag].file, env); // last one anopenih
+	(*files)[flag].file = filename; // nrdo IN_FILE bash nopenin f in() function
+	(*files)[flag].type = IN_FILE;
 }

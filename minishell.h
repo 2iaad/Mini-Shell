@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/16 10:09:52 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:11:46 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ ziad:
 		use-after-free when unsetting the first element of the env_list
 		ls > a > b < c > d > r
 		mat Makefile | cat << salam
-		< c.c cat << salam | grep ziad << allo
 */
 
 typedef struct s_env
@@ -215,8 +214,10 @@ bool	file_checker(t_file *files, int type);
 void	parce_files(t_final **lst);
 
 char	*name_heredoc(char *heredoc);
+void	final_heredoc(t_file *files, int *flag);
 void	reset_offset(char *filename, int fd);
 void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
+
 void	in(t_file *files);
 void	out(t_file *files);
 void	single_redirect(t_final *lst, t_env *env);

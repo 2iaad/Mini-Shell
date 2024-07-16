@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:14:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/16 09:15:22 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:11:27 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ char	*name_heredoc(char *heredoc)
 	free(tmp);
 	free(num);
 	return (filename);
+}
+
+void	final_heredoc(t_file *files, int *flag)
+{
+	int	i;
+
+	i = 0;
+	while (files && files[i].type != 42)
+	{
+		if (files[i].type == DELIMITER)
+			*flag = i;
+		i++;
+	}
 }
 
 void	reset_offset(char *filename, int fd)

@@ -19,8 +19,8 @@ void	in(t_file *files)
 
 	i = 0;
 	fd = 0;
-	// if (!file_checker(files, IN_FILE))
-	// 	return ;
+	if (!file_checker(files, IN_FILE))
+		return ;
 	while (files && files[i].type != 42)
 	{
 		if (files[i].type == IN_FILE)
