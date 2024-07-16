@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/15 19:15:36 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:09:52 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ ziad:
 
 		< a export a="ls -la"
 		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
-		echo HELLO > a >> b > c
 		use-after-free when unsetting the first element of the env_list
 		ls > a > b < c > d > r
 		mat Makefile | cat << salam
-		<< a cat -e | << a
+		< c.c cat << salam | grep ziad << allo
 */
 
 typedef struct s_env
@@ -212,10 +211,11 @@ char	*right_path(char **cmd, char **env);
 char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
 
+bool	file_checker(t_file *files, int type);
+void	parce_files(t_final **lst);
 
-bool file_checker(t_file *files, int type);
-void	parce_files(t_file **files);
-
+char	*name_heredoc(char *heredoc);
+void	reset_offset(char *filename, int fd);
 void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
 void	in(t_file *files);
 void	out(t_file *files);
@@ -227,6 +227,7 @@ void	multiple_helper(int *sec_fd, int exit_status);
 void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env *env, int *fds, char **envp, int sec_fd);
 void	execute_cmd(t_final	*lst, char **env);
+
 
 
 

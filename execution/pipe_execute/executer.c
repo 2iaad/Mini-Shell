@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/15 18:52:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/16 09:00:30 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	single(t_final *lst, t_env *env, char **envp)
 	bool	flag;
 	int		sec_fd[2];
 
+	flag = false;
 	sec_fd[0] = dup(0);
 	sec_fd[1] = dup(1);
-	flag = false;
 	heredoc_opener(&lst->files, env, sec_fd[0]);
 	single_redirect(lst, env);
 	builtins(lst, env, &flag);
@@ -65,7 +65,7 @@ void	single(t_final *lst, t_env *env, char **envp)
 
 void	execution(t_final *lst, t_env *env, char **envp)
 {
-	parce_files(&lst->files);
+	parce_files(&lst);
 	if (lst->next)
 		multiple(lst, env, envp);
 	else

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 15:55:06 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/15 19:35:07 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/16 08:37:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_l_files(char **l_in, char **l_out, t_file *files)
 	}
 }
 
-void	parce_files(t_file **files)
+void	identify_files(t_file **files)
 {
 	int		i;
 	char	*l_in;
@@ -66,5 +66,17 @@ void	parce_files(t_file **files)
 		else
 			(*files)[i].last = false;
 		i++;
+	}
+}
+
+void	parce_files(t_final **lst)
+{
+	t_final *tmp;
+
+	tmp = *lst;
+	while (tmp)
+	{
+		identify_files(&tmp->files);
+		tmp = tmp->next;
 	}
 }

@@ -19,11 +19,12 @@ void	in(t_file *files)
 
 	i = 0;
 	fd = 0;
+	// if (!file_checker(files, IN_FILE))
+	// 	return ;
 	while (files && files[i].type != 42)
 	{
 		if (files[i].type == IN_FILE)
 		{
-
 			fd = open(files[i].file, O_RDONLY, 0644);
 			if (fd == -1)
 			{
@@ -63,7 +64,7 @@ void	out(t_file *files)
 			}
 			if (files[i].last == true)
 				if (dup2(fd, 1) == -1)
-					error("dup22222", 1337);
+					error("dup2", 1337);
 			close(fd);
 		}
 		i++;

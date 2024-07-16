@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/15 19:32:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:09:44 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,62 +35,39 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd)
 	}
 }
 
-char	*name_heredoc(char *heredoc)
+void	heredoc_maker(char **filename, char *DELIMITER, t_env *env)
 {
-	char	*tmp;
-	char	*num;
-	char	*filename;
+	int		fd;
 	
-	tmp = ft_strjoin("/tmp/.", heredoc);
-	num = ft_itoa(*(int *)&tmp);
-	filename = ft_strjoin(tmp, num);
-	free(tmp);
-	free(num);
-	return (filename);
-}
-
-void	reset_offset(char *filename, int fd)
-{
-	close(fd);
-	fd = open(filename, O_RDONLY | O_CREAT, 0644);
-	// if (unlink(filename) == -1)
-	// 	error("unlink", 1337);
+	*filename = name_heredoc(DELIMITER);
+	fd = open(*filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		error("open", 1337);
-	close(fd);
+	heredoc_limiter(DELIMITER, env, fd); // here heredoc[i] atkoun katpointi 3la akhir delimiter
+	reset_offset(*filename, fd);
 }
-
 
 void	heredoc_opener(t_file **files, t_env *env, int stdin_fd)
 {
 	int		i;
 	int		flag;
-	int		fd;
 	char	*filename;
 
 	i = 0;
-	// printf("%s", (*files)[i].file);
-	// exit(1);
 	if (!file_checker(*files, DELIMITER))
 		return ;
-	i = 0;
-	if (stdin_fd != 1337)
-		if (dup2(stdin_fd, 0) == -1)
-			error("dup2", 1337);
+	if (dup2(stdin_fd, 0) == -1)
+		error("dup2", 1337);
 	while ((*files) && (*files)[i + 1].type != 42)
 	{
 		if ((*files)[i].type == DELIMITER)
 			heredoc_limiter((*files)[i].file, env, 1337);
 		i++;
 	}
-	filename = name_heredoc((*files)[i].file);
-	
-	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-		error("open", 1337);
-	heredoc_limiter((*files)[i].file, env, fd); // here heredoc[i] atkoun katpointi 3la akhir delimiter
-	close(fd);
-	reset_offset(filename, fd);
-	(*files)[i].file = filename;
-	(*files)[i].type = IN_FILE;
+	if ((*files)[i].type == DELIMITER)
+	{
+		heredoc_maker(&filename, (*files)[i].file, env);
+		(*files)[i].file = filename;
+		(*files)[i].type = IN_FILE;
+	}
 }
