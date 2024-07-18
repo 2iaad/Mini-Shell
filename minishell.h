@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/18 10:38:48 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:10:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,10 +218,12 @@ void	final_heredoc(t_file *files, int *flag);
 void	reset_offset(char *filename, int fd);
 void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
 
-void	in(t_file *files);
-void	out(t_file *files);
-bool	b_in(t_file *files);
-bool	b_out(t_file *files);
+void	in(char *infile, bool last);
+void	out(char *outfile, int type, bool last);
+bool	file_opener(t_file *files);
+bool	b_in(char *infile, bool last);
+bool	b_out(char *outfile, int type, bool last);
+bool	b_file_opener(t_file *files);
 void	init_secfds(int *sec_fd);
 void	multiple_helper(int *sec_fd, int exit_status);
 

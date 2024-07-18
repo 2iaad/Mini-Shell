@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/18 09:35:34 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:11:40 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	single(t_final *lst, t_env *env, char **envp)
 
 	init_secfds(sec_fd);
 	// heredoc_opener(&lst->files, env, sec_fd[0]);
-	if (!b_in(lst->files) || !b_out(lst->files))
+	if (!b_file_opener(lst->files))
 		return ;
 	if (!builtins(lst, env)) // ila makantch command builtin
 	{
