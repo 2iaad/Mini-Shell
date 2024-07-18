@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/18 10:38:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:47:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ void	cmd_checker(t_final	**lst)
 {
 	char **str;
 	
+	if (!(*lst)->final_cmd[0] || !(*lst)->final_cmd[0][0])
+		return ;
 	str = ft_split((*lst)->cmd, ' ');
+	if (!str)
+		return ;
 	if (str[1])
 	{
 		ft_free((*lst)->final_cmd);
