@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/18 08:44:01 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:38:00 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	builtins(t_final *lst, t_env *env_list)
     if (!ft_strncmp(lst->final_cmd[0], "echo", 4))
         return (echo(lst), (true));
     if (!ft_strncmp(lst->final_cmd[0], "cd", 2))
-        return (cd(lst, &env_list), (true));
+        return (cd(lst, env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "pwd", 3))
         return (pwd(), (true));
     if (!ft_strncmp(lst->final_cmd[0], "export", 6))

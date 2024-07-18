@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/02 11:42:29 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:28:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@
 void	ft_free_node(t_env *node)
 {
 	free(node->key);
+	node->key = NULL;
 	free(node->value);
+	node->value = NULL;
 	free(node);
+	node = NULL;
 }
 
 void	free_first_node(t_env **env_list)

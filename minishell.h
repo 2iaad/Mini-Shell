@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/18 09:46:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:38:48 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int		count_len(t_token *node, int type);
 bool	builtins(t_final *lst, t_env *env_list);
 void    execution(t_final *lst, t_env *env, char **envp);
 void    echo(t_final	*lst);
-void    cd(t_final	*lst, t_env **env);
+void    cd(t_final	*lst, t_env *env);
 void    pwd(void);
 void    env(t_final	*lst, t_env *env_list);
 void	unset(t_final	*lst, t_env *env_list);
