@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/07 11:22:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 08:44:01 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,24 @@ void	cmd_checker(t_final	**lst)
 		ft_free(str);
 }
 
-void	builtins(t_final *lst, t_env *env_list, bool *flag)
+bool	builtins(t_final *lst, t_env *env_list)
 {
 	if (!lst->final_cmd[0])
-		return ;
+		return false;
 	cmd_checker(&lst); // incase there was export x="export y=salam"
     if (!ft_strncmp(lst->final_cmd[0], "echo", 4))
-        echo(lst), *flag = true;
+        return (echo(lst), (true));
     if (!ft_strncmp(lst->final_cmd[0], "cd", 2))
-        cd(lst, &env_list), *flag = true;
+        return (cd(lst, &env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "pwd", 3))
-        pwd(), *flag = true;
+        return (pwd(), (true));
     if (!ft_strncmp(lst->final_cmd[0], "export", 6))
-        export_command(lst, &env_list), *flag = true;
+        return (export_command(lst, &env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "unset", 5))
-        unset(lst, env_list), *flag = true;
+        return (unset(lst, env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "env", 3))
-        env(lst, env_list), *flag = true;
+        return (env(lst, env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "exit", 4))
-        exit_command(lst->final_cmd), *flag = true;
+        return (exit_command(lst->final_cmd), (true));
+	return (false);
 }

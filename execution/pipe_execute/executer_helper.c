@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/15 16:56:25 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 09:37:33 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <stdbool.h>
 
 void	multiple_helper(int *sec_fd, int exit_status)
 {
@@ -28,8 +29,3 @@ void	init_secfds(int *sec_fd)
 		error("dup", 1337);
 }
 
-void	single_redirect(t_final *lst, t_env *env)
-{
-	in(lst->files);
-	out(lst->files);
-}

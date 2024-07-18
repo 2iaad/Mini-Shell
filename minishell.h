@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/16 12:11:46 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 09:46:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ int		count_len(t_token *node, int type);
 
 // void	merg_cmd(t_final	***lst);
 
-void	builtins(t_final *lst, t_env *env_list, bool *flag);
+bool	builtins(t_final *lst, t_env *env_list);
 void    execution(t_final *lst, t_env *env, char **envp);
 void    echo(t_final	*lst);
 void    cd(t_final	*lst, t_env **env);
@@ -220,7 +220,8 @@ void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
 
 void	in(t_file *files);
 void	out(t_file *files);
-void	single_redirect(t_final *lst, t_env *env);
+bool	b_in(t_file *files);
+bool	b_out(t_file *files);
 void	init_secfds(int *sec_fd);
 void	multiple_helper(int *sec_fd, int exit_status);
 

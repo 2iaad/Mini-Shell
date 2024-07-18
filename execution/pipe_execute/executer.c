@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/16 09:00:30 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 09:35:34 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	multiple(t_final *lst, t_env *env, char **envp)
 	while (lst)
 	{
 		pipe_cmd(lst, &fds[0][0], 0);
-		heredoc_opener(&lst->files, env, fds[1][0]);
+		// heredoc_opener(&lst->files, env, fds[1][0]);
 		pid = fork();
 		if (pid == -1)
 			error("fork", 1337);
@@ -37,20 +37,16 @@ void	multiple(t_final *lst, t_env *env, char **envp)
 	multiple_helper(fds[1], exit_status);
 }
 
-
 void	single(t_final *lst, t_env *env, char **envp)
 {
 	pid_t	pid;
-	bool	flag;
 	int		sec_fd[2];
 
-	flag = false;
-	sec_fd[0] = dup(0);
-	sec_fd[1] = dup(1);
-	heredoc_opener(&lst->files, env, sec_fd[0]);
-	single_redirect(lst, env);
-	builtins(lst, env, &flag);
-	if (!flag) // ila makantch command builtin
+	init_secfds(sec_fd);
+	// heredoc_opener(&lst->files, env, sec_fd[0]);
+	if (!b_in(lst->files) || !b_out(lst->files))
+		return ;
+	if (!builtins(lst, env)) // ila makantch command builtin
 	{
 		pid = fork();
 		if (!pid)
@@ -59,8 +55,9 @@ void	single(t_final *lst, t_env *env, char **envp)
 		 	wait(NULL);
 	}
 	dup2(sec_fd[0], 0);
-	dup2(sec_fd[1], 1);
-	
+	dup2(sec_fd[1], 1);	
+	close(sec_fd[0]);
+	close(sec_fd[1]);
 }
 
 void	execution(t_final *lst, t_env *env, char **envp)
@@ -71,34 +68,3 @@ void	execution(t_final *lst, t_env *env, char **envp)
 	else
 	 	single(lst, env, envp);
 }
-
-	// while (lst)
-	// {
-	// 	printf("CMD: %s\n", lst->final_cmd[0]);
-	// 	printf("OPTIONS: ");
-	// 	for (int i = 1; lst->final_cmd[i]; i++)
-	// 		printf("%s ", lst->final_cmd[i]);
-	// 	printf("\n");
-	// 	if (lst->files)
-	// 	{
-	// 		int j = 0;
-	// 		while (lst->files[j].type != 42)
-	// 		{
-	// 			printf("file: %s\n", lst->files[j].file);
-	// 			printf("type: ");
-	// 			if (lst->files[j].type == IN_FILE)
-	// 				printf("IN_FILE\n");
-	// 			else if (lst->files[j].type == OUT_FILE)
-	// 				printf("OUT_FILE\n");
-	// 			else if (lst->files[j].type == AOUT_FILE)
-	// 				printf("AOUT_FILE\n");
-	// 			else if (lst->files[j].type == DELIMITER)
-	// 				printf("DELIMITER\n");
-	// 			printf("is last: --->%s\n", lst->files[j].last ?"true":"false");
-	// 			j++;
-	// 		}
-	// 			printf("ss\n");
-	// 	}
-	// 	printf("\n=========================================\n");
-	// 	lst = lst->next;
-	// }
