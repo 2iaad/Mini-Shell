@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/30 03:17:40 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:31:37 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	valid_check(char *str)
 	}
 	while (str[++i])
 	{
+		if (i == (ft_strlen(str) - 1))
+			if (((ft_isalpha(str[i]) 
+			||  str[i] == '+')
+			&& !(str[i] >= '0' && str[i] <= '9')))
+				continue ;
 		if (!(ft_isalpha(str[i]) && !(str[i] >= '0' && str[i] <= '9')))
 		{
 			write(2, "export: `", 9);
