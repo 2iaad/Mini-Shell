@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/15 17:02:05 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:56:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,42 @@ char	*right_path(char **s_cmd, char **env)
 	return (ft_free(s_path), s_cmd[0]);
 }
 
-void	execute_cmd(t_final	*lst, char **env)
+void	env_maker(t_env *envp, char ***env)
+{
+	int		i;
+	char	*str[2];
+	t_env	*tmp;
+
+	(1 == 1) && ((tmp = envp) && (i = 0));
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	*env = (char **) malloc (sizeof(char *) * (i + 1));
+	if (!*env)
+		return ;
+	tmp = envp;
+	i = 0;
+	while (tmp)
+	{
+		str[0] = ft_strdup(tmp->key);
+		str[1] = ft_strjoin(str[0], "=");
+		(*env)[i] = ft_strjoin(str[1], tmp->value);
+		free(str[0]);
+		free(str[1]);
+		tmp = tmp->next;
+		i++;
+	}
+	(*env)[i] = NULL;
+}
+
+void	execute_cmd(t_final	*lst, t_env *envp)
 {
 	char	*path;
+	char	**env;
 
+	env_maker(envp, &env);
 	if (!lst->final_cmd[0]) // in the case "< $PWD"
 		exit(0);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
