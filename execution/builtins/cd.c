@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/03 08:41:48 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:06:27 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ char	*home_path(t_env	*env)
 	return (NULL);
 }
 
-void	update_pwd(t_env	*env) // update pwd and oldpwd variables after using cd
+void	update_pwd(t_env	**env) // update pwd and oldpwd variables after using cd
 {
 	char	*oldpwd;
 	t_env	*tmp;
 
-	tmp = env;
+	(1 == 1) && ((tmp = *env) && (oldpwd = NULL));
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, "PWD", 3))
@@ -50,7 +50,7 @@ void	update_pwd(t_env	*env) // update pwd and oldpwd variables after using cd
 		}
 		tmp = tmp->next;
 	}
-	tmp = env;
+	tmp = *env;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, "OLDPWD", 6))
@@ -62,13 +62,13 @@ void	update_pwd(t_env	*env) // update pwd and oldpwd variables after using cd
 	}
 }
 
-void    cd(t_final	*lst, t_env **env)
+void    cd(t_final	*lst, t_env *env)
 {
 	char	*dir;
 
 	if (!lst->final_cmd[1]|| !lst->final_cmd[1][0]
 	|| !ft_strncmp(lst->final_cmd[1], ".", ft_strlen(lst->final_cmd[1]))) // cd || cd $ladksfj || cd .
-		dir = home_path(*env); // kan9leb 3la HOME
+		dir = home_path(env); // kan9leb 3la HOME
 	else
 	 	dir = lst->final_cmd[1];
 
@@ -76,7 +76,7 @@ void    cd(t_final	*lst, t_env **env)
 	{
 		if (chdir(dir) == -1)
 			return (perror("chdir"));
-		update_pwd(*env); // update the PWD and the OLDPWD in the env variables after dir change
+		update_pwd(&env); // update the PWD and the OLDPWD in the env variables after dir change
 	}
 	else
 	{

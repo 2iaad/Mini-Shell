@@ -6,25 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/11 20:15:03 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:10:26 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-// void	exit_status(t_list	*lst, char *str)
-// {
-// 	int i;
-
-// 	(void)lst;
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '$' && str[i + 1] == '?')
-// 			printf("khasni mprinti exit status deyal last command executed");
-// 		i++;
-// 	}
-// }
 
 void    echo(t_final	*lst)
 {
@@ -43,11 +29,12 @@ void    echo(t_final	*lst)
 	}
 	while (lst->final_cmd[i]) // printf the strings that come after the "-nn"
 	{
-		printf("%s", lst->final_cmd[i]);
+		// printf("%s", lst->final_cmd[i]);
+		ft_putstr_fd(lst->final_cmd[i], 1);
 		if (lst->final_cmd[i + 1])
-			printf(" ");
+			write(1, " ", 1);
 		i++;
 	}
 	if (flag) // if there is no flag (flag != 0) then write "\n"
-		printf("\n");
+		write(1, "\n", 1);
 }

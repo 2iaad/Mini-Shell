@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
+#    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/07/13 12:41:24 by ibouram          ###   ########.fr        #
+#    Updated: 2024/07/18 09:32:00 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,13 @@ PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c parsing/env_init
 				parsing/her_doc_expd.c parsing/trim_line.c parsing/lin_list2.c \
 
 EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/builtins/exit.c execution/builtins/caller.c \
-				execution/builtins/export.c execution/builtins/pwd.c execution/builtins/unset.c \
+				execution/builtins/export.c execution/builtins/pwd.c execution/builtins/unset.c execution/pipe_execute/heredoc_helper.c \
 				execution/tools/equals_spliter.c execution/tools/helper_utils.c execution/pipe_execute/executer.c \
 				execution/tools/lst_utils.c execution/tools/mini_utils.c execution/tools/split.c execution/tools/string_utils.c \
-				execution/pipe_execute/exec_tools.c execution/pipe_execute/file_opener.c execution/pipe_execute/here_doc.c \
-				execution/pipe_execute/pipex.c execution/pipe_execute/executer_helper.c \
+				execution/pipe_execute/exec_tools.c execution/pipe_execute/file_opener.c execution/pipe_execute/heredoc.c \
+				execution/pipe_execute/pipex.c execution/pipe_execute/executer_helper.c execution/pipe_execute/file_helper.c \
+				execution/pipe_execute/file_opener2.c \
+				
 
 RM = rm -rf
 NAME = minishell

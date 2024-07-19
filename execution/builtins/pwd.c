@@ -6,13 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:09:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/03 10:07:55 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:30:35 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <stdbool.h>
-#include <stdio.h>
 
 void    pwd(void)
 {

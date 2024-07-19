@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/30 03:17:40 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/19 08:35:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,15 @@ int	valid_check(char *str)
 	{
 		write(2, "export: `", 9);
 		ft_putstr_fd(str, 2);
-		write(2, "': not a valide identifier\n", 27);
-		return (0);
+		return (write(2, "': not a valide identifier\n", 27), 0);
 	}
 	while (str[++i])
 	{
-		if (!(ft_isalpha(str[i]) && !(str[i] >= '0' && str[i] <= '9')))
+		if (i == (ft_strlen(str) - 1))
+			if (((ft_isalpha(str[i]) ||  str[i] == '+')
+			&& !(str[i] >= '0' && str[i] <= '9')))
+				continue ;
+		if (!((ft_isalpha(str[i]) || (str[i] >= '0' && str[i] <= '9'))))
 		{
 			write(2, "export: `", 9);
 			ft_putstr_fd(str, 2);

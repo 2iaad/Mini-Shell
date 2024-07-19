@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/13 09:29:39 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/19 09:31:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ ziad:
 
 		< a export a="ls -la"
 		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
-		echo HELLO > a >> b > c
 		use-after-free when unsetting the first element of the env_list
 		ls > a > b < c > d > r
 		mat Makefile | cat << salam
-		<< a cat -e | << a
 */
 
 typedef struct s_env
@@ -77,6 +75,7 @@ typedef struct s_file
 	char	*file;
 	int		type;
 	int		flg;
+	bool	last;
 }				t_file;
 
 typedef struct s_final
@@ -194,10 +193,10 @@ int		count_len(t_token *node, int type);
 
 // void	merg_cmd(t_final	***lst);
 
-void	builtins(t_final *lst, t_env *env_list, bool *flag);
-void    execution(t_final *lst, t_env *env, char **envp);
+bool	builtins(t_final *lst, t_env *env_list);
+void    execution(t_final *lst, t_env *env);
 void    echo(t_final	*lst);
-void    cd(t_final	*lst, t_env **env);
+void    cd(t_final	*lst, t_env *env);
 void    pwd(void);
 void    env(t_final	*lst, t_env *env_list);
 void	unset(t_final	*lst, t_env *env_list);
@@ -208,23 +207,29 @@ void	exit_command(char **cmd);
 
 void	init_env(t_env **env_list, char **env);
 char	*right_path(char **cmd, char **env);
-char	*right_path(char **s_cmd, char **env);
 char	*look_for_paths(char **ev);
 
-void	heredoc_opener(char **heredoc, t_env *env, int stdin_fd);
-void	infile_opener(char **infile);
-void	outfile_opener(char **outfile);
-void	aoutfile_opener(char **aout_file);
-void	single_redirect(t_final *lst, t_env *env);
+bool	file_checker(t_file *files, int type);
+void	parce_files(t_final **lst);
+
+char	*name_heredoc(char *heredoc);
+void	final_heredoc(t_file *files, int *flag);
+void	reset_offset(char *filename, int fd);
+void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
+
+void	in(char *infile, bool last);
+void	out(char *outfile, int type, bool last);
+bool	file_opener(t_file *files);
+bool	b_in(char *infile, bool last);
+bool	b_out(char *outfile, int type, bool last);
+bool	b_file_opener(t_file *files);
 void	init_secfds(int *sec_fd);
 void	multiple_helper(int *sec_fd, int exit_status);
 
 
 void	pipe_cmd(t_final *lst, int *fds, int flag);
-void	child(t_final *lst, t_env *env, int *fds, char **envp, int sec_fd);
-void	execute_cmd(t_final	*lst, char **env);
-
-
+void	child(t_final *lst, t_env *env, int *fds, int sec_fd);
+void	execute_cmd(t_final	*lst, t_env *envp);
 
 void	error(char *str, int a);
 

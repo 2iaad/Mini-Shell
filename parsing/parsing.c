@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/17 13:59:45 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/19 10:30:29 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,6 @@ void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 		}
 		add_history(line);
 		parce_line(&final_cmd, env_list, line);
-		execution(final_cmd, env_list, envp); // pass &env_list here
+		execution(final_cmd, env_list); // pass &env_list here
 	}
 }

@@ -6,28 +6,48 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/29 20:46:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:47:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	builtins(t_final *lst, t_env *env_list, bool *flag)
+void	cmd_checker(t_final	**lst)
+{
+	char **str;
+	
+	if (!(*lst)->final_cmd[0] || !(*lst)->final_cmd[0][0])
+		return ;
+	str = ft_split((*lst)->cmd, ' ');
+	if (!str)
+		return ;
+	if (str[1])
+	{
+		ft_free((*lst)->final_cmd);
+		(*lst)->final_cmd = str;
+	}
+	else
+		ft_free(str);
+}
+
+bool	builtins(t_final *lst, t_env *env_list)
 {
 	if (!lst->final_cmd[0])
-		return ;
+		return false;
+	cmd_checker(&lst); // incase there was export x="export y=salam"
     if (!ft_strncmp(lst->final_cmd[0], "echo", 4))
-        echo(lst), *flag = true;
+        return (echo(lst), (true));
     if (!ft_strncmp(lst->final_cmd[0], "cd", 2))
-        cd(lst, &env_list), *flag = true;
+        return (cd(lst, env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "pwd", 3))
-        pwd(), *flag = true;
+        return (pwd(), (true));
     if (!ft_strncmp(lst->final_cmd[0], "export", 6))
-        export_command(lst, &env_list), *flag = true;
+        return (export_command(lst, &env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "unset", 5))
-        unset(lst, env_list), *flag = true;
+        return (unset(lst, env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "env", 3))
-        env(lst, env_list), *flag = true;
+        return (env(lst, env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "exit", 4))
-        exit_command(lst->final_cmd), *flag = true;
+        return (exit_command(lst->final_cmd), (true));
+	return (false);
 }
