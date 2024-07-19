@@ -6,20 +6,14 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/11 18:08:10 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/17 13:59:45 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-// ****TO DO****
 
-// 5. NORMINETTE
-// 6. SIGNALS
-// 7. exit status
-// $d | ls
-//export A="d d" | echo $A
-// z"" z " "
-//  sss $USER_ SS
+// exit f syntx error + check herdoc
+//cat << salam >>>
+#include "../minishell.h"
 
 char	**merg_cmd(t_final	*lst)
 {
@@ -27,7 +21,7 @@ char	**merg_cmd(t_final	*lst)
 	char	**full_cmd;
 
 	i = 0;
-	while ((lst)->args && ((lst))->args[i]) // check if (lst)->args true incase there was only one argument "ls" there wont be any args then
+	while ((lst)->args && ((lst))->args[i])
 		i++;
 	full_cmd = (char **) malloc (sizeof(char *) * (i + 2));
 	full_cmd[0] = ft_strdup((lst)->cmd);
