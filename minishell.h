@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/20 04:51:29 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:58:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 
 //*----------------------------------PARSING--------------------------------------------------------------*//
 
-void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp);
+void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp);
 void	parce_line(t_final **final_cmd, t_env *env, char *line);
 char	*parse_protec(char *line);
 void	init_signals(void);
@@ -197,13 +197,13 @@ int		count_len(t_token *node, int type);
 
 // void	merg_cmd(t_final	***lst);
 
-bool	builtins(t_final *lst, t_env *env_list);
-void    execution(t_final *lst, t_env *env);
+bool	builtins(t_final *lst, t_env **env_list);
+void    execution(t_final *lst, t_env **env);
 void    echo(t_final	*lst);
 void    cd(t_final	*lst, t_env *env);
 void    pwd(void);
 void    env(t_final	*lst, t_env *env_list);
-void	unset(t_final	*lst, t_env *env_list);
+void	unset(t_final	*lst, t_env **env_list);
 void	export_command(t_final *lst, t_env **env_list);
 void	exit_command(char **cmd);
 
@@ -232,7 +232,7 @@ void	multiple_helper(int *sec_fd, int exit_status);
 
 
 void	pipe_cmd(t_final *lst, int *fds, int flag);
-void	child(t_final *lst, t_env *env, int *fds, int sec_fd);
+void	child(t_final *lst, t_env **env, int *fds, int sec_fd);
 void	execute_cmd(t_final	*lst, t_env *envp);
 
 void	error(char *str, int a);

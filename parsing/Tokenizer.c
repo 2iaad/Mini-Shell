@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/10 02:45:16 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/20 05:05:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 
 t_token	*ft_get_token(char *content, int type)
 {
@@ -119,6 +120,8 @@ void    tokenizer_3(t_token **token)
             cmd_found = 0;
             while (node && node->type != PIPE)
             {
+				// if (node->type >= 4 && node->type <= 7)
+				// 	node = node->next->next;
                 if (node->type == WORD)
                 {
                     if (cmd_found == 0)
@@ -129,7 +132,7 @@ void    tokenizer_3(t_token **token)
                     else
                         node->type = OPTION;
                 }
-                node = node->next;
+				node = node->next;
             }
         }
 		else

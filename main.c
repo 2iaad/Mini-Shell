@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 15:07:28 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 16:17:32 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:54:52 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int main (int ac, char **av, char **envp)
 		return (1);
 	}
 	init_env(&env_list, envp);
-	read_from_input(&final_cmd, env_list, envp);
+	read_from_input(&final_cmd, &env_list, envp);
 }

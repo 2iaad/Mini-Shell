@@ -6,13 +6,13 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/19 10:08:14 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:58:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	multiple(t_final *lst, t_env *env)
+void	multiple(t_final *lst, t_env **env)
 {
 	pid_t	pid;
 	int		exit_status;
@@ -22,7 +22,7 @@ void	multiple(t_final *lst, t_env *env)
 	while (lst)
 	{
 		pipe_cmd(lst, &fds[0][0], 0);
-		// heredoc_opener(&lst->files, env, fds[1][0]);
+		heredoc_opener(&lst->files, *env, fds[1][0]);
 		pid = fork();
 		if (pid == -1)
 			error("fork", 1337);
@@ -37,20 +37,20 @@ void	multiple(t_final *lst, t_env *env)
 	multiple_helper(fds[1], exit_status);
 }
 
-void	single(t_final *lst, t_env *env)
+void	single(t_final *lst, t_env **env)
 {
 	pid_t	pid;
 	int		sec_fd[2];
 
 	init_secfds(sec_fd);
-	// heredoc_opener(&lst->files, env, sec_fd[0]);
+	heredoc_opener(&lst->files, *env, sec_fd[0]);
 	if (!b_file_opener(lst->files))
 		return ;
 	if (!builtins(lst, env)) // ila makantch command builtin
 	{
 		pid = fork();
 		if (!pid)
-			execute_cmd(lst, env);
+			execute_cmd(lst, *env);
 		else
 		 	wait(NULL);
 	}
@@ -60,7 +60,7 @@ void	single(t_final *lst, t_env *env)
 	close(sec_fd[1]);
 }
 
-void	execution(t_final *lst, t_env *env)
+void	execution(t_final *lst, t_env **env)
 {
 	parce_files(&lst);
 	if (lst->next)

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/18 08:22:36 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/20 03:56:44 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	heredoc_opener(t_file **files, t_env *env, int stdin_fd)
 	char	*filename;
 
 	i = -1;
-	if (dup2(stdin_fd, 0) == -1)
-		error("dup2", 1337);
 	if (!file_checker(*files, DELIMITER))
 		return ;
+	if (dup2(stdin_fd, 0) == -1)
+		error("dup2", 1337);
 	final_heredoc(*files, &flag); // kanflagi last heredoc
 	while ((*files) && (*files)[++i].type != 42 && i < flag) // kanreadi 7tal akhir heredoc
 		if ((*files)[i].type == DELIMITER)

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/20 04:55:19 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/20 06:55:18 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	parce_line(t_final **final_cmd, t_env *env, char *line)
 }
 
 
-void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
+void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 {
 	struct termios	p;
 	char			*line;
@@ -195,7 +195,7 @@ void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 			continue ;
 		}
 		add_history(line);
-		parce_line(&final_cmd, env_list, line);
+		parce_line(&final_cmd, *env_list, line);
 		execution(final_cmd, env_list); // pass &env_list here
 	}
 }
