@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/19 09:31:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:51:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <termios.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <readline/readline.h>
@@ -34,8 +35,11 @@ ziad:
 		< a export a="ls -la"
 		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
 		use-after-free when unsetting the first element of the env_list
-		ls > a > b < c > d > r
 		mat Makefile | cat << salam
+		./minishell < /dev/urandom
+		export "main.c c.c" ---> cat main.c c.c
+		cat << 'a'
+		cat << "a"
 */
 
 typedef struct s_env
