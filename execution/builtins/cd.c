@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/18 11:06:27 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/20 03:45:55 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,44 @@ char	*home_path(t_env	*env)
 	return (NULL);
 }
 
-void	update_pwd(t_env	**env) // update pwd and oldpwd variables after using cd
+void	init_oldpwd(t_env ***env, char **oldpwd)
 {
-	char	*oldpwd;
 	t_env	*tmp;
 
-	(1 == 1) && ((tmp = *env) && (oldpwd = NULL));
+	tmp = *(*env);	
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, "PWD", 3))
 		{
-			oldpwd = tmp->value;
+			*oldpwd = tmp->value;
 			tmp->value = getcwd(NULL, -1337); // 3titha NULL bash talloci lia space
 			if (!tmp->value)
 				return (perror("getcwd"));
 		}
 		tmp = tmp->next;
 	}
-	tmp = *env;
+}
+
+void	init_pwd(t_env	**env) // update pwd and oldpwd variables after using cd
+{
+	bool	flag;
+	t_env	*tmp;
+	char	*oldpwd;
+
+	(1 == 1) && ((tmp = *env) && (oldpwd = NULL) && (flag = false));
+	init_oldpwd(&env, &oldpwd); // update PWD and save OLDPWD
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, "OLDPWD", 6))
 		{
 			free(tmp->value);
 			tmp->value = ft_strdup(oldpwd); // it was tmp->value = oldpwd; but it caused me a free addy which was not mallocated
+			flag = true;
 		}
 		tmp = tmp->next;
 	}
+	if (!flag)
+		ft_lstadd_back(env, ft_lstnew(ft_strdup("OLDPWD"), ft_strdup(oldpwd)));
 }
 
 void    cd(t_final	*lst, t_env *env)
@@ -67,7 +78,8 @@ void    cd(t_final	*lst, t_env *env)
 	char	*dir;
 
 	if (!lst->final_cmd[1]|| !lst->final_cmd[1][0]
-	|| !ft_strncmp(lst->final_cmd[1], ".", ft_strlen(lst->final_cmd[1]))) // cd || cd $ladksfj || cd .
+	|| !ft_strncmp(lst->final_cmd[1], ".", 1)
+	|| !ft_strncmp(lst->final_cmd[1], "~", 1)) // cd || cd $ladksfj || cd . || cd ~
 		dir = home_path(env); // kan9leb 3la HOME
 	else
 	 	dir = lst->final_cmd[1];
@@ -76,7 +88,7 @@ void    cd(t_final	*lst, t_env *env)
 	{
 		if (chdir(dir) == -1)
 			return (perror("chdir"));
-		update_pwd(&env); // update the PWD and the OLDPWD in the env variables after dir change
+		init_pwd(&env); // update the PWD and the OLDPWD in the env variables after dir change
 	}
 	else
 	{
