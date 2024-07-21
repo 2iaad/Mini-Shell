@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/21 05:16:29 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 07:31:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 // khass tzid wahd l3iba struct bash n3rf chnahowa akhir outfile nktb fih
 
 /*
-ziad:
+ziad: -----> db khass nsayb exit status f builtins (ndwz env)
 
 		< a export a="ls -la"
 		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
@@ -42,7 +42,9 @@ ziad:
 		cat << "a"
 		exit status
 		/cat && ./ls
+		cat | cat | cat | ls
 		export + env
+		echo $'2'
 		
 */
 
@@ -113,7 +115,7 @@ int		ft_strcmp(char *s1, char *s2);
 //*//*---Execution---*
 int		ft_isalpha(int c);
 int		ft_isnum(int c);
-int		valid_check(char *str);
+int		valid_check(char *str, t_env ***env);
 void    ft_free(char **str);
 int     flag_check(char *s1);
 long	ft_atol(char *str);

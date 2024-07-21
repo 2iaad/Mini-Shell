@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 05:59:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 06:58:28 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	multiple(t_final *lst, t_env **env)
 	while (lst)
 	{
 		pipe_cmd(lst, &fds[0][0], 0);
-		heredoc_opener(&lst->files, *env, fds[1][0]);
+		// heredoc_opener(&lst->files, *env, fds[1][0]);
 		pid = fork();
 		if (pid == -1)
 			error("fork", 1337);
@@ -57,12 +57,6 @@ void	single(t_final *lst, t_env **env)
 		//  	wait(&exit_status);
 	}
 	multiple_helper(&env, sec_fd, exit_status);
-	// t_env *tmp = *env;
-	// while (tmp)
-	// {
-	// 	printf("%s==========%s\n", tmp->key, tmp->value);
-	// 	tmp = tmp->next;
-	// }
 	// dup2(sec_fd[0], 0);
 	// dup2(sec_fd[1], 1);	
 	// close(sec_fd[0]);

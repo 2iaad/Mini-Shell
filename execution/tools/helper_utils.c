@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/19 08:35:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 06:23:44 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ void	ft_putendl_fd(char *s, int fd)
 	write (fd, "\n", 1);
 }
 
-int	valid_check(char *str)
+void	export_error(char *str)
+{
+		write(2, "export: `", 9);
+		ft_putstr_fd(str, 2);
+		write(2, "': not a valide identifier\n", 27);
+}
+int	valid_check(char *str, t_env ***env)
 {
 	int i;
 
 	i = 0;
 	if (!(ft_isalpha(str[0])))
-	{
-		write(2, "export: `", 9);
-		ft_putstr_fd(str, 2);
-		return (write(2, "': not a valide identifier\n", 27), 0);
-	}
+		return (export_error(str), 0);
 	while (str[++i])
 	{
 		if (i == (ft_strlen(str) - 1))
@@ -49,14 +51,27 @@ int	valid_check(char *str)
 			&& !(str[i] >= '0' && str[i] <= '9')))
 				continue ;
 		if (!((ft_isalpha(str[i]) || (str[i] >= '0' && str[i] <= '9'))))
-		{
-			write(2, "export: `", 9);
-			ft_putstr_fd(str, 2);
-			write(2, "': not a valide identifier\n", 27);
-			return(0);
-		}
+			export_error(str);
 	}
 	return (1);
+}
+
+void	init_status(t_env **env, int status)
+{
+	t_env	*tmp;
+
+	tmp = *env;
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->key, "?", 1))
+		{
+			free(tmp->value);
+			if (status == 0)
+				tmp->value = ft_itoa(0);
+			else if (status == 1)
+				tmp->value = ft_itoa(1);
+		}
+	}
 }
 
 long	ft_atol(char *str)
