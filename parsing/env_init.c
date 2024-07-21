@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:14:56 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/04 16:23:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 05:49:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	env_i(t_env **env, char **envp)
 		i++;
 	}
 	ft_free(str);
-	printf("\n\n");
+	printf("\n");
 }
 
 void	init_env(t_env **env_list, char **env)
@@ -44,6 +44,7 @@ void	init_env(t_env **env_list, char **env)
     i = 0;
 	*env_list = NULL;
 	if (*env) // ila kan *env --> kayn env variables
+	{	
 		while (env[i])
 		{
 			str = ft_split(env[i], '='); // i split with '=' and take the variable name
@@ -51,6 +52,8 @@ void	init_env(t_env **env_list, char **env)
 			ft_free(str);
 			i++;
 		}
+		ft_lstadd_back(env_list, ft_lstnew(ft_strdup("?"), ft_strdup("")));
+	}
 	else
 		env_i(env_list, env);
 }
