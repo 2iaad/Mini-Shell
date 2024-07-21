@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/21 07:31:57 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:38:51 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ ziad: -----> db khass nsayb exit status f builtins (ndwz env)
 		exit status
 		/cat && ./ls
 		cat | cat | cat | ls
-		export + env
 		echo $'2'
 		
 */
@@ -115,7 +114,8 @@ int		ft_strcmp(char *s1, char *s2);
 //*//*---Execution---*
 int		ft_isalpha(int c);
 int		ft_isnum(int c);
-int		valid_check(char *str, t_env ***env);
+int		export_valid_check(char *str, t_env ***env);
+int		unset_valid_check(char *str, t_env ***env);
 void    ft_free(char **str);
 int     flag_check(char *s1);
 long	ft_atol(char *str);
