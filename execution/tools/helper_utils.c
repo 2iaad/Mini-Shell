@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 06:23:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:33:25 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,6 @@ void	ft_putendl_fd(char *s, int fd)
 		s++;
 	}
 	write (fd, "\n", 1);
-}
-
-void	export_error(char *str)
-{
-		write(2, "export: `", 9);
-		ft_putstr_fd(str, 2);
-		write(2, "': not a valide identifier\n", 27);
-}
-int	valid_check(char *str, t_env ***env)
-{
-	int i;
-
-	i = 0;
-	if (!(ft_isalpha(str[0])))
-		return (export_error(str), 0);
-	while (str[++i])
-	{
-		if (i == (ft_strlen(str) - 1))
-			if (((ft_isalpha(str[i]) ||  str[i] == '+')
-			&& !(str[i] >= '0' && str[i] <= '9')))
-				continue ;
-		if (!((ft_isalpha(str[i]) || (str[i] >= '0' && str[i] <= '9'))))
-			export_error(str);
-	}
-	return (1);
 }
 
 void	init_status(t_env **env, int status)
