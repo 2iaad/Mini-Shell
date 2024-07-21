@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/20 06:58:45 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 05:16:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ ziad:
 		export "main.c c.c" ---> cat main.c c.c
 		cat << 'a'
 		cat << "a"
+		exit status
+		/cat && ./ls
+		export + env
+		
 */
 
 typedef struct s_env
@@ -228,7 +232,7 @@ bool	b_in(char *infile, bool last);
 bool	b_out(char *outfile, int type, bool last);
 bool	b_file_opener(t_file *files);
 void	init_secfds(int *sec_fd);
-void	multiple_helper(int *sec_fd, int exit_status);
+void	multiple_helper(t_env ***env, int *sec_fd, int exit_status);
 
 
 void	pipe_cmd(t_final *lst, int *fds, int flag);

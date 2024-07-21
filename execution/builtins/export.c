@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/30 03:15:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 04:46:11 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	export_solo(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->key, "_", 1))
+		if (ft_strncmp(tmp->key, "_", 1) && ft_strncmp(tmp->key, "?", 1))
 		{
 			if (tmp->value && *tmp->value)
 				printf("declare -x %s=\"%s\"\n",tmp->key, tmp->value); // \" to print the double quotations
@@ -121,8 +121,6 @@ void	export_solo(t_env *env)
 		tmp = tmp->next;
 	}
 }
-
-// there is a segf when i do -> export "=string"
 
 void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
 {

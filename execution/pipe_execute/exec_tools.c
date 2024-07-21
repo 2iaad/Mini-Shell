@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/19 09:56:31 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 04:20:40 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,24 @@ char	*right_path(char **s_cmd, char **env)
 void	env_maker(t_env *envp, char ***env)
 {
 	int		i;
-	char	*str[2];
+	char	*str;
 	t_env	*tmp;
 
 	(1 == 1) && ((tmp = envp) && (i = 0));
 	while (tmp)
 	{
-		i++;
 		tmp = tmp->next;
+		i++;
 	}
 	*env = (char **) malloc (sizeof(char *) * (i + 1));
 	if (!*env)
 		return ;
-	tmp = envp;
-	i = 0;
+	(1 == 1) && ((tmp = envp) && (i = 0));
 	while (tmp)
 	{
-		str[0] = ft_strdup(tmp->key);
-		str[1] = ft_strjoin(str[0], "=");
-		(*env)[i] = ft_strjoin(str[1], tmp->value);
-		free(str[0]);
-		free(str[1]);
+		str = ft_strjoin(tmp->key, "=");
+		(*env)[i] = ft_strjoin(str, tmp->value);
+		free(str);
 		tmp = tmp->next;
 		i++;
 	}
