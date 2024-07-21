@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/20 06:57:52 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:40:55 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ void	unset(t_final	*lst, t_env **env_list)
 {
 	int		i;
 
-	i = 1;
+	i = 0;
 	if (!lst->final_cmd[1])
 		return ;
-	while (lst->final_cmd[i])
+	while (lst->final_cmd[++i])
 	{
+		if (!unset_valid_check(lst->final_cmd[i], &env_list))
+			continue;
 		if (!ft_strncmp((*env_list)->key, lst->final_cmd[i], ft_strlen(lst->final_cmd[i]))) // ila kan dak arg f lwl dlinked list
 		{
 			free_first_node(env_list);
@@ -83,6 +85,5 @@ void	unset(t_final	*lst, t_env **env_list)
 		{
 			d_node(env_list, lst->final_cmd[i]); // ila kan arg lwst
 		}
-		i++;
 	}
 }

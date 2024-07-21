@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 06:19:33 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:30:58 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if th
 		str = custumized_ft_split(lst->final_cmd[i], '='); // str = {"a","salam", NULL}
 		if (!str)
 			return ;
-		if (!valid_check(str[0], &env_list))
+		if (!export_valid_check(str[0], &env_list))
 		{
 			ft_free(str);
 			continue;
