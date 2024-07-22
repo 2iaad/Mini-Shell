@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/04 16:53:20 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/21 05:39:09 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*expand_env(char *line, t_env *env)
 		}
 		else if (line[i + len] == '$')
 		{
-			// printf("line = %s\n", line);
 			var_len = 1;
 			while(line[i + len + var_len] && !delimiters(line[i + len + var_len]))
 				var_len++;
@@ -76,22 +75,44 @@ char	*expand_env(char *line, t_env *env)
 	return (new);
 }
 
-void	expanding(t_token *token, t_env *env)
+void expanding(t_token *token, t_env *env)
 {
-	t_token	*tmp_token;
-	char	*tmp;
+    t_token *tmp_token;
+    char *tmp;
+	char **split;
+    int prev_type = -1;  // Initialize with an invalid type
+    int ambig_redirect = 0;  // Flag for ambiguous redirect
 
-	tmp_token = token;
-	while (tmp_token)
-	{
-		if (tmp_token->type != REDIR_IN && tmp_token->type != REDIR_OUT
-			&& tmp_token->type != REDIR_APPEND && tmp_token->type != REDIR_HEREDOC
-			&& tmp_token->type != DELIMITER)
-		{
-			tmp = tmp_token->token;
-			tmp_token->token = expand_env(tmp_token->token, env);
-			free(tmp);
-		}
-		tmp_token = tmp_token->next;
-	}
+    tmp_token = token;
+    while (tmp_token && !ambig_redirect)
+    {
+        if (tmp_token->type != REDIR_IN && tmp_token->type != REDIR_OUT
+            && tmp_token->type != REDIR_APPEND && tmp_token->type != REDIR_HEREDOC
+            && tmp_token->type != DELIMITER)
+        {
+            tmp = tmp_token->token;
+            tmp_token->token = expand_env(tmp_token->token, env);
+            if ((prev_type == REDIR_IN || prev_type == REDIR_OUT || prev_type == REDIR_APPEND || prev_type == REDIR_HEREDOC) && (!tmp_token->token || ft_strlen(tmp_token->token) == 0))
+            {
+                printf("minishell: %s: ambiguous redirect\n", tmp);
+                free(tmp);
+                ambig_redirect = 1;
+                break;
+            }
+        }
+        prev_type = tmp_token->type;
+        tmp_token = tmp_token->next;
+    }
+
+    if (ambig_redirect)
+    {
+        while (tmp_token)
+        {
+            tmp = tmp_token->token;
+            tmp_token->token = NULL;
+            free(tmp);
+            tmp_token = tmp_token->next;
+        }
+    }
 }
+
