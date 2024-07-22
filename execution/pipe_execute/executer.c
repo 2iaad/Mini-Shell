@@ -6,11 +6,28 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 06:58:28 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 00:14:30 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+// void	init_exitstatus(t_env *env, int exit_status)
+// {
+// 	t_env	*tmp;
+
+// 	tmp = env;
+// 	exit_status = WEXITSTATUS(exit_status);
+// 	while (tmp)
+// 	{
+// 		if (!ft_strncmp(tmp->key, "?", 1))
+// 		{
+// 			free(tmp->value);
+// 			tmp->value = ft_itoa(exit_status);
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// }
 
 void	multiple(t_final *lst, t_env **env)
 {
@@ -35,7 +52,7 @@ void	multiple(t_final *lst, t_env **env)
 		}
 	}
 	multiple_helper(&env ,fds[1], exit_status);
-
+	init_exitstatus(env, 1337,exit_status);
 }
 
 void	single(t_final *lst, t_env **env)
@@ -53,14 +70,12 @@ void	single(t_final *lst, t_env **env)
 		pid = fork();
 		if (!pid)
 			execute_cmd(lst, *env);
-		// else
-		//  	wait(&exit_status);
+		else
+		{
+			multiple_helper(&env, sec_fd, exit_status);
+			init_exitstatus(env, 1337, exit_status);
+		}
 	}
-	multiple_helper(&env, sec_fd, exit_status);
-	// dup2(sec_fd[0], 0);
-	// dup2(sec_fd[1], 1);	
-	// close(sec_fd[0]);
-	// close(sec_fd[1]);
 }
 
 void	execution(t_final *lst, t_env **env)
@@ -70,4 +85,12 @@ void	execution(t_final *lst, t_env **env)
 		multiple(lst, env);
 	else
 	 	single(lst, env);
+	t_env *tmp = *env;
+	printf("\n\n");
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->key, "?", 1))
+			printf("exit_status in the outside:%s\n", tmp->value);
+		tmp = tmp->next;
+	}
 }

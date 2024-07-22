@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/20 03:45:55 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:03:23 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void    cd(t_final	*lst, t_env *env)
 		dir = home_path(env); // kan9leb 3la HOME
 	else
 	 	dir = lst->final_cmd[1];
-
 	if (!access(dir, F_OK))
 	{
 		if (chdir(dir) == -1)

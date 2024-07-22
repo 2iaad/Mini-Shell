@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 00:25:50 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:17:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ bool	builtins(t_final *lst, t_env **env_list)
 		return false;
 	cmd_checker(&lst); // incase there was export x="export y=salam"
     if (!ft_strncmp(lst->final_cmd[0], "echo", 4))
-        return (echo(lst), (true));
+        return (echo(lst, *env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "cd", 2))
         return (cd(lst, *env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "pwd", 3))
-        return (pwd(), (true));
+        return (pwd(*env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "export", 6))
         return (export_command(lst, env_list), (true));
     if (!ft_strncmp(lst->final_cmd[0], "unset", 5))

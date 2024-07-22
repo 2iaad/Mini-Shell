@@ -6,14 +6,13 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:09:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 04:49:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:14:52 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <readline/readline.h>
 
-void    pwd(void)
+void    pwd(t_env *env)
 {
     char *c_path;
 
@@ -25,6 +24,7 @@ void    pwd(void)
 	}
     printf("%s\n", c_path);
     free(c_path);
+	init_exitstatus(&env, EXIT_SUCCESS, 0);
 }
 
 bool	env_checker(char *str)
@@ -57,4 +57,5 @@ void    env(t_final	*lst, t_env *env_list) // didnt handle "no envirement" case!
 			printf("%s=%s\n", tmp->key, tmp->value); // so i can print only variables that has a value(like bash)
 		tmp = tmp->next;
 	}
+	init_exitstatus(&env_list, EXIT_SUCCESS, 0);
 }
