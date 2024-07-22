@@ -6,18 +6,18 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 01:17:19 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 04:12:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	multiple_helper(t_env ***env, int *sec_fd, int exit_status)
+void	multiple_helper(t_env ***env, int *sec_fd, int *exit_status)
 {
 	t_env	*tmp;
 
 	tmp = *(*env);
-	while (wait(&exit_status) != -1)
+	while (wait(&(*exit_status)) != -1)
 		;
 	if (dup2(sec_fd[0], 0) == -1 || dup2(sec_fd[1], 1) == -1)
 		error("dup2", 1337);
