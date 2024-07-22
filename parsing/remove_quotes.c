@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:04:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/10 02:46:07 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/22 04:39:46 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,23 @@ int	quotes_len(char *line)
 	char	quote;
 
 	i = 0;
-	len = ft_strlen(line);
 	if (!line)
-		return (0);
+		return (-1);
+	len = ft_strlen(line);
 	while (line[i])
 	{
-		if (line[i] == '\'' || line[i] == '\"')
+		if (line[i] == -1 || line[i] == -2)
 		{
 			quote = line[i];
 			len--;
 			i++;
 			while (line[i] && line[i] != quote)
 				i++;
+			if (!line[i])
+				return (len);
 			len--;
 			i++;
+
 		}
 		else
 			i++;
@@ -49,6 +52,8 @@ char	*remove_quotes(char *line)
 	char *new_line;
 
 	len = quotes_len(line);
+	if (len == -1)
+		return (NULL);
 	if (len == 0)
 		return (ft_strdup(""));
 	new_line = malloc(len + 1);
@@ -56,11 +61,13 @@ char	*remove_quotes(char *line)
 		return NULL;
 	while (line[i])
 	{
-		if (line[i] == '\'' || line[i] == '\"')
+		if (line[i] == -1 || line[i] == -2)
 		{
 			quote = line[i++];
 			while (line[i] && line[i] != quote)
 				new_line[j++] = line[i++];
+			if (!line[i])
+				break ;
 			i++;
 		}
 		else
