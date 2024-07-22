@@ -6,13 +6,15 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/19 10:30:29 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/22 06:42:37 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 // exit f syntx error + check herdoc
 //cat << salam >>>
+// << salam |
+// cat <<< salam
 #include "../minishell.h"
 
 char	**merg_cmd(t_final	*lst)
@@ -130,7 +132,29 @@ void print_struct(t_token *token)
 		tmp_token = tmp_token->next;
 	}
 }
-void	parce_line(t_final **final_cmd, t_env *env, char *line)
+
+void    reset_quotes(t_token **token)
+{
+    t_token *node;
+    int     i;
+
+    node = *token;
+    while (node)
+    {
+        i = 0;
+        while (node->token && node->token[i])
+        {
+            if (node->token[i] == -1)
+                node->token[i] = '\'';
+            else if (node->token[i] == -2)
+                node->token[i] = '\"';
+            i++;
+        }
+        node = node->next;
+    }
+}
+
+int	parce_line(t_final **final_cmd, t_env *env, char *line)
 {
 	char	*tmp;
 	t_token	*token;
@@ -141,27 +165,28 @@ void	parce_line(t_final **final_cmd, t_env *env, char *line)
 	{
 		free (line);
 		ft_putstr_fd("syntax error related to unclosed quote\n", 2);
-		return ;
+		return -1;
 	}
 	tmp = line;
 	line = trim_line(line);
 	if (line == NULL)
-		return ;
+		return -1;
 	line = space(line, 0, 0);
+	// open herdoc
 	if (syntax_error(line))
-		return ; // exit(1);
-	line = parse_protec(line);
-	// wiil be removed afetr finishing
+	
+		return (-1);
 	split = split_line(line);
 	tokenizer(split, &token, env);
 	// print_struct(token);
 	read_herdoc(token);
 	token_quotes(&token);
+	reset_quotes(&token);
 	*final_cmd = struct_init(&token);
 	init_final_cmd(&final_cmd);
 	free(tmp);
+	return (1);
 }
-
 
 void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 {
@@ -185,7 +210,9 @@ void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 			continue ;
 		}
 		add_history(line);
-		parce_line(&final_cmd, env_list, line);
-		execution(final_cmd, env_list); // pass &env_list here
+		if (parce_line(&final_cmd, env_list, line) != -1)
+		{
+			execution(final_cmd, env_list); // pass &env_list here
+		}
 	}
 }
