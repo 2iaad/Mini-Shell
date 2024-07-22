@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/19 09:31:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 06:53:00 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 //*----------------------------------PARSING--------------------------------------------------------------*//
 
 void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp);
-void	parce_line(t_final **final_cmd, t_env *env, char *line);
+int	parce_line(t_final **final_cmd, t_env *env, char *line);
 char	*parse_protec(char *line);
 void	init_signals(void);
 
@@ -177,7 +177,6 @@ int		syntax_error(char *line);
 
 void	tokenizer(char **splited, t_token **token, t_env *env);
 t_token	*ft_get_token(char *content, int type);
-int		is_oper(char *tok, int asc, int len);
 
 //*----------------------STRUCT---------------------------*//
 
