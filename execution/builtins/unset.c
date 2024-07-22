@@ -6,13 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 17:40:55 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:20:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-/*								UNSET								*/
 
 void	ft_free_node(t_env *node)
 {
@@ -69,21 +67,25 @@ void	d_node(t_env	**env, char *to_delete)
 void	unset(t_final	*lst, t_env **env_list)
 {
 	int		i;
+	bool	flag;
 
-	i = 0;
+	(1 == 1) && ((i = 0) && (flag = false));
 	if (!lst->final_cmd[1])
 		return ;
 	while (lst->final_cmd[++i])
 	{
 		if (!unset_valid_check(lst->final_cmd[i], &env_list))
+		{
+			flag = true;
 			continue;
+		}
 		if (!ft_strncmp((*env_list)->key, lst->final_cmd[i], ft_strlen(lst->final_cmd[i]))) // ila kan dak arg f lwl dlinked list
-		{
 			free_first_node(env_list);
-		}
 		else
-		{
 			d_node(env_list, lst->final_cmd[i]); // ila kan arg lwst
-		}
 	}
+	if (!flag)
+		init_exitstatus(env_list, EXIT_SUCCESS, 0);
+	else
+		init_exitstatus(env_list, EXIT_FAILURE, 0);	
 }

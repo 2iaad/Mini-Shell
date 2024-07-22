@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/21 17:38:51 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:15:47 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ ziad: -----> db khass nsayb exit status f builtins (ndwz env)
 		/cat && ./ls
 		cat | cat | cat | ls
 		echo $'2'
-		
 */
 
 typedef struct s_env
@@ -205,9 +204,9 @@ int		count_len(t_token *node, int type);
 
 bool	builtins(t_final *lst, t_env **env_list);
 void    execution(t_final *lst, t_env **env);
-void    echo(t_final	*lst);
+void    echo(t_final	*lst, t_env *env);
 void    cd(t_final	*lst, t_env *env);
-void    pwd(void);
+void    pwd(t_env *env);
 void    env(t_final	*lst, t_env *env_list);
 void	unset(t_final	*lst, t_env **env_list);
 void	export_command(t_final *lst, t_env **env_list);
@@ -237,9 +236,16 @@ void	init_secfds(int *sec_fd);
 void	multiple_helper(t_env ***env, int *sec_fd, int exit_status);
 
 
+void	init_exitstatus(t_env **env, int flag, int exit_status);
 void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env **env, int *fds, int sec_fd);
 void	execute_cmd(t_final	*lst, t_env *envp);
+
+void	alpha_arrang(t_env *env);
+void	export_solo(t_env *env);
+void	export_replace(t_env *env, char **str);
+void	export_var(t_env *env, char **str);
+void	export_join(t_env *env, char **str);
 
 void	error(char *str, int a);
 
