@@ -6,12 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:58:31 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/20 06:58:33 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:42:44 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <stdbool.h>
 
 void	pipe_cmd(t_final *lst, int *fds, int flag)
 {

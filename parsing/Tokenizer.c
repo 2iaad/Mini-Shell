@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/20 05:05:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:49:44 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,61 +26,34 @@ t_token	*ft_get_token(char *content, int type)
 	return (n);
 }
 
-int	is_oper(char *tok, int asc, int len)
-{
-	int	i;
-
-	i = 0;
-	if (ft_strlen(tok) == len)
-	{
-		while (i < len)
-		{
-			if (tok[i] != asc)
-				return (0);
-			i++;
-		}
-		return (1);
-	}
-	return (0);
-}
-
-void add_token(t_token **token, char *content, int type)
-{
-    t_token *node;
-    
-    node = ft_get_token(content, type);
-    if (node != NULL && node->token != NULL)
-        ft_lstadd_back_parse(token, node);
-}
-
 void	tokenizer_1(char **splited, t_token **token)
 {
-	int	i;
-	t_token *node;
+    int	i;
+    t_token *node;
 
-	node = NULL;
-	(void)token;
-	i = 0;
-	if (!splited)
-		return ;
-	while (splited[i])
-	{
-		if (is_oper(splited[i], -5, 1))
-			node = ft_get_token("|", PIPE);
-		else if (is_oper(splited[i], -1, 1))
-			node = ft_get_token("<", REDIR_IN);
-		else if (is_oper(splited[i], -3, 1))
-			node = ft_get_token(">", REDIR_OUT);
-		else if (is_oper(splited[i], -4, 2))
-			node = ft_get_token(">>", REDIR_APPEND);
-		else if (is_oper(splited[i], -2, 2))
-			node = ft_get_token("<<", REDIR_HEREDOC);
+    node = NULL;
+    (void)token;
+    i = 0;
+    if (!splited)
+        return ;
+    while (splited[i])
+    {
+        if (ft_strcmp(splited[i], "|") == 0)
+            node = ft_get_token("|", PIPE);
+        else if (ft_strcmp(splited[i], "<") == 0)
+            node = ft_get_token("<", REDIR_IN);
+        else if (ft_strcmp(splited[i], ">") == 0)
+            node = ft_get_token(">", REDIR_OUT);
+        else if (ft_strcmp(splited[i], ">>") == 0)
+            node = ft_get_token(">>", REDIR_APPEND);
+        else if (ft_strcmp(splited[i], "<<") == 0)
+            node = ft_get_token("<<", REDIR_HEREDOC);
 		else
-			node = ft_get_token(splited[i], WORD);
-		if (node != NULL && node->token != NULL)
-			ft_lstadd_back_parse(token, node);
-		i++;
-	}
+            node = ft_get_token(splited[i], WORD);
+        if (node != NULL && node->token != NULL)
+            ft_lstadd_back_parse(token, node);
+        i++;
+    }
 }
 
 void	tokenizer_2(t_token **token)
@@ -120,8 +93,11 @@ void    tokenizer_3(t_token **token)
             cmd_found = 0;
             while (node && node->type != PIPE)
             {
-				// if (node->type >= 4 && node->type <= 7)
-				// 	node = node->next->next;
+				if (node->token == NULL)
+				{
+					node = node->next;
+					continue ;
+				}
                 if (node->type == WORD)
                 {
                     if (cmd_found == 0)
@@ -140,10 +116,32 @@ void    tokenizer_3(t_token **token)
     }
 }
 
-void    tokenizer(char **splited, t_token **token, t_env *env)
+void    replace_quotes(t_token **token)
+{
+    t_token *node;
+    int     i;
+
+    node = *token;
+    while (node)
+    {
+        i = 0;
+        while (node->token[i])
+        {
+            if (node->token[i] == '\'')
+                node->token[i] = -1;
+            else if (node->token[i] == '\"')
+                node->token[i] = -2;
+            i++;
+        }
+        node = node->next;   
+    }
+}
+
+void   tokenizer(char **splited, t_token **token, t_env *env)
 {
     tokenizer_1(splited, token);
     tokenizer_2(token);
+    replace_quotes(token);
 	expanding(*token, env);
 	tokenizer_3(token);
 }

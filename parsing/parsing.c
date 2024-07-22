@@ -6,21 +6,16 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/20 06:55:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:50:50 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include <unistd.h>
-// ****TO DO****
 
-// 5. NORMINETTE
-// 6. SIGNALS
-// 7. exit status
-// $d | ls
-//export A="d d" | echo $A
-// z"" z " "
-//  sss $USER_ SS
+// exit f syntx error + check herdoc
+//cat << salam >>>
+// << salam |
+// cat <<< salam
+#include "../minishell.h"
 
 char	**merg_cmd(t_final	*lst)
 {
@@ -28,7 +23,7 @@ char	**merg_cmd(t_final	*lst)
 	char	**full_cmd;
 
 	i = 0;
-	while ((lst)->args && ((lst))->args[i]) // check if (lst)->args true incase there was only one argument "ls" there wont be any args then
+	while ((lst)->args && ((lst))->args[i])
 		i++;
 	full_cmd = (char **) malloc (sizeof(char *) * (i + 2));
 	full_cmd[0] = ft_strdup((lst)->cmd);
@@ -137,7 +132,29 @@ void print_struct(t_token *token)
 		tmp_token = tmp_token->next;
 	}
 }
-void	parce_line(t_final **final_cmd, t_env *env, char *line)
+
+void    reset_quotes(t_token **token)
+{
+    t_token *node;
+    int     i;
+
+    node = *token;
+    while (node)
+    {
+        i = 0;
+        while (node->token && node->token[i])
+        {
+            if (node->token[i] == -1)
+                node->token[i] = '\'';
+            else if (node->token[i] == -2)
+                node->token[i] = '\"';
+            i++;
+        }
+        node = node->next;
+    }
+}
+
+int	parce_line(t_final **final_cmd, t_env *env, char *line)
 {
 	char	*tmp;
 	t_token	*token;
@@ -148,27 +165,28 @@ void	parce_line(t_final **final_cmd, t_env *env, char *line)
 	{
 		free (line);
 		ft_putstr_fd("syntax error related to unclosed quote\n", 2);
-		return ;
+		return -1;
 	}
 	tmp = line;
 	line = trim_line(line);
 	if (line == NULL)
-		return ;
+		return -1;
 	line = space(line, 0, 0);
+	// open herdoc
 	if (syntax_error(line))
-		return ; // exit(1);
-	line = parse_protec(line);
-	// wiil be removed afetr finishing
+	
+		return (-1);
 	split = split_line(line);
 	tokenizer(split, &token, env);
 	// print_struct(token);
 	read_herdoc(token);
 	token_quotes(&token);
+	reset_quotes(&token);
 	*final_cmd = struct_init(&token);
 	init_final_cmd(&final_cmd);
 	free(tmp);
+	return (1);
 }
-
 
 void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 {
@@ -195,7 +213,7 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 			continue ;
 		}
 		add_history(line);
-		parce_line(&final_cmd, *env_list, line);
-		execution(final_cmd, env_list); // pass &env_list here
+		if (parce_line(&final_cmd, *env_list, line) != -1)
+			execution(final_cmd, env_list); // pass &env_list here
 	}
 }

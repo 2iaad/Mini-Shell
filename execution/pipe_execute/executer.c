@@ -6,13 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 04:25:52 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:44:35 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <sys/wait.h>
-
 void	multiple(t_final *lst, t_env **env)
 {
 	pid_t	pid;
@@ -69,12 +67,4 @@ void	execution(t_final *lst, t_env **env)
 		multiple(lst, env);
 	else
 	 	single(lst, env);
-	t_env *tmp = *env;
-	printf("\n\n");
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->key, "?", 1))
-			printf("exit_status:%s\n", tmp->value);
-		tmp = tmp->next;
-	}
 }

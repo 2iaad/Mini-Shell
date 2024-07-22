@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:49:39 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/01 22:06:33 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/22 02:51:19 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ int	syntax_error(char *line)
 	i = 0;
 	skip_spaces(line, &i, 0);
 	if (line[i] && line[i] == '|')
-		return (printf("minishell: syntax error\n"), 1);
+		return (ft_putstr_fd("minishell: syntax error\n", 2), 1);
 	while (line[i])
 	{
 		if (line[i] == '|')
 		{
 			skip_spaces(line, &i, 1);
 			if (!line[i] || (line[i] && line[i] == '|'))
-				return (printf("minishell: syntax error\n"), 1);
+				return (ft_putstr_fd("minishell: syntax error\n", 2), 1);
 		}
 		else if (is_operator(line, &i))
 		{
 			skip_spaces(line, &i, 1);
 			if (!line[i] || is_operator(line, &i) || line[i] == '|')
-				return (printf("minishell: syntax error\n"), 1);
+				return (ft_putstr_fd("minishell: syntax error\n", 2), 1);
 		}
 		else
 			i++;
