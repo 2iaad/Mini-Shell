@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 04:12:31 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 04:25:52 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <sys/wait.h>
 
 void	multiple(t_final *lst, t_env **env)
 {
@@ -35,7 +36,7 @@ void	multiple(t_final *lst, t_env **env)
 		}
 	}
 	multiple_helper(&env ,fds[1], &exit_status);
-	init_exitstatus(env, 1337, exit_status);
+	init_exitstatus(env, 1337, WEXITSTATUS(exit_status));
 }
 
 void	single(t_final *lst, t_env **env)
@@ -56,7 +57,7 @@ void	single(t_final *lst, t_env **env)
 		else
 		{
 			multiple_helper(&env, sec_fd, &exit_status);
-			init_exitstatus(env, 1337, exit_status);
+			init_exitstatus(env, 1337, WEXITSTATUS(exit_status));
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 04:20:40 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 04:24:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ void	execute_cmd(t_final	*lst, t_env *envp)
 	{
 		ft_putstr_fd("minishell: command not found: ", 2);
 		ft_putendl_fd(lst->final_cmd[0], 2);
-		exit(1);
+		exit(127);
 	}
 }

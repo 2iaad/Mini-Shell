@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 04:12:13 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 05:07:28 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,16 @@
 // | s
 // << s >
 // I handle signals
-// khass tzid wahd l3iba struct bash n3rf chnahowa akhir outfile nktb fih
 
 /*
-ziad: -----> db khass nsayb exit status f builtins (ndwz env)
 
-		< a export a="ls -la"
 		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
 		use-after-free when unsetting the first element of the env_list
-		mat Makefile | cat << salam
 		./minishell < /dev/urandom
-		export "main.c c.c" ---> cat main.c c.c
-		cat << 'a'
-		cat << "a"
 		exit status
 		/cat && ./ls
+		mat Makefile | cat << salam
 		cat | cat | cat | ls
-		echo $'2'
 */
 
 typedef struct s_env

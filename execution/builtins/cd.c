@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 02:03:23 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/22 05:30:47 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,27 @@ void	init_pwd(t_env	**env) // update pwd and oldpwd variables after using cd
 		ft_lstadd_back(env, ft_lstnew(ft_strdup("OLDPWD"), ft_strdup(oldpwd)));
 }
 
+void	init_dir(char **final_cmd, t_env *env, char **dir)
+{
+	if (!final_cmd[1]|| !final_cmd[1][0]
+	|| !ft_strncmp(final_cmd[1], ".", 1)
+	|| !ft_strncmp(final_cmd[1], "~", 1)) // cd || cd $ladksfj || cd . || cd ~
+		*dir = home_path(env); // kan9leb 3la HOME
+	else
+	 	*dir = final_cmd[1];
+}
+
 void    cd(t_final	*lst, t_env *env)
 {
 	char	*dir;
 
-	if (!lst->final_cmd[1]|| !lst->final_cmd[1][0]
-	|| !ft_strncmp(lst->final_cmd[1], ".", 1)
-	|| !ft_strncmp(lst->final_cmd[1], "~", 1)) // cd || cd $ladksfj || cd . || cd ~
-		dir = home_path(env); // kan9leb 3la HOME
-	else
-	 	dir = lst->final_cmd[1];
+	init_dir(lst->final_cmd, env, &dir);
 	if (!access(dir, F_OK))
 	{
 		if (chdir(dir) == -1)
 			return (perror("chdir"));
 		init_pwd(&env); // update the PWD and the OLDPWD in the env variables after dir change
+		init_exitstatus(&env, EXIT_SUCCESS, 0);
 	}
 	else
 	{
@@ -95,5 +101,6 @@ void    cd(t_final	*lst, t_env *env)
 			write(2, "cd: HOME not set\n", 17);
 		else
 			cd_error(dir);
+		init_exitstatus(&env, EXIT_FAILURE, 0);
 	}
 }
