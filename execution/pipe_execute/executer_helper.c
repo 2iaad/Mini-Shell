@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 23:41:15 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 05:23:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,22 @@ void	multiple_helper(t_env ***env, int *sec_fd, int *exit_status)
 	tmp = *(*env);
 	while (wait(&(*exit_status)) != -1)
 		;
-	if (dup2(sec_fd[0], 0) == -1 || dup2(sec_fd[1], 1) == -1)
-		error("dup2", 1337);
-	return ((void)close(sec_fd[0]), (void)close(sec_fd[1]));
 }
 
-void	init_secfds(int *sec_fd)
+void	init_secfds(int *sec_fd, int flag)
 {
-	(1 == 1) && (sec_fd[0] = dup(0)) && (sec_fd[1] = dup(1));
-	if (sec_fd[0] == -1 || sec_fd[1] == -1)
-		error("dup", 1337);
+	if (flag == 0)
+	{
+		(1 == 1) && (sec_fd[0] = dup(0)) && (sec_fd[1] = dup(1));
+		if (sec_fd[0] == -1 || sec_fd[1] == -1)
+			error("dup", 1337);
+	}
+	else
+	{
+		if (dup2(sec_fd[0], 0) == -1 || dup2(sec_fd[1], 1) == -1)
+			error("dup2", 1337);
+		return ((void)close(sec_fd[0]), (void)close(sec_fd[1]));
+	}
 }
 
 void	init_exitstatus(t_env **env, int flag, int exit_status)
