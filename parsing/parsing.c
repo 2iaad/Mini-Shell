@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 23:50:50 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:53:48 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,10 @@ int	parce_line(t_final **final_cmd, t_env *env, char *line)
 	line = space(line, 0, 0);
 	// open herdoc
 	if (syntax_error(line))
-	
+	{
+		init_exitstatus(&env, 1337, 258);
 		return (-1);
+	}
 	split = split_line(line);
 	tokenizer(split, &token, env);
 	// print_struct(token);

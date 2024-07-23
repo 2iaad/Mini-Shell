@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/23 02:45:58 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:55:15 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,10 @@ void   tokenizer(char **splited, t_token **token, t_env *env)
     replace_quotes(token);
 	int ambg_redir = expanding(*token, env);
     if (ambg_redir)
+	{
+		init_exitstatus(&env, 1, 0);
         return ;
+	}
 	tokenizer_3(token);
 }
 // remove quotes

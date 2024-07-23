@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:14:56 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 05:49:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 03:08:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	env_i(t_env **env, char **envp)
 		ft_free(tmp);
 		i++;
 	}
+	ft_lstadd_back(env, ft_lstnew(ft_strdup("?"), ft_strdup("")));
 	ft_free(str);
 	printf("\n");
 }
