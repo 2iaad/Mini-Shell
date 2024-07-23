@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/23 03:42:30 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 03:50:17 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 	tcsetattr(0, 0 , &p);
 	printf("\nWelcome to minishell Program.\nMade by ibouram and zdefouf.\n");
 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
-	// rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	init_signals();
 	while (1)
 	{
