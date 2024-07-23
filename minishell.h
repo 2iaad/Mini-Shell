@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 23:51:03 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:50:23 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@
 		mat Makefile | cat << salam
 		cat | cat | cat | ls
 */
+
+typedef struct s_free
+{
+	void	*ptr;
+	struct s_free	*next;
+}				t_free;
+
 
 typedef struct s_env
 {
@@ -87,6 +94,10 @@ typedef struct s_final
 	t_file	*files;
 	struct	s_final *next;
 } 	t_final;
+
+
+
+int		g_signal;
 
 
 //*----------------------------------TOOLS------------------------------------------*//
@@ -141,6 +152,7 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp);
 int		parce_line(t_final **final_cmd, t_env *env, char *line);
 char	*parse_protec(char *line);
 void	init_signals(void);
+void	signal_handle_2(int sig);
 
 //*----------------------CHECK_QOUTES-----------------------------*//
 
@@ -165,7 +177,7 @@ char	*trim_line(char *line);
 
 int		delimiters(char c);
 char	*expand_env(char *line, t_env *env);
-void	expanding(t_token *token, t_env *env);
+int		expanding(t_token *token, t_env *env);
 char	*expand_herdoc(char *line, t_env *env);
 void	read_herdoc(t_token *token);
 
