@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:51:33 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/02 10:18:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 03:13:46 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// void	sig_ctrl_d(int sig)
-// {
-// 	(void)sig;
-// 	// rl_replace_line("", 0);
-// 	rl_redisplay();
-// }
 
-// void	sig_ctrl_c(int sig)
-// {
-	
-// }
 void	signal_handle(int sig)
 {
 	if (sig == SIGINT)
@@ -34,9 +24,18 @@ void	signal_handle(int sig)
 		}
 		//exit_status(0, 1);
 		ft_putstr_fd("\n", 2);
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+	}
+}
+
+void	signal_handle_2(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_signal = SIGINT;
+		close(0);
 	}
 }
 
