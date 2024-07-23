@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 06:42:37 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/23 00:47:21 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void	read_from_input(t_final *final_cmd, t_env *env_list, char **envp)
 
 	printf("\nWelcome to minishell Program.\nMade by Legends ibouram and zdefouf.\n");
 	printf("For more details, please visit https://github.com/2iaad/minishell.\n");
-	// rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	init_signals();
 	while (1)
 	{

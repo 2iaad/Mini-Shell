@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 15:07:28 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/04 16:17:32 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 03:12:36 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
 int main (int ac, char **av, char **envp)
 {
 	t_final final_cmd;
 	t_env	*env_list;
-	// atexit(f);
 	// rl_catch_signals = 0;
 	(void)av;
+	g_signal = 0;
 	if (ac > 1)
 	{
 		write(2, "Error: too many arguments\n", 26);
