@@ -6,19 +6,19 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/23 05:23:31 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 05:34:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	multiple_helper(t_env ***env, int *sec_fd, int *exit_status)
+void	multiple_helper(t_env **env)
 {
-	t_env	*tmp;
+	int		exit_status;
 
-	tmp = *(*env);
-	while (wait(&(*exit_status)) != -1)
+	while (wait(&(exit_status)) != -1)
 		;
+	init_exitstatus(env, 1337, WEXITSTATUS(exit_status));
 }
 
 void	init_secfds(int *sec_fd, int flag)

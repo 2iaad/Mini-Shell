@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/23 05:22:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 05:34:00 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ bool	b_in(char *infile, bool last);
 bool	b_out(char *outfile, int type, bool last);
 bool	b_file_opener(t_file *files);
 void	init_secfds(int *sec_fd, int flag);
-void	multiple_helper(t_env ***env, int *sec_fd, int *exit_status);
+void	multiple_helper(t_env **env);
 
 
 void	init_exitstatus(t_env **env, int flag, int exit_status);
