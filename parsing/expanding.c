@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/21 05:39:09 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/23 01:53:12 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*expand_env(char *line, t_env *env)
 			new = ft_strjoin_parse(new, new_line);
 		}
 		if (line[i + len] == '$' && (line[i + len + 1] == '\0' || line[i + len + 1] == ' '
-			|| line[i + len + 1] == '\'' || line[i + len + 1] == '\"'))
+			|| line[i + len + 1] == -1 || line[i + len + 1] == -2))
 		{
 			new = ft_strjoin_parse(new, "$");
 			i += len + 1;
@@ -75,11 +75,10 @@ char	*expand_env(char *line, t_env *env)
 	return (new);
 }
 
-void expanding(t_token *token, t_env *env)
+int expanding(t_token *token, t_env *env)
 {
     t_token *tmp_token;
     char *tmp;
-	char **split;
     int prev_type = -1;  // Initialize with an invalid type
     int ambig_redirect = 0;  // Flag for ambiguous redirect
 
@@ -114,5 +113,7 @@ void expanding(t_token *token, t_env *env)
             tmp_token = tmp_token->next;
         }
     }
+
+    return ambig_redirect;
 }
 

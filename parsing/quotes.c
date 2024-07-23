@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:05:10 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/16 13:43:05 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/23 00:40:16 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	valid_meta2(char *line, int i, int j, int valid)
 
 	while (line[j])
 	{
-		if (line[j] == '\"')
+		if (line[j] == -2)
 		{
 			quote = line[j++];
 			while (line[j] && line[j] != quote)
@@ -56,7 +56,7 @@ int	valid_meta2(char *line, int i, int j, int valid)
 			if (line[j])
 				j++;
 		}
-		else if (line[j] == '\'')
+		else if (line[j] == -1)
 		{
 			in1 = j;
 			quote = line[j++];

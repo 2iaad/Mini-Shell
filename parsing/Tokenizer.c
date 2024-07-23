@@ -6,12 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 23:49:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:45:58 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
 
 t_token	*ft_get_token(char *content, int type)
 {
@@ -142,7 +141,9 @@ void   tokenizer(char **splited, t_token **token, t_env *env)
     tokenizer_1(splited, token);
     tokenizer_2(token);
     replace_quotes(token);
-	expanding(*token, env);
+	int ambg_redir = expanding(*token, env);
+    if (ambg_redir)
+        return ;
 	tokenizer_3(token);
 }
 // remove quotes
