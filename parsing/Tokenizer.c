@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 04:44:04 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/23 01:58:20 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,9 @@ void   tokenizer(char **splited, t_token **token, t_env *env)
     tokenizer_1(splited, token);
     tokenizer_2(token);
     replace_quotes(token);
-	expanding(*token, env);
+	int ambg_redir = expanding(*token, env);
+    if (ambg_redir)
+        return ;
 	tokenizer_3(token);
 }
 // remove quotes
