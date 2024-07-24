@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/23 05:34:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:02:18 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,13 @@ void	init_exitstatus(t_env **env, int flag, int exit_status)
 		}
 		tmp = tmp->next;
 	}
+}
+
+void	error(char *str, int a)
+{
+	if (a == 1)
+		ft_putstr_fd(str, 2);
+	else
+		perror(str);
+	exit(1);
 }
