@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 23:41:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/24 03:40:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ void	execute_cmd(t_final	*lst, t_env *envp)
 		exit(0);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
 		execve(lst->final_cmd[0], lst->final_cmd, env);
-	path = right_path(lst->final_cmd, env);
+	if (ft_strchr(lst->final_cmd[0], '/')) // ila kant /ls || ./ls
+		path = lst->final_cmd[0];
+	else
+		path = right_path(lst->final_cmd, env);
 	if (execve(path, lst->final_cmd, env) == -1)
 	{
 		ft_putstr_fd("minishell: command not found: ", 2);
