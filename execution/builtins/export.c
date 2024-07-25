@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 02:00:05 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:34:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	export_action(t_final *lst, t_env **env_list, char **str)
 		export_var(*env_list,str);
 }
 
+
+void	export_helper(t_env **env_list, bool flag)
+{
+	if (!flag)
+		init_exitstatus(env_list, EXIT_SUCCESS, 0);
+	else
+		init_exitstatus(env_list, EXIT_FAILURE, 0);
+}
 
 void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
 {
@@ -46,8 +54,5 @@ void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if th
 		export_action(lst, env_list, str);
 		ft_free(str);
 	}
-	if (!flag)
-		init_exitstatus(env_list, EXIT_SUCCESS, 0);
-	else
-		init_exitstatus(env_list, EXIT_FAILURE, 0);
+	export_helper(env_list, flag);
 }
