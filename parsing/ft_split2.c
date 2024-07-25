@@ -6,11 +6,33 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:49:29 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/13 12:26:29 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/23 19:18:58 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static int	process_word(char *line, int *i)
+{
+	int		count;
+	char	quote;
+
+	count = 0;
+	while (line[*i] && !whitespaces(line[*i]))
+	{
+		if (line[*i] == '\'' || line[*i] == '\"')
+		{
+			quote = line[(*i)++];
+			while (line[*i] && line[*i] != quote)
+				(*i)++;
+			if (line[*i])
+				(*i)++;
+		}
+		else
+			(*i)++;
+	}
+	return (count);
+}
 
 static int	count_words(char *line)
 {
@@ -26,19 +48,7 @@ static int	count_words(char *line)
 		if (line[i])
 		{
 			count++;
-			while (line[i] && !whitespaces(line[i]))
-			{
-				if (line[i] == '\'' || line[i] == '\"')
-				{
-					quote = line[i++];
-					while (line[i] && line[i] != quote)
-						i++;
-					if (line[i])
-						i++;
-				}
-				else
-					i++;
-			}
+			count += process_word(line, &i);
 		}
 		i++;
 		if (i > ft_strlen(line))
@@ -61,15 +71,9 @@ static int	calc_len(char *line)
 			quote = line[i++];
 			count++;
 			while (line[i] && line[i] != quote)
-			{
-				i++;
-				count++;
-			}
+				count += (++i, 1);
 			if (line[i])
-			{
-				i++;
-				count++;
-			}
+				count += (++i, 1);
 		}
 		else
 		{

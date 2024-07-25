@@ -6,19 +6,17 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:04:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 04:39:46 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:04:02 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	quotes_len(char *line)
+int	quotes_len(char *line, int i)
 {
-	int		i;
 	int		len;
 	char	quote;
 
-	i = 0;
 	if (!line)
 		return (-1);
 	len = ft_strlen(line);
@@ -35,7 +33,6 @@ int	quotes_len(char *line)
 				return (len);
 			len--;
 			i++;
-
 		}
 		else
 			i++;
@@ -45,20 +42,20 @@ int	quotes_len(char *line)
 
 char	*remove_quotes(char *line)
 {
-	int i = 0;
-	int j = 0;
-	int	len;
-	char quote;
-	char *new_line;
+	int		i;
+	int		j;
+	int		len;
+	char	quote;
+	char	*new_line;
 
-	len = quotes_len(line);
+	(1) && (i = 0, j = 0, len = quotes_len(line, i));
 	if (len == -1)
 		return (NULL);
 	if (len == 0)
 		return (ft_strdup(""));
 	new_line = malloc(len + 1);
 	if (!new_line)
-		return NULL;
+		return (NULL);
 	while (line[i])
 	{
 		if (line[i] == -1 || line[i] == -2)
