@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/23 07:06:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:32:42 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	multiple(t_final *lst, t_env **env)
 		if (pid == -1)
 			error("fork", 1337);
 		if (!pid)
-			child(lst, env, fds[0], fds[1][0]);
+			child(lst, env, fds[0]);
 		else
 		{
 			pipe_cmd(lst, &fds[0][0], 2);

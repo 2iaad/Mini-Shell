@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:58:31 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 23:42:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:32:18 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	pipe_cmd(t_final *lst, int *fds, int flag)
 	}
 }
 
-void	child(t_final *lst, t_env **env, int *fds, int sec_fd)
+void	child(t_final *lst, t_env **env, int *fds)
 {
 	file_opener(lst->files);
 	if (lst->next && isatty(1)) // isatty(1) checks if the redirection is tty or a file cat Makefile | grep clean > (--/dev/stdout--) | wc

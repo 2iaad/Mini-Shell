@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/23 05:34:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:32:35 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ void	multiple_helper(t_env **env);
 
 void	init_exitstatus(t_env **env, int flag, int exit_status);
 void	pipe_cmd(t_final *lst, int *fds, int flag);
-void	child(t_final *lst, t_env **env, int *fds, int sec_fd);
+void	child(t_final *lst, t_env **env, int *fds);
 void	execute_cmd(t_final	*lst, t_env *envp);
 
 void	alpha_arrang(t_env *env);
