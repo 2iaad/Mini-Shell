@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/25 17:52:35 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:46:36 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	heredoc_opener(t_file **files, t_env *env, int stdin_fd)
 	{
 		if ((*files)[i].type == DELIMITER)
 			heredoc_limiter((*files)[i].file, env, 1337, &(*files)[i]); // kanopeni heredoc
+		if (g_signal == 2)
+			return ;
 		i++;
 	}
 	heredoc_maker(&filename, (*files)[flag].file, env, &(*files)[i]); // last one anopenih

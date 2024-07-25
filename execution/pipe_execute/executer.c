@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/25 17:46:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:52:35 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	multiple(t_final *lst, t_env **env)
 	{
 		pipe_cmd(lst, &fds[0][0], 0);
 		heredoc_opener(&lst->files, *env, fds[1][0]);
+		if (g_signal == 2)
+			break ;
 		pid = fork();
 		if (pid == -1)
 			error("fork", 1337);
@@ -45,8 +47,9 @@ void	single(t_final *lst, t_env **env)
 
 	init_secfds(sec_fd, 0);
 	heredoc_opener(&lst->files, *env, sec_fd[0]);
-	if (!b_file_opener(lst->files))
+	if (g_signal == 2)
 		return ;
+	s_file_opener(lst->files);
 	if (!builtins(lst, env)) // ila makantch command builtin
 	{
 		pid = fork();
