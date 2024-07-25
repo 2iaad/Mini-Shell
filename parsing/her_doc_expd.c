@@ -6,14 +6,13 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:52:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/11 18:11:10 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/25 11:12:32 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// when $and not in env ==> should return ambiguous redirect (this fo in file and outfile and append)
-// if << '"ss"' ==> should not expand the variable (if there quotes)
+
 
 char	*expand_herdoc(char *line, t_env *env)
 {
@@ -83,15 +82,16 @@ void	read_herdoc(t_token *token)
     while (token != NULL)
     {
         if (token->type == DELIMITER)
-        {
-			if (check_quotes(token->token))
+        { 
+			if (ft_strchr(token->token, -1) || ft_strchr(token->token, -2))
+            {
 				token->flg = 1;
+            }
 			else
+            {
                 token->flg = 0;
+            }
 		}
         token = token->next;
     }
 }
-// another tehnique is to use a flag to check if the delimiter is enclosed in quotes
-// if it is, then we don't expand the variables inside the heredoc
-// so we got to expand if flg = 1 we expand if flg = 0 we don't expand

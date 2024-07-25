@@ -6,12 +6,11 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:51:33 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/23 03:13:46 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:59:38 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 void	signal_handle(int sig)
 {
@@ -22,7 +21,7 @@ void	signal_handle(int sig)
 			ft_putstr_fd("\n", 2);
 			return ;
 		}
-		//exit_status(0, 1);
+		exit_status(1, 1);
 		ft_putstr_fd("\n", 2);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -36,6 +35,7 @@ void	signal_handle_2(int sig)
 	{
 		g_signal = SIGINT;
 		close(0);
+		exit_status(1, 1);
 	}
 }
 

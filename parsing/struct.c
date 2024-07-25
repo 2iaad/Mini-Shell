@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 02:51:31 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/25 11:14:59 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,11 @@ t_final	*struct_init(t_token **token)
 				else if (node->type == DELIMITER)
 				{
 					tmp->files[files_index].file = ft_strdup(node->token);
-					tmp->files[files_index++].type = DELIMITER;
 					if (node->flg == 1)
 						tmp->files[files_index].flg = 1;
 					else
 						tmp->files[files_index].flg = 0;
+					tmp->files[files_index++].type = DELIMITER;
 				}
 				node = node->next;
 			}
@@ -132,12 +132,69 @@ t_final	*struct_init(t_token **token)
 		else 
 			tmp->files = NULL;
 	}
-	/*
-	to loop over the files array:
-	while (files.type != 42)
-	{
-		....
-	}
-	 */
 	return (final);
 }
+
+// void process_node(t_token *node, t_final *tmp, int *opt_index, int *files_index)
+// {
+//     if (node->token == NULL)
+//         return;
+//     if (node->type == CMD)
+//         tmp->cmd = ft_strdup(node->token);
+//     else if (node->type == OPTION)
+//         tmp->args[(*opt_index)++] = ft_strdup(node->token);
+//     else if (node->type == IN_FILE || node->type == OUT_FILE || node->type == AOUT_FILE || node->type == DELIMITER)
+//     {
+//         tmp->files[*files_index].file = ft_strdup(node->token);
+//         tmp->files[*files_index].type = node->type;
+//         if (node->type == DELIMITER)
+//         {
+//             if (node->flg == 1)
+//                 tmp->files[*files_index].flg = 1;
+//             else
+//                 tmp->files[*files_index].flg = 0;
+//         }
+//         (*files_index)++;
+//     }
+// }
+
+// t_final *struct_init(t_token **token)
+// {
+//     t_token *node;
+//     t_final *final;
+//     t_final *tmp;
+//     int     opt_index;
+//     int     files_index;
+
+//     node = *token;
+//     final = NULL;
+//     files_index = -1;
+//     while (node)
+//     {
+//         if (node == *token || node->type == PIPE)
+//         {
+//             (1) && (opt_index = 0, files_index = 0);
+//             if (node->type == PIPE)
+//                 node = node->next;
+//             tmp = init_final(&node);
+//             if (!tmp)
+//                 return (NULL);
+//             while (node && node->type != PIPE)
+//             {
+//                 process_node(node, tmp, &opt_index, &files_index);
+//                 node = node->next;
+//             }
+//             tmp->next = NULL;
+//             ft_lstadd_back3_parse(&final, tmp);
+//         }
+//         else
+//             node = node->next;
+//         if (files_index > 0)
+//         {
+//             tmp->files[files_index].type = 42;
+//         }
+//         else 
+//             tmp->files = NULL;
+//     }
+//     return (final);
+// }

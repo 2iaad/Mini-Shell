@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/23 02:50:23 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:59:12 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@
 # include <limits.h>
 # include <stdbool.h>
 
-// sytx error exit before execution:
-// | s
-// << s >
-// I handle signals
-
-/*
-
-		after fork waitpid then check if the child ended with signal, if yes printf a "\n" (use WIFEEXITED and WIFSIGNALED)
-		use-after-free when unsetting the first element of the env_list
-		./minishell < /dev/urandom
-		exit status
-		/cat && ./ls
-		mat Makefile | cat << salam
-		cat | cat | cat | ls
-*/
 
 typedef struct s_free
 {
@@ -130,6 +115,7 @@ char	**ft_split(const char *s, char c);
 int		ft_strncmp(char *s1, char *s2, int len);
 char	**custumized_ft_split(const char *str, char c);
 char	*ft_strnstr(const char *haystack, const char *needle, int len);
+void	signal_handle(int sig);
 
 //*----------------------------------linked_list------------------------------------------*//
 //*---Parsing---*
@@ -190,6 +176,12 @@ int		syntax_error(char *line);
 //*----------------------TOKENIZER---------------------------*//
 
 void	tokenizer(char **splited, t_token **token, t_env *env);
+t_token	*ft_get_token(char *content, int type);
+void	replace_quotes(t_token **token);
+void	tokenizer_3(t_token **token);
+void	process_node(t_token **node, int *cmd_found);
+void	tokenizer_2(t_token **token);
+void	tokenizer_1(char **splited, t_token **token);
 t_token	*ft_get_token(char *content, int type);
 
 //*----------------------STRUCT---------------------------*//
@@ -252,5 +244,6 @@ void	export_var(t_env *env, char **str);
 void	export_join(t_env *env, char **str);
 
 void	error(char *str, int a);
+int exit_status(int status, int set);
 
 #endif

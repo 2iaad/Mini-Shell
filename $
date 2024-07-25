@@ -1,0 +1,11 @@
+$
+Makefile
+c.c
+execution
+main.c
+main.o
+minishell
+minishell.h
+parsing
+tester.py
+z.tldr

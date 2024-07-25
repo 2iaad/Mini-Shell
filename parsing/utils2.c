@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 00:40:47 by ibouram           #+#    #+#             */
-/*   Updated: 2024/06/02 16:51:17 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/24 18:11:29 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,25 +88,9 @@ char	*ft_substr(char *s, int start, int len)
 	while (i < len && s[start])
 	{
 		sub[i] = s[start];
-		start++; 
+		start++;
 		i++;
 	}
 	sub[i] = '\0';
 	return (sub);
 }
-
-int	ft_isalnum(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-		|| (c >= '0' && c <= '9'))
-		return (1);
-	return (0);
-}
-
-int	ft_isnum(int n)
-{
-	if (n >= '0' && n <= '9')
-		return (1);
-	return (0);
-}
-

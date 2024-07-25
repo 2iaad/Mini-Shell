@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:49:39 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/22 02:51:19 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/24 18:14:05 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	is_operator(char *line, int *i)
 		return (0);
 	if ((line[*i] == '<' && line[*i + 1] && line[*i + 1] == '<')
 		|| (line[*i] == '>' && line[*i + 1] && line[*i + 1] == '>'))
-		{
-			(*i)++;
-			return (1);
-		}
+	{
+		(*i)++;
+		return (1);
+	}
 	if (line[*i] == '<' || line[*i] == '>')
 		return (1);
 	return (0);
@@ -37,7 +37,7 @@ void	skip_spaces(char *line, int *i, int inc)
 
 int	syntax_error(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	skip_spaces(line, &i, 0);
