@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/25 15:34:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:35:36 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,29 @@ void	export_helper(t_env **env_list, bool flag)
 		init_exitstatus(env_list, EXIT_FAILURE, 0);
 }
 
-void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if the key is a number or '=' , have to be ranged between 'a' and 'z'
+void	env_copy(t_env **env_list, t_env **copy)
+{
+	t_env *tmpo;
+
+	tmpo = *env_list;
+	*copy = NULL;
+	while (tmpo)
+	{
+		ft_lstadd_back(copy, ft_lstnew(ft_strdup(tmpo->key), ft_strdup(tmpo->value)));
+		tmpo = tmpo->next;
+	}
+}
+
+void	export(t_env **env_list)
+{
+	t_env	*copy;
+
+	env_copy(env_list, &copy);
+	alpha_arrang(copy);
+	export_solo(copy);
+}
+
+void	export_command(t_final *lst, t_env **env_list)
 {
 	int		i;
 	bool	flag;
@@ -39,7 +61,7 @@ void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if th
 
 	(1 == 1) && ((i = 0) && (flag = false));
 	if (!lst->final_cmd[1])
-		return (alpha_arrang(*env_list), export_solo(*env_list)); // if there is "export" arrang and print
+		return (export(env_list)); // if there is "export" arrang and print
 	while (lst->final_cmd[++i])
 	{
 		str = custumized_ft_split(lst->final_cmd[i], '='); // str = {"a","salam", NULL}
@@ -51,8 +73,7 @@ void	export_command(t_final *lst, t_env **env_list) // doesnt have to work if th
 			ft_free(str);
 			continue;
 		}
-		export_action(lst, env_list, str);
-		ft_free(str);
+		(1) && (export_action(lst, env_list, str), ft_free(str), (i = i));
 	}
 	export_helper(env_list, flag);
 }
