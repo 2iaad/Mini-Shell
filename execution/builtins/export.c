@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 15:48:50 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 23:54:50 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	export(t_env **env_list)
 	env_copy(env_list, &copy);
 	alpha_arrang(copy);
 	export_solo(copy);
+	ft_lstclear(&copy);
 }
 
 void	export_command(t_final *lst, t_env **env_list)
