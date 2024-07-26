@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 19:36:22 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 22:56:17 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	multiple_helper(t_env **env)
 {
-	int		exit_status;
+	int	status;
 
-	while (wait(&(exit_status)) != -1)
+	while (wait(&(status)) != -1)
 		;
-	// exit_status(WEXITSTATUS(exit_status), 1);
+	exit_status(WEXITSTATUS(status), 1);
 }
 
 void	init_secfds(int *sec_fd, int flag)

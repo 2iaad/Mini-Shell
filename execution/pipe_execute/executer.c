@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 16:50:25 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 23:12:03 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	multiple(t_final *lst, t_env **env)
 {
 	pid_t	pid;
-	int		fds[2][2]; // fds[0] ---> fds[2] ###### fds[1] ----> sec_fd
+	int		fds[2][2];
 
 	init_secfds(&fds[1][0], 0);
 	while (lst)

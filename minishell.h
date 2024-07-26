@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/26 15:48:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 22:56:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,14 +240,14 @@ void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env **env, int *fds);
 void	execute_cmd(t_final	*lst, t_env *envp);
 
+void	env_maker(t_env *envp, char ***env);
 void	env_copy(t_env **env_list, t_env **copy);
 void	alpha_arrang(t_env *env);
 void	export_solo(t_env *env);
 void	export_replace(t_env *env, char **str);
 void	export_var(t_env *env, char **str);
 void	export_join(t_env *env, char **str);
-
 void	error(char *str, int a);
-int exit_status(int status, int set);
+int		exit_status(int status, int set);
 
 #endif

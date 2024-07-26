@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 16:48:46 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 23:02:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	unset(t_final	*lst, t_env **env_list)
 		return (void) exit_status(0, 1);
 	while (lst->final_cmd[++i])
 	{
-		printf("---->%s<<<\n", lst->final_cmd[i]);
 		if (!unset_valid_check(lst->final_cmd[i], &env_list))
 		{
 			flag = true;
