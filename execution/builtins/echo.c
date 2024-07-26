@@ -6,13 +6,13 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 02:16:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:22:30 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    echo(t_final	*lst, t_env *env)
+void    echo(t_final	*lst)
 {
 	int	i;
     int	flag;
@@ -37,5 +37,5 @@ void    echo(t_final	*lst, t_env *env)
 	}
 	if (flag) // if there is no flag (flag != 0) then write "\n"
 		write(1, "\n", 1);
-	init_exitstatus(&env, EXIT_SUCCESS, 0);
+	exit_status(0,1);
 }

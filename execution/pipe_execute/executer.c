@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 11:43:56 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:50:25 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,5 @@ void	execution(t_final *lst, t_env **env)
 	else
 	 	single(lst, env);
 	if (g_signal == 2)
-		init_exitstatus(env, 1, 0);
-	t_env *tmp = *env;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->key, "?", 1))
-			printf("exit status:%s\n", tmp->value);
-		tmp = tmp->next;
-	}
+		exit_status(1,1);
 }

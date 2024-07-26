@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 02:20:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:48:46 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@ void	unset(t_final	*lst, t_env **env_list)
 
 	(1 == 1) && ((i = 0) && (flag = false));
 	if (!lst->final_cmd[1])
-		return ;
+		return (void) exit_status(0, 1);
 	while (lst->final_cmd[++i])
 	{
+		printf("---->%s<<<\n", lst->final_cmd[i]);
 		if (!unset_valid_check(lst->final_cmd[i], &env_list))
 		{
 			flag = true;
@@ -84,8 +85,8 @@ void	unset(t_final	*lst, t_env **env_list)
 		else
 			d_node(env_list, lst->final_cmd[i]); // ila kan arg lwst
 	}
-	if (!flag)
-		init_exitstatus(env_list, EXIT_SUCCESS, 0);
+	if (flag)
+		exit_status(1,1);
 	else
-		init_exitstatus(env_list, EXIT_FAILURE, 0);	
+		exit_status(0,1);
 }

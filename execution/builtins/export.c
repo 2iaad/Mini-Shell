@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/25 17:35:36 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:48:50 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,9 @@ void	export_action(t_final *lst, t_env **env_list, char **str)
 void	export_helper(t_env **env_list, bool flag)
 {
 	if (!flag)
-		init_exitstatus(env_list, EXIT_SUCCESS, 0);
+		exit_status(0,1);
 	else
-		init_exitstatus(env_list, EXIT_FAILURE, 0);
-}
-
-void	env_copy(t_env **env_list, t_env **copy)
-{
-	t_env *tmpo;
-
-	tmpo = *env_list;
-	*copy = NULL;
-	while (tmpo)
-	{
-		ft_lstadd_back(copy, ft_lstnew(ft_strdup(tmpo->key), ft_strdup(tmpo->value)));
-		tmpo = tmpo->next;
-	}
+		exit_status(1,1);
 }
 
 void	export(t_env **env_list)

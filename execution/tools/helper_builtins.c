@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:32:58 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 21:55:23 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:45:14 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	export_valid_check(char *str, t_env ***env)
 			&& !(str[i] >= '0' && str[i] <= '9')))
 				continue ;
 		if (!((ft_isalpha(str[i]) || (str[i] >= '0' && str[i] <= '9'))))
-			builtins_error(str, 1337);
+			return (builtins_error(str, 1337), 0);
 	}
 	return (1);
 }
@@ -50,7 +50,7 @@ int		unset_valid_check(char *str, t_env ***env)
 	while (str[++i])
 	{
 		if (!((ft_isalpha(str[i]) || (str[i] >= '0' && str[i] <= '9'))))
-			builtins_error(str, 42);
+			return (builtins_error(str, 42), 0);
 	}
 	return (1);
 }

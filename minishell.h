@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/26 12:03:23 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:48:44 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,10 +203,10 @@ int		count_len(t_token *node, int type);
 
 bool	builtins(t_final *lst, t_env **env_list);
 void    execution(t_final *lst, t_env **env);
-void    echo(t_final	*lst, t_env *env);
+void    echo(t_final	*lst);
 void    cd(t_final	*lst, t_env *env);
-void    pwd(t_env *env);
-void    env(t_final	*lst, t_env *env_list);
+void    pwd(void);
+void    env(t_env *env_list);
 void	unset(t_final	*lst, t_env **env_list);
 void	export_command(t_final *lst, t_env **env_list);
 void	exit_command(char **cmd);
@@ -240,6 +240,7 @@ void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env **env, int *fds);
 void	execute_cmd(t_final	*lst, t_env *envp);
 
+void	env_copy(t_env **env_list, t_env **copy);
 void	alpha_arrang(t_env *env);
 void	export_solo(t_env *env);
 void	export_replace(t_env *env, char **str);

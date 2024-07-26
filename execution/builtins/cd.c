@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/22 05:30:47 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 13:19:40 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void    cd(t_final	*lst, t_env *env)
 		if (chdir(dir) == -1)
 			return (perror("chdir"));
 		init_pwd(&env); // update the PWD and the OLDPWD in the env variables after dir change
-		init_exitstatus(&env, EXIT_SUCCESS, 0);
+		exit_status(0,1);
 	}
 	else
 	{
@@ -101,6 +101,6 @@ void    cd(t_final	*lst, t_env *env)
 			write(2, "cd: HOME not set\n", 17);
 		else
 			cd_error(dir);
-		init_exitstatus(&env, EXIT_FAILURE, 0);
+		exit_status(1,1);
 	}
 }
