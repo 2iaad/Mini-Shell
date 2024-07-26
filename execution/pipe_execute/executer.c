@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/25 21:52:35 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:43:56 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	execution(t_final *lst, t_env **env)
 		multiple(lst, env);
 	else
 	 	single(lst, env);
-
+	if (g_signal == 2)
+		init_exitstatus(env, 1, 0);
 	t_env *tmp = *env;
 	while (tmp)
 	{

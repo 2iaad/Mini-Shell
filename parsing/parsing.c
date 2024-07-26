@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/25 16:03:14 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/26 12:04:08 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 			free(line);
 			continue ;
 		}
+		if (g_signal == 2)
+			g_signal = 0;
 		add_history(line);
 		if (parce_line(&final_cmd, *env_list, line) != -1)
 			execution(final_cmd, env_list);

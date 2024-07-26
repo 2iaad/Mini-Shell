@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/25 21:45:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:03:23 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <limits.h>
 # include <stdbool.h>
 
+/* 
+	fash kadar ctrl+c maba9ich chi haja katra mnwra dak heredoc
+*/
 
 typedef struct s_free
 {
