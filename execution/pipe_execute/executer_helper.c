@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/24 05:02:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 19:36:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	multiple_helper(t_env **env)
 
 	while (wait(&(exit_status)) != -1)
 		;
-	init_exitstatus(env, 1337, WEXITSTATUS(exit_status));
+	// exit_status(WEXITSTATUS(exit_status), 1);
 }
 
 void	init_secfds(int *sec_fd, int flag)
@@ -37,25 +37,31 @@ void	init_secfds(int *sec_fd, int flag)
 	}
 }
 
-void	init_exitstatus(t_env **env, int flag, int exit_status)
+void	env_maker(t_env *envp, char ***env)
 {
+	int		i;
+	char	*str;
 	t_env	*tmp;
 
-	tmp = (*env);
+	(1 == 1) && ((tmp = envp) && (i = 0));
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->key, "?", 1))
-		{
-			free(tmp->value);
-			if (flag == 0)
-				tmp->value = ft_strdup("0");
-			else if (flag == 1)
-				tmp->value = ft_strdup("1");
-			else
-			 	tmp->value = ft_itoa(exit_status);
-		}
 		tmp = tmp->next;
+		i++;
 	}
+	*env = (char **) malloc (sizeof(char *) * (i + 1));
+	if (!*env)
+		return ;
+	(1 == 1) && ((tmp = envp) && (i = 0));
+	while (tmp)
+	{
+		str = ft_strjoin(tmp->key, "=");
+		(*env)[i] = ft_strjoin(str, tmp->value);
+		free(str);
+		tmp = tmp->next;
+		i++;
+	}
+	(*env)[i] = NULL;
 }
 
 void	error(char *str, int a)

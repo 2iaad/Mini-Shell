@@ -6,11 +6,21 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/25 17:46:33 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 19:57:36 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	execve_error(int flag, char *cmd)
+{
+	if (!flag)
+		ft_putstr_fd("No such file or directory: ", 2);
+	else
+		ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putendl_fd(cmd, 2);
+	exit(127);
+}
 
 char	*look_for_paths(char **ev)
 {
@@ -22,18 +32,22 @@ char	*look_for_paths(char **ev)
 			return (*ev + ft_strlen("PATH="));
 		ev++;
 	}
-	return (error("No path has been found.\n", 1), NULL);
+	return (NULL);
 }
 
 char	*right_path(char **s_cmd, char **env)
 {
 	int		i;
+	char	*l_path;
 	char	**s_path;
 	char	*tmp;
 	char	*r_path;
 
 	i = -1;
-	s_path = ft_split(look_for_paths(env), ':');
+	l_path = look_for_paths(env);
+	s_path = ft_split(l_path , ':');
+	if (!s_path)
+		return (NULL);
 	while (s_path[++i])
 	{
 		tmp = ft_strjoin(s_path[i], "/");
@@ -46,41 +60,19 @@ char	*right_path(char **s_cmd, char **env)
 	return (ft_free(s_path), s_cmd[0]);
 }
 
-void	env_maker(t_env *envp, char ***env)
-{
-	int		i;
-	char	*str;
-	t_env	*tmp;
 
-	(1 == 1) && ((tmp = envp) && (i = 0));
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	*env = (char **) malloc (sizeof(char *) * (i + 1));
-	if (!*env)
-		return ;
-	(1 == 1) && ((tmp = envp) && (i = 0));
-	while (tmp)
-	{
-		str = ft_strjoin(tmp->key, "=");
-		(*env)[i] = ft_strjoin(str, tmp->value);
-		free(str);
-		tmp = tmp->next;
-		i++;
-	}
-	(*env)[i] = NULL;
-}
-
-void	execve_error(int flag, char *cmd)
+void	init_path(t_final *lst, char **env, char **path, int *flag)
 {
-	if (!flag)
-		ft_putstr_fd("No such file or directory: ", 2);
+	if (ft_strchr(lst->final_cmd[0], '/')) // ila kant /ls || ./ls
+		(1 == 1) && (*path = lst->final_cmd[0]) && (*flag = 0);
 	else
-		ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putendl_fd(cmd, 2);
-	exit(127);
+	{
+		*path = right_path(lst->final_cmd, env);
+		if (!(*path))
+			*flag = 0;
+		else
+			*flag = 1;
+	}
 }
 
 void	execute_cmd(t_final	*lst, t_env *envp)
@@ -94,16 +86,10 @@ void	execute_cmd(t_final	*lst, t_env *envp)
 		exit(0);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
 		execve(lst->final_cmd[0], lst->final_cmd, env);
-	if (ft_strchr(lst->final_cmd[0], '/')) // ila kant /ls || ./ls
-	{
-		flag = 0;
-		path = lst->final_cmd[0];
-	}
-	else
-	{
-		flag = 1;
-		path = right_path(lst->final_cmd, env);
-	}
+	init_path(lst, env, &path, &flag);
 	if (execve(path, lst->final_cmd, env) == -1)
+	{
+		exit_status(127, 1);
 		execve_error(flag, lst->final_cmd[0]);
+	}
 }

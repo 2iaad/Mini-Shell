@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/26 12:04:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:42:18 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	parce_line(t_final **final_cmd, t_env *env, char *line)
 	if (syntax_error(line))
 	{
 		exit_status(258, 1);
-		// init_exitstatus(&env, 1337, 258);
 		return (-1);
 	}
 	split = split_line(line);
