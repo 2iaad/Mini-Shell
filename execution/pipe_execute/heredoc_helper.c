@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:14:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/16 12:11:27 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:16:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ char	*name_heredoc(char *heredoc)
 	char	*num;
 	char	*filename;
 	
-	tmp = ft_strjoin("/tmp/.", heredoc);
+	(void)heredoc;
+	tmp = malloc(1);
+	if (!tmp)
+		return (NULL);
 	num = ft_itoa(*(int *)&tmp);
-	filename = ft_strjoin(tmp, num);
-	free(tmp);
+	filename = ft_strjoin("/tmp/.tmp", num);
 	free(num);
+	free(tmp);
 	return (filename);
 }
 
