@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 17:48:29 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/28 00:06:18 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	out(char *outfile, int type, bool last)
 	close(fd);
 }
 
-bool	file_opener(t_file *files)
+void	file_opener(t_file *files)
 {
 	int	i;
 	int	fd;
@@ -59,5 +59,4 @@ bool	file_opener(t_file *files)
 			in(files[i].file, files[i].last);
 		i++;
 	}
-	return true;
 }

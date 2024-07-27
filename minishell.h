@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/26 22:56:57 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/28 00:06:30 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
 
 void	in(char *infile, bool last);
 void	out(char *outfile, int type, bool last);
-bool	file_opener(t_file *files);
+void	file_opener(t_file *files);
 bool	s_in(char *infile, bool last);
 bool	s_out(char *outfile, int type, bool last);
 bool	s_file_opener(t_file *files);
