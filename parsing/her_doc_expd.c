@@ -6,13 +6,11 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:52:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/25 11:12:32 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/27 19:03:43 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 char	*expand_herdoc(char *line, t_env *env)
 {
@@ -32,12 +30,13 @@ char	*expand_herdoc(char *line, t_env *env)
         len = 0;
         while (!(line[i + len] == '$') && line[i + len] != '\0')
             len++;
-        if (len > 0) // if there is a string before the variable
+        if (len > 0)
         {
             new_line = ft_substr(line, i, len);
             new = ft_strjoin_parse(new, new_line);
         }
-        if (line[i + len] == '$' && (line[i + len + 1] == '\0' || line[i + len + 1] == ' '))
+        if (line[i + len] == '$' && (line[i + len + 1] == '\0'
+            || line[i + len + 1] == ' ' || line[i + len + 1] == '\'' || line[i + len + 1] == '\"'))
         {
             new = ft_strjoin_parse(new, "$");
             i += len + 1;
