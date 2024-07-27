@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/25 21:46:36 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:38:03 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	heredoc_opener(t_file **files, t_env *env, int stdin_fd)
 		i++;
 	}
 	heredoc_maker(&filename, (*files)[flag].file, env, &(*files)[i]); // last one anopenih
+	free((*files)[flag].file); // nfreei smiya d DELIMITER lqdim
 	(*files)[flag].file = filename; // nrdo IN_FILE bash nopenin f in() function
 	(*files)[flag].type = IN_FILE;
 }

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 13:14:25 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:31:37 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	builtin_checker(t_final	**lst)
 	if (!(*lst)->final_cmd[0] || !(*lst)->final_cmd[0][0])
 		return ;
 	str = ft_split((*lst)->cmd, ' ');
-	if (!str || !str[0] || !str[1])
-		return ;
+	if (!str)
+		return;
 	if (str[1])
 	{
 		ft_free((*lst)->final_cmd);
@@ -32,7 +32,7 @@ void	builtin_checker(t_final	**lst)
 
 bool	builtins(t_final *lst, t_env **env_list)
 {
-	if (!lst->final_cmd[0])
+	if (!lst->final_cmd[0] || !lst->final_cmd[0][0])
 		return false;
 	builtin_checker(&lst); // incase there was export x="export y=salam"
     if (!ft_strncmp(lst->final_cmd[0], "echo", 4))

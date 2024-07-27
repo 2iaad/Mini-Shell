@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:17:21 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 13:22:30 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:46:37 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void    echo(t_final	*lst)
 	}
 	while (lst->final_cmd[i]) // printf the strings that come after the "-nn"
 	{
-		// printf("%s", lst->final_cmd[i]);
 		ft_putstr_fd(lst->final_cmd[i], 1);
 		if (lst->final_cmd[i + 1])
 			write(1, " ", 1);
