@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/25 15:58:23 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/27 18:11:48 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ char	*expand_env(char *line, t_env *env)
 			new_line = ft_substr(line, i, len);
 			new = ft_strjoin_parse(new, new_line);
 		}
-		if (line[i + len] == '$' && (line[i + len + 1] == '\0'
-			|| line[i + len + 1] == ' '))
+		if (line[i + len] == '$' && (((line[i + len + 1] == '\0'
+    		|| line[i + len + 1] == ' '))
+				|| (i + len - 1 >= 0 && i + len + 1 < strlen(line) && line[i + len - 1] == -2 && line[i + len + 1] == -2)
+				|| (i + len - 1 >= 0 && i + len + 1 < strlen(line) && line[i + len - 1] == -1 && line[i + len + 1] == -1)
+				|| (line[i + len + 1] == '$')))
+			// and case if $$ means if iti s$ and after it $ and if there is simgle quotes
 		{
-			new = ft_strjoin_parse(new, "$");
-			i += len + 1;
+    		new = ft_strjoin_parse(new, "$");
+    		i += len + 1;
 		}
 		else if (line[i + len] == '$' && ft_isnum(line[i + len + 1]))
 		{
