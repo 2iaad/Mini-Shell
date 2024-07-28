@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/27 18:43:55 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:03:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void    cd(t_final	*lst, t_env *env)
 
 	if (lst->final_cmd[1] && !lst->final_cmd[1][0])
 		return ;
+	if (lst->final_cmd[1][0] == '-' && lst->final_cmd[1][1] == '\0')
+			return pwd();
 	init_dir(lst->final_cmd, env, &dir);
 	if (!access(dir, F_OK))
 	{

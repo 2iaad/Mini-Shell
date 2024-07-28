@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:02:14 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/27 18:31:37 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/28 14:56:50 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 void	builtin_checker(t_final	**lst)
 {
 	char **str;
-	
-	if (!(*lst)->final_cmd[0] || !(*lst)->final_cmd[0][0])
+
+	if (!(*lst)->cmd)
 		return ;
 	str = ft_split((*lst)->cmd, ' ');
 	if (!str)
 		return;
-	if (str[1])
+	if (!str[0] || !str[1])
+		return ft_free(str);
+	if (!ft_strncmp(str[0] , "export", ft_strlen(str[0])))
 	{
-		ft_free((*lst)->final_cmd);
-		(*lst)->final_cmd = str;
+		if (str[1])
+		{
+			ft_free((*lst)->final_cmd);
+			(*lst)->final_cmd = str;
+		}
 	}
 	else
 		ft_free(str);
