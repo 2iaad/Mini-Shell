@@ -6,30 +6,30 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:09:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 16:00:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:15:46 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    pwd(void)
+void	pwd(void)
 {
-    char *c_path;
+	char	*c_path;
 
-    c_path = getcwd(NULL, -1337); // when giving NULL , the fun ignores the number of bytes of the array that have been given
-    if (!c_path) // contains the path, that have been allocated by getcwd
+	c_path = getcwd(NULL, -1337);
+	if (!c_path)
 	{
-        perror("getcwd");
+		perror("getcwd");
 		return ;
 	}
-    printf("%s\n", c_path);
-    free(c_path);
-	exit_status(0,1);
+	printf("%s\n", c_path);
+	free(c_path);
+	exit_status(0, 1);
 }
 
 bool	env_checker(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -41,10 +41,11 @@ bool	env_checker(char *str)
 	return (false);
 }
 
-void    env(t_env *env_list) // didnt handle "no envirement" case!!
+void	env(t_env *env_list)
 {
-	t_env *tmp;
-	tmp = env_list; // to keep the linked list preserved for later freeing of the linked list
+	t_env	*tmp;
+
+	tmp = env_list;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, "?", 1))
@@ -53,8 +54,8 @@ void    env(t_env *env_list) // didnt handle "no envirement" case!!
 			continue ;
 		}
 		if (tmp->value)
-			printf("%s=%s\n", tmp->key, tmp->value); // so i can print only variables that has a value(like bash)
+			printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
-	exit_status(0,1);
+	exit_status(0, 1);
 }

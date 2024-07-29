@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/28 00:06:30 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:24:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ void	export_command(t_final *lst, t_env **env_list);
 void	exit_command(char **cmd);
 
 //*---------------------EXECUTION--------------------------*//
-
+void	cd_error(char *dir);
 void	init_env(t_env **env_list, char **env);
 char	*right_path(char **cmd, char **env);
 char	*look_for_paths(char **ev);
@@ -233,7 +233,6 @@ bool	s_out(char *outfile, int type, bool last);
 bool	s_file_opener(t_file *files);
 void	init_secfds(int *sec_fd, int flag);
 void	multiple_helper(t_env **env);
-
 
 void	init_exitstatus(t_env **env, int flag, int exit_status);
 void	pipe_cmd(t_final *lst, int *fds, int flag);

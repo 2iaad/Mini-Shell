@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:49:51 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/12 18:33:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:16:30 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	exit_command(char **cmd)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (cmd[1] && cmd[1][++i])
 	{
-		if (!ft_isnum(cmd[1][i])) // f case ila kan --> "exit abc12" 
+		if (!ft_isnum(cmd[1][i]))
 		{
 			write(1, "exit\n", 5);
 			write (2, "minishell: exit: ", 17);

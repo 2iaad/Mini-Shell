@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:32:58 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 16:45:14 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:23:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,11 @@ void   alpha_arrang(t_env *env)
                else
                        tmp = tmp->next;
        }
+}
+
+void	cd_error(char *dir)
+{
+	write(2, "cd: ", 4);
+	ft_putstr_fd(dir, 2);
+	write(2, ": No such file or directory\n", 28);
 }
