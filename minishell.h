@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 11:28:56 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:47:40 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,11 @@
 # include <limits.h>
 # include <stdbool.h>
 
-/* 
-	fash kadar ctrl+c maba9ich chi haja katra mnwra dak heredoc
-*/
-
 typedef struct s_free
 {
-	void	*ptr;
+	void			*ptr;
 	struct s_free	*next;
 }				t_free;
-
 
 typedef struct s_env
 {
@@ -43,11 +38,11 @@ typedef struct s_env
 
 typedef struct s_token
 {
-	char	*token;
-	int		type;
-	int		index;
-	int		flg;
-	struct	s_token	*next;
+	char			*token;
+	int				type;
+	int				index;
+	int				flg;
+	struct s_token	*next;
 }				t_token;
 
 typedef enum s_meta
@@ -76,19 +71,15 @@ typedef struct s_file
 
 typedef struct s_final
 {
-	char	*cmd;
-	char	**args;
-	char	**final_cmd;
-	t_file	*files;
-	struct	s_final *next;
-} 	t_final;
+	char			*cmd;
+	char			**args;
+	char			**final_cmd;
+	t_file			*files;
+	struct s_final	*next;
+}	t_final;
 
+int	g_signal;
 
-
-int		g_signal;
-
-
-//*----------------------------------TOOLS------------------------------------------*//
 //*---Parsing---*
 char	**split_line(char *line);
 int		ft_strlen(char *s);
@@ -120,7 +111,7 @@ char	**custumized_ft_split(const char *str, char c);
 char	*ft_strnstr(const char *haystack, const char *needle, int len);
 void	signal_handle(int sig);
 
-//*----------------------------------linked_list------------------------------------------*//
+//*-------------------linked_list------------------*//
 //*---Parsing---*
 t_token	*ft_lstnew_parse(char *content, int type);
 t_token	*ft_lstlast_parse(t_token *lst);
@@ -135,7 +126,7 @@ t_env	*ft_lstlast(t_env *lst);
 void	ft_lstclear(t_env **lst);
 void	ft_lstadd_back(t_env **lst, t_env *newn);
 
-//*----------------------------------PARSING--------------------------------------------------------------*//
+//*--------------PARSING-----------------*//
 
 void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp);
 int		parce_line(t_final **final_cmd, t_env *env, char *line);
@@ -193,20 +184,14 @@ t_final	*struct_init(t_token **token);
 t_final	*init_final(t_token **nodee);
 int		count_len(t_token *node, int type);
 
-// *------------------------------------------------------------------------------------------------------------------------------------------*//
-
-// *--------------------------------------EXECUTION----------------------------------------------------* //
-
 //*---------------------BUILTINS--------------------------*//
 
-// void	merg_cmd(t_final	***lst);
-
 bool	builtins(t_final *lst, t_env **env_list);
-void    execution(t_final *lst, t_env **env);
-void    echo(t_final	*lst);
-void    cd(t_final	*lst, t_env *env);
-void    pwd(void);
-void    env(t_env *env_list);
+void	execution(t_final *lst, t_env **env);
+void	echo(t_final	*lst);
+void	cd(t_final	*lst, t_env *env);
+void	pwd(void);
+void	env(t_env *env_list);
 void	unset(t_final	*lst, t_env **env_list);
 void	export_command(t_final *lst, t_env **env_list);
 void	exit_command(char **cmd);

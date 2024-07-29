@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:49:51 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 09:16:30 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:40:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	exit_command(char **cmd)
 {
 	int	i;
+	int status;
 
 	i = -1;
+	status = exit_status(1, 0);
 	while (cmd[1] && cmd[1][++i])
 	{
 		if (!ft_isnum(cmd[1][i]))
@@ -28,8 +30,9 @@ void	exit_command(char **cmd)
 			exit(255);
 		}
 	}
+	write(1, "exit\n", 5);
 	if (cmd[1])
 		exit(ft_atol(cmd[1]));
 	else
-		exit(0);
+		exit(status);
 }
