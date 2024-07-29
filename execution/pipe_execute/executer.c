@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/28 00:02:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:53:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	single(t_final *lst, t_env **env)
 		return ;
 	if (!s_file_opener(lst->files))
 		return ;
-	if (!builtins(lst, env)) // ila makantch command builtin
+	if (!builtins(lst, env))
 	{
 		pid = fork();
 		if (!pid)
@@ -68,7 +68,7 @@ void	execution(t_final *lst, t_env **env)
 	if (lst->next)
 		multiple(lst, env);
 	else
-	 	single(lst, env);
+		single(lst, env);
 	if (g_signal == 2)
-		exit_status(1,1);
+		exit_status(1, 1);
 }

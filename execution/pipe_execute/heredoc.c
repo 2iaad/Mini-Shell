@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/27 17:38:03 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:31:49 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd, t_file *file)
 void	heredoc_maker(char **filename, char *DELIMITER, t_env *env, t_file *f)
 {
 	int		fd;
-	
+
 	*filename = name_heredoc(DELIMITER);
 	fd = open(*filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		error("open", 1337);
-	heredoc_limiter(DELIMITER, env, fd, f); // here heredoc[i] atkoun katpointi 3la akhir delimiter
+	heredoc_limiter(DELIMITER, env, fd, f);
 	reset_offset(*filename, fd);
 }
 
@@ -63,17 +63,17 @@ void	heredoc_opener(t_file **files, t_env *env, int stdin_fd)
 		return ;
 	if (dup2(stdin_fd, 0) == -1)
 		error("dup2", 1337);
-	final_heredoc(*files, &flag); // kanflagi last heredoc
-	while ((*files) && (*files)[i].type != 42 && i < flag) // kanreadi 7tal akhir heredoc
+	final_heredoc(*files, &flag);
+	while ((*files) && (*files)[i].type != 42 && i < flag)
 	{
 		if ((*files)[i].type == DELIMITER)
-			heredoc_limiter((*files)[i].file, env, 1337, &(*files)[i]); // kanopeni heredoc
+			heredoc_limiter((*files)[i].file, env, 1337, &(*files)[i]);
 		if (g_signal == 2)
 			return ;
 		i++;
 	}
-	heredoc_maker(&filename, (*files)[flag].file, env, &(*files)[i]); // last one anopenih
-	free((*files)[flag].file); // nfreei smiya d DELIMITER lqdim
-	(*files)[flag].file = filename; // nrdo IN_FILE bash nopenin f in() function
+	heredoc_maker(&filename, (*files)[flag].file, env, &(*files)[i]);
+	free((*files)[flag].file);
+	(*files)[flag].file = filename;
 	(*files)[flag].type = IN_FILE;
 }

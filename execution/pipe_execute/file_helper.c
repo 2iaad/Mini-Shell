@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_opener2.c                                     :+:      :+:    :+:   */
+/*   file_helper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 15:55:06 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/16 08:37:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:54:01 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-bool file_checker(t_file *files, int type)
+bool	file_checker(t_file *files, int type)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (files && files[i].type != 42)
@@ -71,7 +71,7 @@ void	identify_files(t_file **files)
 
 void	parce_files(t_final **lst)
 {
-	t_final *tmp;
+	t_final	*tmp;
 
 	tmp = *lst;
 	while (tmp)

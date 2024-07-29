@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 19:57:36 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:52:32 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*right_path(char **s_cmd, char **env)
 
 	i = -1;
 	l_path = look_for_paths(env);
-	s_path = ft_split(l_path , ':');
+	s_path = ft_split(l_path, ':');
 	if (!s_path)
 		return (NULL);
 	while (s_path[++i])
@@ -60,10 +60,9 @@ char	*right_path(char **s_cmd, char **env)
 	return (ft_free(s_path), s_cmd[0]);
 }
 
-
 void	init_path(t_final *lst, char **env, char **path, int *flag)
 {
-	if (ft_strchr(lst->final_cmd[0], '/')) // ila kant /ls || ./ls
+	if (ft_strchr(lst->final_cmd[0], '/'))
 		(1 == 1) && (*path = lst->final_cmd[0]) && (*flag = 0);
 	else
 	{
@@ -82,7 +81,7 @@ void	execute_cmd(t_final	*lst, t_env *envp)
 	char	**env;
 
 	env_maker(envp, &env);
-	if (!lst->final_cmd[0]) // in the case "< $PWD"
+	if (!lst->final_cmd[0])
 		exit(0);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
 		execve(lst->final_cmd[0], lst->final_cmd, env);

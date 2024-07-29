@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/25 21:50:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:47:48 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ bool	s_in(char *infile, bool last)
 	int	fd;
 
 	if (g_signal == 2)
-		return false;
+		return (false);
 	fd = open(infile, O_RDONLY, 0644);
 	if (fd == -1)
 	{
 		ft_putstr_fd("./minishell: no such file or directory: ", 2);
 		ft_putendl_fd(infile, 2);
-		return false;
+		return (false);
 	}
 	if (last == true)
 		if (dup2(fd, 0) == -1)
 			error("dup2", 1337);
 	close(fd);
-	return true;
+	return (true);
 }
 
 bool	s_out(char *outfile, int type, bool last)
@@ -41,12 +41,12 @@ bool	s_out(char *outfile, int type, bool last)
 	else if (type == AOUT_FILE)
 		fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-		return perror("open"), false;
+		return (perror("open"), false);
 	if (last == true)
 		if (dup2(fd, 1) == -1)
 			error("dup2", 1337);
 	close(fd);
-	return true;
+	return (true);
 }
 
 bool	s_file_opener(t_file *files)
@@ -58,7 +58,7 @@ bool	s_file_opener(t_file *files)
 	flag[0] = true;
 	flag[1] = true;
 	if (g_signal == 2)
-		return false ;
+		return (false);
 	while (files && files[i].type != 42)
 	{
 		if (files[i].type == IN_FILE)
@@ -66,8 +66,8 @@ bool	s_file_opener(t_file *files)
 		else if (files[i].type == OUT_FILE || files[i].type == AOUT_FILE)
 			flag[1] = s_out(files[i].file, files[i].type, files[i].last);
 		if (!flag[0] || !flag[1])
-			return false;
+			return (false);
 		i++;
 	}
-	return true;
+	return (true);
 }
