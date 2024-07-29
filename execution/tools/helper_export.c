@@ -6,26 +6,26 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:49:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 17:42:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:27:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+#include "../../minishell.h"
 
 void	export_replace(t_env *env, char **str)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = env;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, str[0], ft_strlen(str[0])))
 		{
-			free(tmp->value); // free old value
-			tmp->value = ft_strdup(str[1]); // replace it with new allocated value(so i can free the linked list)
+			free(tmp->value);
+			tmp->value = ft_strdup(str[1]);
 		}
 		tmp = tmp->next;
-	}	
+	}
 }
 
 void	export_join(t_env *env, char **str)
@@ -47,9 +47,9 @@ void	export_join(t_env *env, char **str)
 		}
 		tmp = tmp->next;
 	}
-	if (flag == false) // ila mal9ach smit lvariable ay addih
+	if (flag == false)
 	{
-		str[0][ft_strlen(str[0]) - 1] = '\0'; // atkoun str[0]="a+" donc blast + andir '\0' 3ad naddih
+		str[0][ft_strlen(str[0]) - 1] = '\0';
 		ft_lstadd_back(&env, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
 	}
 }
@@ -66,14 +66,14 @@ void	export_var(t_env *env, char **str)
 		if (!ft_strncmp(tmp->key, str[0], ft_strlen(str[0])))
 		{
 			flag = true;
-			if (tmp->value && !str[1]) // ila kant "export a=salam a"
+			if (tmp->value && !str[1])
 				break ;
 			free(tmp->value);
 			tmp->value = ft_strdup(str[1]);
 		}
 		tmp = tmp->next;
 	}
-	if (flag == false) // ila mal9ach smit lvariable ay addih
+	if (flag == false)
 		ft_lstadd_back(&env, ft_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
 }
 
@@ -87,11 +87,11 @@ void	export_solo(t_env *env)
 		if (ft_strncmp(tmp->key, "_", 1) && ft_strncmp(tmp->key, "?", 1))
 		{
 			if (tmp->value && *tmp->value)
-				printf("declare -x %s=\"%s\"\n",tmp->key, tmp->value); // \" to print the double quotations
-			else if (tmp->value && !*tmp->value) 
-				printf("declare -x %s=\"\"\n",tmp->key); // incase there was a "export VAR="
+				printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+			else if (tmp->value && !*tmp->value)
+				printf("declare -x %s=\"\"\n", tmp->key);
 			else
-				printf("declare -x %s\n", tmp->key); // hadi ila makanch chi key ando value deyalo
+				printf("declare -x %s\n", tmp->key);
 		}
 		tmp = tmp->next;
 	}
@@ -100,13 +100,14 @@ void	export_solo(t_env *env)
 
 void	env_copy(t_env **env_list, t_env **copy)
 {
-	t_env *tmpo;
+	t_env	*tmpo;
 
 	tmpo = *env_list;
 	*copy = NULL;
 	while (tmpo)
 	{
-		ft_lstadd_back(copy, ft_lstnew(ft_strdup(tmpo->key), ft_strdup(tmpo->value)));
+		ft_lstadd_back(copy, ft_lstnew(ft_strdup(tmpo->key),
+				ft_strdup(tmpo->value)));
 		tmpo = tmpo->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 09:24:04 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:28:56 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,6 @@ bool	s_file_opener(t_file *files);
 void	init_secfds(int *sec_fd, int flag);
 void	multiple_helper(t_env **env);
 
-void	init_exitstatus(t_env **env, int flag, int exit_status);
 void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env **env, int *fds);
 void	execute_cmd(t_final	*lst, t_env *envp);

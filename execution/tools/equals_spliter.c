@@ -6,13 +6,13 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:53:30 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/06 11:52:04 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 09:56:49 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char *first_word(const char *str, char c)
+char	*first_word(const char *str, char c)
 {
 	int		i;
 	int		j;
@@ -37,11 +37,12 @@ char *first_word(const char *str, char c)
 	s[j] = '\0';
 	return (s);
 }
-char *second_word(const char *str, char c)
+
+char	*second_word(const char *str, char c)
 {
-	int i;
-	int j;
-	char *s;
+	int		i;
+	int		j;
+	char	*s;
 
 	j = 0;
 	i = ft_strlen((char *)str);
@@ -60,7 +61,7 @@ char *second_word(const char *str, char c)
 	return (s);
 }
 
-char **custumized_ft_split(const char *str, char c)
+char	**custumized_ft_split(const char *str, char c)
 {
 	char	**s;
 

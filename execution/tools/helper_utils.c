@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 17:33:25 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:22:41 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_isalpha(int c)
 void	ft_putendl_fd(char *s, int fd)
 {
 	if (!s)
-		return (void) write(fd, "\n", 1);
+		return ((void) write(fd, "\n", 1));
 	while (*s)
 	{
 		write(fd, s, 1);

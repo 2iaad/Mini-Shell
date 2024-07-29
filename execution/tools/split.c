@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:37:24 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:07:10 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/29 10:00:20 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ char	**ft_split(const char *s, char c)
 	if (s == NULL)
 		return (NULL);
 	wc = ft_wc(s, c);
-	p2s = (char **) malloc (sizeof(char *) * (wc + 1)); 
-	if (!p2s) 
+	p2s = (char **) malloc (sizeof(char *) * (wc + 1));
+	if (!p2s)
 		return (NULL);
 	p2s = sizeofwords(wc, s, c, p2s);
 	if (!p2s)
