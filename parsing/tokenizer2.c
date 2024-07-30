@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:39:20 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/26 17:42:35 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/29 05:49:31 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,21 @@ void	replace_quotes(t_token **token)
 	}
 }
 
-void	tokenizer(char **splited, t_token **token, t_env *env)
+int	tokenizer(char **splited, t_token **token, t_env *env)
 {
 	int	ambg_redir;
 
 	tokenizer_1(splited, token);
+	if (syntax_error(*token))
+		return (1);
 	tokenizer_2(token);
 	replace_quotes(token);
 	ambg_redir = expanding(*token, env);
 	if (ambg_redir)
 	{
 		exit_status(1, 0);
-		return ;
+		return (0);
 	}
 	tokenizer_3(token);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 11:47:40 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/30 09:57:46 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,39 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
+
+/* 
+
+	gv_coll
+	norm
+	"$HOME"$"$HOME"
+	ls > $dd | ls 
+	ctrl + c in heredoc
+*/
+
+typedef struct s_herdc
+{
+	char	*line;
+	int		*i;
+}				t_herdc;
+
+typedef struct s_pars
+{
+	char	*new_line;
+	char	*new;
+	int		var_len;
+	int		len;
+	int		i;
+}				t_pars;
+
+typedef struct s_parse
+{
+	char	*new_line;
+	char	*new;
+	int		var_len;
+	int		len;
+	int		i;
+}				t_parse;
 
 typedef struct s_free
 {
@@ -78,8 +111,24 @@ typedef struct s_final
 	struct s_final	*next;
 }	t_final;
 
+typedef struct s_args
+{
+	t_pars	*pars;
+	char	*line;
+	int		*i;
+	t_env	*env;
+	t_env	**expander;
+}	t_args;
+
 int	g_signal;
 
+
+/*
+	before opening the file, check if the flg is 1, if it's the case, check the file if it's NULL
+	print the ambigous error (same as no such file or directory)
+*/
+
+//*----------------------------------TOOLS------------------------------------------*//
 //*---Parsing---*
 char	**split_line(char *line);
 int		ft_strlen(char *s);
@@ -130,7 +179,6 @@ void	ft_lstadd_back(t_env **lst, t_env *newn);
 
 void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp);
 int		parce_line(t_final **final_cmd, t_env *env, char *line);
-char	*parse_protec(char *line);
 void	init_signals(void);
 void	signal_handle_2(int sig);
 
@@ -138,7 +186,7 @@ void	signal_handle_2(int sig);
 
 int		check_quotes(char *line);
 int		valid_meta(char *line, int i, int j, int valid);
-int		valid_meta2(char *line, int i, int j, int valid);
+int		vm2(char *line, int i, int j, int valid);
 
 //*----------------------REMOVE_QOUTES---------------------------*//
 
@@ -157,19 +205,22 @@ char	*trim_line(char *line);
 
 int		delimiters(char c);
 char	*expand_env(char *line, t_env *env);
+void	handle_dollar(t_parse *pars, char *line, t_env *env, t_env **expander);
+void	expand_env_2(t_parse *pars, int *i);
+void	expand_env_1(t_parse *pars, char *line, int i);
+char	*handle_num(char *line, int *i);
+bool	check_dollar_condition(char *line, int i, int len);
 int		expanding(t_token *token, t_env *env);
 char	*expand_herdoc(char *line, t_env *env);
 void	read_herdoc(t_token *token);
 
 //*----------------------SYNTAX_ERROR---------------------------*//
 
-int		is_operator(char *line, int *i);
-void	skip_spaces(char *line, int *i, int inc);
-int		syntax_error(char *line);
+int		syntax_error(t_token *token);
 
 //*----------------------TOKENIZER---------------------------*//
 
-void	tokenizer(char **splited, t_token **token, t_env *env);
+int		tokenizer(char **splited, t_token **token, t_env *env);
 t_token	*ft_get_token(char *content, int type);
 void	replace_quotes(t_token **token);
 void	tokenizer_3(t_token **token);
@@ -183,11 +234,12 @@ t_token	*ft_get_token(char *content, int type);
 t_final	*struct_init(t_token **token);
 t_final	*init_final(t_token **nodee);
 int		count_len(t_token *node, int type);
+void	free_final(t_final *final);
 
 //*---------------------BUILTINS--------------------------*//
 
 bool	builtins(t_final *lst, t_env **env_list);
-void	execution(t_final *lst, t_env **env);
+void	execution(t_final *lst, t_env **env, struct termios *p);
 void	echo(t_final	*lst);
 void	cd(t_final	*lst, t_env *env);
 void	pwd(void);
@@ -232,5 +284,10 @@ void	export_var(t_env *env, char **str);
 void	export_join(t_env *env, char **str);
 void	error(char *str, int a);
 int		exit_status(int status, int set);
+
+//*---------------------Garbage Collector--------------------------*//
+
+void	ft__free(t_free **lst);
+void	*gv_collc(t_free **lst, size_t len);
 
 #endif

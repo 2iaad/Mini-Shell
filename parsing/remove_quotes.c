@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:04:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/23 20:04:02 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/30 04:51:56 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ int	quotes_len(char *line, int i)
 	return (len);
 }
 
+void	handle_quotes(char *line, char *new_line, int *i, int *j)
+{
+	char	quote;
+
+	quote = line[(*i)++];
+	while (line[*i] && line[*i] != quote)
+		new_line[(*j)++] = line[(*i)++];
+	if (!line[*i])
+		return ;
+	(*i)++;
+}
+
 char	*remove_quotes(char *line)
 {
 	int		i;
@@ -59,14 +71,7 @@ char	*remove_quotes(char *line)
 	while (line[i])
 	{
 		if (line[i] == -1 || line[i] == -2)
-		{
-			quote = line[i++];
-			while (line[i] && line[i] != quote)
-				new_line[j++] = line[i++];
-			if (!line[i])
-				break ;
-			i++;
-		}
+			handle_quotes(line, new_line, &i, &j);
 		else
 			new_line[j++] = line[i++];
 	}

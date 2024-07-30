@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 09:31:49 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:09:34 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd, t_file *file)
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (file->flg == 0)
-			line = expand_herdoc(line, env);
 		if (!ft_strncmp(line, DELIMITER, ft_strlen(DELIMITER)))
 		{
 			free (line);
 			break ;
 		}
+		if (file->flg == 0)
+			line = expand_herdoc(line, env);
 		if (fd != 1337)
 			ft_putendl_fd(line, fd);
 		free(line);
