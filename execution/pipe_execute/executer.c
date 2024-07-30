@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 23:12:03 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/30 04:55:29 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,16 @@ void	single(t_final *lst, t_env **env)
 	init_secfds(sec_fd, 1);
 }
 
-void	execution(t_final *lst, t_env **env)
+void	execution(t_final *lst, t_env **env, struct termios *p)
 {
 	parce_files(&lst);
 	if (lst->next)
 		multiple(lst, env);
 	else
+	{
 	 	single(lst, env);
+		tcsetattr(0, 0, p);
+	}
 	if (g_signal == 2)
 		exit_status(1,1);
 }
