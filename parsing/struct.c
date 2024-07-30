@@ -6,59 +6,57 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/25 11:14:59 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/30 04:11:12 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// ls -la < lsls >> slsl -l | cat -e
-
-int	count_len(t_token *node, int type)
+void	post_process_files(t_final **tmp, int files_index)
 {
-	int	i;
-
-	i = 0;
-	while (node && node->type != PIPE)
-	{
-		if (node->type == type)
-			i++;
-		node = node->next;
-	}
-	return (i);
+	if (files_index > 0)
+		(*tmp)->files[files_index].type = 42;
+	else
+		(*tmp)->files = NULL;
 }
 
-t_final	*init_final(t_token **nodee)
+void	process_file_type(t_token **node, t_final **tmp, int *files_index)
 {
-	t_final	*final;
-	t_token	*node;
-
-	node = *nodee;
-	final = malloc(sizeof(t_final));
-	if (!final)
-		return (NULL);
-	final->cmd = NULL;
-	if (count_len(node, OPTION) > 0)
+	(*tmp)->files[*files_index].file = ft_strdup((*node)->token);
+	if ((*node)->type == DELIMITER)
 	{
-		final->args = malloc(sizeof(char *) * (count_len(node, OPTION) + 1));
-		if (!final->args)
-			return (NULL);
-		final->args[count_len(node, OPTION)] = NULL;
+		if ((*node)->flg == 1)
+			(*tmp)->files[*files_index].flg = 1;
+		else
+			(*tmp)->files[*files_index].flg = 0;
 	}
-	else
-		final->args = NULL;
-	int files_len = count_len(node, IN_FILE) + count_len(node, OUT_FILE) + count_len(node, AOUT_FILE) + count_len(node, DELIMITER);
-	if (files_len > 0)
-	{
-		final->files = malloc(sizeof(t_file) * (files_len + 1));
-		if (!final->files)
-			return (NULL);
-	}
-	else
-		final->files = NULL;
-	return (final);
+	(*tmp)->files[(*files_index)++].type = (*node)->type;
 }
 
+void	token_type(t_token **node, t_final **tmp, int *opt_index, int *fl_index)
+{
+	if ((*node)->type == CMD)
+		(*tmp)->cmd = ft_strdup((*node)->token);
+	else if ((*node)->type == OPTION)
+		(*tmp)->args[(*opt_index)++] = ft_strdup((*node)->token);
+	else if ((*node)->type == IN_FILE || (*node)->type == OUT_FILE
+		|| (*node)->type == AOUT_FILE || (*node)->type == DELIMITER)
+		process_file_type(node, tmp, fl_index);
+}
+
+void	node_process(t_token **node, t_final **tmp, int *opt_indx, int *fl_indx)
+{
+	while (*node && (*node)->type != PIPE)
+	{
+		if ((*node)->token == NULL)
+		{
+			*node = (*node)->next;
+			continue ;
+		}
+		token_type(node, tmp, opt_indx, fl_indx);
+		*node = (*node)->next;
+	}
+}
 
 t_final	*struct_init(t_token **token)
 {
@@ -68,9 +66,7 @@ t_final	*struct_init(t_token **token)
 	int		opt_index;
 	int		files_index;
 
-	node = *token;
-	final = NULL;
-	files_index = -1;
+	(1) && (node = *token, final = NULL, files_index = -1);
 	while (node)
 	{
 		if (node == *token || node->type == PIPE)
@@ -81,120 +77,13 @@ t_final	*struct_init(t_token **token)
 			tmp = init_final(&node);
 			if (!tmp)
 				return (NULL);
-			while (node && node->type != PIPE)
-			{
-				if (node->token == NULL)
-				{
-					node = node->next;
-					continue ;
-				}
-				if (node->type == CMD)
-					tmp->cmd = ft_strdup(node->token);
-				else if (node->type == OPTION)
-				{
-					tmp->args[opt_index++] = ft_strdup(node->token);
-				}
-				else if (node->type == IN_FILE)
-				{
-					tmp->files[files_index].file = ft_strdup(node->token);
-					tmp->files[files_index++].type = IN_FILE;
-				}
-				else if (node->type == OUT_FILE)
-				{
-					tmp->files[files_index].file = ft_strdup(node->token);
-					tmp->files[files_index++].type = OUT_FILE;
-				}
-				else if (node->type == AOUT_FILE)
-				{
-					tmp->files[files_index].file = ft_strdup(node->token);
-					tmp->files[files_index++].type = AOUT_FILE;
-				}
-				else if (node->type == DELIMITER)
-				{
-					tmp->files[files_index].file = ft_strdup(node->token);
-					if (node->flg == 1)
-						tmp->files[files_index].flg = 1;
-					else
-						tmp->files[files_index].flg = 0;
-					tmp->files[files_index++].type = DELIMITER;
-				}
-				node = node->next;
-			}
+			node_process(&node, &tmp, &opt_index, &files_index);
 			tmp->next = NULL;
 			ft_lstadd_back3_parse(&final, tmp);
 		}
 		else
 			node = node->next;
-		if (files_index > 0)
-		{
-			tmp->files[files_index].type = 42;
-		}
-		else 
-			tmp->files = NULL;
+		post_process_files(&tmp, files_index);
 	}
 	return (final);
 }
-
-// void process_node(t_token *node, t_final *tmp, int *opt_index, int *files_index)
-// {
-//     if (node->token == NULL)
-//         return;
-//     if (node->type == CMD)
-//         tmp->cmd = ft_strdup(node->token);
-//     else if (node->type == OPTION)
-//         tmp->args[(*opt_index)++] = ft_strdup(node->token);
-//     else if (node->type == IN_FILE || node->type == OUT_FILE || node->type == AOUT_FILE || node->type == DELIMITER)
-//     {
-//         tmp->files[*files_index].file = ft_strdup(node->token);
-//         tmp->files[*files_index].type = node->type;
-//         if (node->type == DELIMITER)
-//         {
-//             if (node->flg == 1)
-//                 tmp->files[*files_index].flg = 1;
-//             else
-//                 tmp->files[*files_index].flg = 0;
-//         }
-//         (*files_index)++;
-//     }
-// }
-
-// t_final *struct_init(t_token **token)
-// {
-//     t_token *node;
-//     t_final *final;
-//     t_final *tmp;
-//     int     opt_index;
-//     int     files_index;
-
-//     node = *token;
-//     final = NULL;
-//     files_index = -1;
-//     while (node)
-//     {
-//         if (node == *token || node->type == PIPE)
-//         {
-//             (1) && (opt_index = 0, files_index = 0);
-//             if (node->type == PIPE)
-//                 node = node->next;
-//             tmp = init_final(&node);
-//             if (!tmp)
-//                 return (NULL);
-//             while (node && node->type != PIPE)
-//             {
-//                 process_node(node, tmp, &opt_index, &files_index);
-//                 node = node->next;
-//             }
-//             tmp->next = NULL;
-//             ft_lstadd_back3_parse(&final, tmp);
-//         }
-//         else
-//             node = node->next;
-//         if (files_index > 0)
-//         {
-//             tmp->files[files_index].type = 42;
-//         }
-//         else 
-//             tmp->files = NULL;
-//     }
-//     return (final);
-// }

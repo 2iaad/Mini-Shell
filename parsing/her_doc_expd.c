@@ -3,96 +3,116 @@
 /*                                                        :::      ::::::::   */
 /*   her_doc_expd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:52:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/27 19:51:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/30 04:46:25 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*expand_herdoc(char *line, t_env *env)
+void	handle_numr(t_pars *pars, char *line, int *i)
 {
-    int 	i;
-    int		len;
-    char	*new_line;
-    char	*new;
-    t_env	*tmp_env;
-    t_env	*expander;
-    int		var_len;
-
-    i = 0;
-    new = NULL;
-    expander = NULL;
-    while (line[i])
-    {
-        len = 0;
-        while (!(line[i + len] == '$') && line[i + len] != '\0')
-            len++;
-        if (len > 0)
-        {
-            new_line = ft_substr(line, i, len);
-            new = ft_strjoin_parse(new, new_line);
-        }
-        if (line[i + len] == '$' && (line[i + len + 1] == '\0'
-            || line[i + len + 1] == ' ' || line[i + len + 1] == '\'' || line[i + len + 1] == '\"'))
-        {
-            new = ft_strjoin_parse(new, "$");
-            i += len + 1;
-        }
-        else if (line[i + len] == '$' && ft_isnum(line[i + len + 1]))
-        {
-            var_len = 1;
-            while(line[i + len + var_len] && ft_isnum(line[i + len + var_len]))
-                var_len++;
-            new_line = ft_substr(line, i + len + 2, var_len - 2);
-            new = ft_strjoin_parse(new, new_line);
-            i += len + var_len;
-        }
-        else if (line[i + len] == '$')
-        {
-            var_len = 1;
-            while(line[i + len + var_len] && !delimiters(line[i + len + var_len]))
-                var_len++;
-            tmp_env = env;
-            new_line = ft_substr(line, i + len + 1, var_len - 1);
-            while (tmp_env)
-            {
-                if (ft_strcmp(tmp_env->key, new_line) == 0)
-                {
-                    expander = tmp_env;
-                    new = ft_strjoin_parse(new, expander->value);
-                    break ;
-                }
-                tmp_env = tmp_env->next;
-            }
-            i += len + var_len;
-        }
-        else
-            i += len;
-    }
-	if (!new)
-		return (line);
-    return (new);
+	pars->var_len = 1;
+	while (line[*i + pars->len + pars->var_len]
+		&& ft_isnum(line[*i + pars->len + pars->var_len]))
+		pars->var_len++;
+	pars->new_line = ft_substr(line, *i + pars->len + 2, pars->var_len - 2);
+	pars->new = ft_strjoin_parse(pars->new, pars->new_line);
+	*i += pars->len + pars->var_len;
 }
 
+void	handle_value(t_args *args)
+{
+	t_env	*tmp_env;
+
+	args->pars->var_len = 1;
+	while (args->line[*args->i + args->pars->len + args->pars->var_len]
+		&& !delimiters(args->line[*args->i
+				+ args->pars->len + args->pars->var_len]))
+		args->pars->var_len++;
+	tmp_env = args->env;
+	args->pars->new_line = ft_substr(args->line, *args->i
+			+ args->pars->len + 1, args->pars->var_len - 1);
+	while (tmp_env)
+	{
+		if (ft_strcmp(tmp_env->key, args->pars->new_line) == 0)
+		{
+			*args->expander = tmp_env;
+			args->pars->new = ft_strjoin_parse(args->pars->new,
+					(*args->expander)->value);
+			break ;
+		}
+		tmp_env = tmp_env->next;
+	}
+	*args->i += args->pars->len + args->pars->var_len;
+}
+
+void	handl_dollar(t_pars *pars, char *line, t_env *env, t_env **expander)
+{
+	t_args	args;
+
+	args.pars = pars;
+	args.line = line;
+	args.i = &pars->i;
+	args.env = env;
+	args.expander = expander;
+	if (line[pars->i + pars->len] == '$'
+		&& (line[pars->i + pars->len + 1] == '\0'
+			|| line[pars->i + pars->len + 1] == ' '
+			|| line[pars->i + pars->len + 1] == '\''
+			|| line[pars->i + pars->len + 1] == '\"'))
+	{
+		pars->new = ft_strjoin_parse(pars->new, "$");
+		pars->i += pars->len + 1;
+	}
+	else if (line[pars->i + pars->len] == '$'
+		&& ft_isnum(line[pars->i + pars->len + 1]))
+		handle_numr(pars, line, &pars->i);
+	else if (line[pars->i + pars->len] == '$')
+		handle_value(&args);
+	else
+		pars->i += pars->len;
+}
+
+char	*expand_herdoc(char *line, t_env *env)
+{
+	t_pars	pars;
+	t_env	*expander;
+
+	pars.i = 0;
+	pars.new = NULL;
+	expander = NULL;
+	while (line[pars.i])
+	{
+		pars.len = 0;
+		while (!(line[pars.i + pars.len] == '$')
+			&& line[pars.i + pars.len] != '\0')
+			pars.len++;
+		if (pars.len > 0)
+		{
+			pars.new_line = ft_substr(line, pars.i, pars.len);
+			pars.new = ft_strjoin_parse(pars.new, pars.new_line);
+		}
+		handl_dollar(&pars, line, env, &expander);
+	}
+	if (!pars.new)
+		return (line);
+	return (pars.new);
+}
 
 void	read_herdoc(t_token *token)
 {
-    while (token != NULL)
-    {
-        if (token->type == DELIMITER)
-        { 
+	while (token != NULL)
+	{
+		if (token->type == DELIMITER && token->token != NULL)
+		{
 			if (ft_strchr(token->token, -1) || ft_strchr(token->token, -2))
-            {
 				token->flg = 1;
-            }
 			else
-            {
-                token->flg = 0;
-            }
+				token->flg = 0;
 		}
-        token = token->next;
-    }
+		token = token->next;
+	}
 }

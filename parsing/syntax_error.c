@@ -6,59 +6,36 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:49:39 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/24 18:14:05 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/29 06:15:30 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_operator(char *line, int *i)
+int	syntax_error(t_token *token)
 {
-	if (!line[*i])
-		return (0);
-	if ((line[*i] == '<' && line[*i + 1] && line[*i + 1] == '<')
-		|| (line[*i] == '>' && line[*i + 1] && line[*i + 1] == '>'))
-	{
-		(*i)++;
-		return (1);
-	}
-	if (line[*i] == '<' || line[*i] == '>')
-		return (1);
-	return (0);
-}
+	t_token	*node;
 
-void	skip_spaces(char *line, int *i, int inc)
-{
-	if (inc == 1)
-		(*i)++;
-	while (line[*i] && whitespaces(line[*i]))
-		(*i)++;
-}
-
-int	syntax_error(char *line)
-{
-	int	i;
-
-	i = 0;
-	skip_spaces(line, &i, 0);
-	if (line[i] && line[i] == '|')
+	node = token;
+	if (node && node->type == PIPE)
 		return (ft_putstr_fd("minishell: syntax error\n", 2), 1);
-	while (line[i])
+	while (node)
 	{
-		if (line[i] == '|')
+		if (node->type == PIPE)
 		{
-			skip_spaces(line, &i, 1);
-			if (!line[i] || (line[i] && line[i] == '|'))
+			if (!node->next || node->next->type == PIPE)
 				return (ft_putstr_fd("minishell: syntax error\n", 2), 1);
 		}
-		else if (is_operator(line, &i))
+		else if (node->type == REDIR_IN || node->type == REDIR_OUT
+			|| node->type == REDIR_APPEND || node->type == REDIR_HEREDOC)
 		{
-			skip_spaces(line, &i, 1);
-			if (!line[i] || is_operator(line, &i) || line[i] == '|')
+			if (!node->next || node->next->type == PIPE
+				|| node->next->type == REDIR_IN || node->next->type == REDIR_OUT
+				|| node->next->type == REDIR_APPEND
+				|| node->next->type == REDIR_HEREDOC)
 				return (ft_putstr_fd("minishell: syntax error\n", 2), 1);
 		}
-		else
-			i++;
+		node = node->next;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:05:10 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/26 19:15:06 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/29 23:33:29 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,30 @@ int	valid_meta(char *line, int i, int j, int valid)
 	return (valid);
 }
 
-int	valid_meta2(char *line, int i, int j, int valid)
+int	handle_meta(char *line, int *j, int i, int *valid)
+{
+	int		in1;
+	int		in2;
+	char	quote;
+
+	in1 = *j;
+	quote = line[(*j)++];
+	while (line[*j] && line[*j] != quote)
+		(*j)++;
+	if (line[*j] == quote)
+	{
+		in2 = *j;
+		(*j)++;
+	}
+	if (i > in1 && i < in2)
+	{
+		*valid = 0;
+		return (1);
+	}
+	return (0);
+}
+
+int	vm2(char *line, int i, int j, int valid)
 {
 	int		in1;
 	int		in2;
@@ -58,20 +81,8 @@ int	valid_meta2(char *line, int i, int j, int valid)
 		}
 		else if (line[j] == -1)
 		{
-			in1 = j;
-			quote = line[j++];
-			while (line[j] && line[j] != quote)
-				j++;
-			if (line[j] == quote)
-			{
-				in2 = j;
-				j++;
-			}
-			if (i > in1 && i < in2)
-			{
-				valid = 0;
+			if (handle_meta(line, &j, i, &valid))
 				break ;
-			}
 		}
 		else
 			j++;
