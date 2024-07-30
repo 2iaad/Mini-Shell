@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 09:52:32 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:37:19 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void	execve_error(int flag, char *cmd)
 {
+	if (cmd[0] == '.' && cmd[1] == 0)
+	{
+		ft_putendl_fd("minishell: .: filename argument required", 2);
+		ft_putendl_fd(".: usage: . filename [arguments]", 2);
+		exit(2);
+	}
 	if (!flag)
 		ft_putstr_fd("No such file or directory: ", 2);
 	else
@@ -80,9 +86,9 @@ void	execute_cmd(t_final	*lst, t_env *envp)
 	char	*path;
 	char	**env;
 
-	env_maker(envp, &env);
 	if (!lst->final_cmd[0])
 		exit(0);
+	env_maker(envp, &env);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
 		execve(lst->final_cmd[0], lst->final_cmd, env);
 	init_path(lst, env, &path, &flag);

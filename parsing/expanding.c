@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/30 04:52:08 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/30 14:00:05 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	exit_status(int status, int set)
 {
-	static int	current_status;
+	static int	current_status = 0;
 
-	current_status = 0;
 	if (set != 0)
 		current_status = status;
 	return (current_status);
