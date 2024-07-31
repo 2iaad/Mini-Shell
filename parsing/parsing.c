@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 15:46:51 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:12:42 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,7 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 	{
 		line = readline("minishell$ ");
 		if (!line || !isatty(0))
-		{
-			ft_putstr_fd("exit\n", 2);
-			return (r = exit_status(1, 0), exit (r));
-		}
+			return (ft_putstr_fd("exit\n", 2), r = exit_status(1, 0), exit (r));
 		if (!line[0])
 		{
 			free(line);

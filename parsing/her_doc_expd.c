@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:52:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 16:10:20 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:13:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*expand_herdoc(char *line, t_env *env)
 	if (!pars.new)
 		return (line);
 	else
-	 	free(line);
+		free(line);
 	return (pars.new);
 }
 
