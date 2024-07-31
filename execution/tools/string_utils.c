@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:48:54 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:30:17 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:36:45 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	j = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	str = (char *) malloc (sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	str = (char *) gv_coll (sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (str == NULL)
 		return (NULL);
 	while (s1[i] != '\0')

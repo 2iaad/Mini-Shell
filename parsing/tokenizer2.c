@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:39:20 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 05:49:31 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 01:19:09 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	tokenizer(char **splited, t_token **token, t_env *env)
 	ambg_redir = expanding(*token, env);
 	if (ambg_redir)
 	{
-		exit_status(1, 0);
+		exit_status(1, 1);
 		return (0);
 	}
 	tokenizer_3(token);

@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:06:06 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 05:49:50 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:26:50 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_strdup(char *s1)
 
 	if (!s1)
 		return (NULL);
-	dest = (char *) malloc(ft_strlen(s1) + 1);
+	dest = (char *) gv_coll(ft_strlen(s1) + 1);
 	if (!dest)
 		return (NULL);
 	i = 0;

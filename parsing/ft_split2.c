@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:49:29 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/23 19:18:58 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:25:46 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static char	*get_tok(char **line)
 	len = calc_len(*line);
 	if (len == 0)
 		return (NULL);
-	subs = malloc(len + 1);
+	subs = gv_coll(len + 1);
 	if (!subs)
 		return (NULL);
 	i = 0;
@@ -122,7 +122,7 @@ char	**split_line(char *line)
 	nbr_toks = count_words(line);
 	if (nbr_toks == 0)
 		return (NULL);
-	toks = malloc (sizeof(char *) * (nbr_toks + 1));
+	toks = gv_coll (sizeof(char *) * (nbr_toks + 1));
 	if (!toks)
 		return (NULL);
 	while (i < nbr_toks)

@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/30 04:38:52 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 03:24:26 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 	ls > $dd | ls 
 	ctrl + c in heredoc
 */
+
+typedef struct s_garbage
+{
+	void				*ptr;
+	struct s_garbage	*next;
+}				t_garbage;
 
 typedef struct s_herdc
 {
@@ -58,10 +64,9 @@ typedef struct s_parse
 
 typedef struct s_free
 {
-	void	*ptr;
+	void			*ptr;
 	struct s_free	*next;
 }				t_free;
-
 
 typedef struct s_env
 {
@@ -72,11 +77,11 @@ typedef struct s_env
 
 typedef struct s_token
 {
-	char	*token;
-	int		type;
-	int		index;
-	int		flg;
-	struct	s_token	*next;
+	char			*token;
+	int				type;
+	int				index;
+	int				flg;
+	struct s_token	*next;
 }				t_token;
 
 typedef enum s_meta
@@ -93,7 +98,7 @@ typedef enum s_meta
 	OUT_FILE,
 	AOUT_FILE,
 	DELIMITER
-} t_meta;
+}	t_meta;
 
 typedef struct s_file
 {
@@ -105,12 +110,12 @@ typedef struct s_file
 
 typedef struct s_final
 {
-	char	*cmd;
-	char	**args;
-	char	**final_cmd;
-	t_file	*files;
-	struct	s_final *next;
-} 	t_final;
+	char			*cmd;
+	char			**args;
+	char			**final_cmd;
+	t_file			*files;
+	struct s_final	*next;
+}					t_final;
 
 typedef struct s_args
 {
@@ -122,12 +127,6 @@ typedef struct s_args
 }	t_args;
 
 int		g_signal;
-
-
-/*
-	before opening the file, check if the flg is 1, if it's the case, check the file if it's NULL
-	print the ambigous error (same as no such file or directory)
-*/
 
 //*----------------------------------TOOLS------------------------------------------*//
 //*---Parsing---*
@@ -148,8 +147,8 @@ int		ft_isalpha(int c);
 int		ft_isnum(int c);
 int		export_valid_check(char *str, t_env ***env);
 int		unset_valid_check(char *str, t_env ***env);
-void    ft_free(char **str);
-int     flag_check(char *s1);
+void	ft_free(char **str);
+int		flag_check(char *s1);
 long	ft_atol(char *str);
 char	*ft_itoa(int n);
 void	ft_putendl_fd(char *s, int fd);
@@ -235,7 +234,7 @@ t_token	*ft_get_token(char *content, int type);
 t_final	*struct_init(t_token **token);
 t_final	*init_final(t_token **nodee);
 int		count_len(t_token *node, int type);
-void	free_final(t_final *final);
+void	post_process_files(t_final **tmp, int files_index);
 
 // *------------------------------------------------------------------------------------------------------------------------------------------*//
 
@@ -247,10 +246,10 @@ void	free_final(t_final *final);
 
 bool	builtins(t_final *lst, t_env **env_list);
 void	execution(t_final *lst, t_env **env, struct termios *p);
-void    echo(t_final	*lst);
-void    cd(t_final	*lst, t_env *env);
-void    pwd(void);
-void    env(t_env *env_list);
+void	echo(t_final	*lst);
+void	cd(t_final	*lst, t_env *env);
+void	pwd(void);
+void	env(t_env *env_list);
 void	unset(t_final	*lst, t_env **env_list);
 void	export_command(t_final *lst, t_env **env_list);
 void	exit_command(char **cmd);
@@ -278,8 +277,6 @@ bool	s_file_opener(t_file *files);
 void	init_secfds(int *sec_fd, int flag);
 void	multiple_helper(t_env **env);
 
-
-void	init_status(t_env **env, int flag, int exit_status);
 void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env **env, int *fds);
 void	execute_cmd(t_final	*lst, t_env *envp);
@@ -296,7 +293,7 @@ int		exit_status(int status, int set);
 
 //*---------------------Garbage Collector--------------------------*//
 
-void	ft__free(t_free **lst);
-void	*gv_collc(t_free **lst, size_t len);
+void	*gv_coll(size_t size);
+void	add_to_gc(void *addr);
 
 #endif

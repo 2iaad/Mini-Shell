@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/21 17:33:25 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 00:27:52 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,23 @@ void	ft_putendl_fd(char *s, int fd)
 	write (fd, "\n", 1);
 }
 
-void	init_status(t_env **env, int status)
-{
-	t_env	*tmp;
+// void	init_status(t_env **env, int status)
+// {
+// 	t_env	*tmp;
 
-	tmp = *env;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->key, "?", 1))
-		{
-			free(tmp->value);
-			if (status == 0)
-				tmp->value = ft_itoa(0);
-			else if (status == 1)
-				tmp->value = ft_itoa(1);
-		}
-	}
-}
+// 	tmp = *env;
+// 	while (tmp)
+// 	{
+// 		if (!ft_strncmp(tmp->key, "?", 1))
+// 		{
+// 			free(tmp->value);
+// 			if (status == 0)
+// 				tmp->value = ft_itoa(0);
+// 			else if (status == 1)
+// 				tmp->value = ft_itoa(1);
+// 		}
+// 	}
+// }
 
 long	ft_atol(char *str)
 {

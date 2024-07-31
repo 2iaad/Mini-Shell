@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/30 04:52:08 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 03:06:06 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int	expanding(t_token *token, t_env *env)
 					|| prev_type == REDIR_APPEND || prev_type == REDIR_HEREDOC)
 				&& (!tmp_token->token || ft_strlen(tmp_token->token) == 0))
 			{
-				// printf("minishell: %s: ambiguous redirect\n", tmp);
-				// free(tmp);
-				// ambig_redirect = 1;
+				printf("minishell: %s: ambiguous redirect\n", tmp);
+				free(tmp);
+				ambig_redirect = 1;
 				break ;
 			}
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/26 22:56:17 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 00:35:31 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	env_maker(t_env *envp, char ***env)
 		tmp = tmp->next;
 		i++;
 	}
-	*env = (char **) malloc (sizeof(char *) * (i + 1));
+	*env = (char **) gv_coll (sizeof(char *) * (i + 1));
 	if (!*env)
 		return ;
 	(1 == 1) && ((tmp = envp) && (i = 0));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:14:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/27 19:16:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 00:35:37 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*name_heredoc(char *heredoc)
 	char	*filename;
 	
 	(void)heredoc;
-	tmp = malloc(1);
+	tmp = gv_coll(1);
 	if (!tmp)
 		return (NULL);
 	num = ft_itoa(*(int *)&tmp);

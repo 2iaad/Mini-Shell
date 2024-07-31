@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 03:09:32 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 05:47:21 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:25:30 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*ft_lstnew_parse(char *content, int type)
 {
 	t_token	*n;
 
-	n = (t_token *)malloc(sizeof(t_token));
+	n = (t_token *)gv_coll(sizeof(t_token));
 	if (!n)
 		return (NULL);
 	n->token = content;

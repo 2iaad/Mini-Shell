@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 11:44:58 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 05:49:41 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:26:41 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*trim_line(char *line)
 	if (len == 0)
 		return (NULL);
 	(1) && (i = 0, j = 0, new_line = NULL);
-	new_line = malloc(len + 1);
+	new_line = gv_coll(len + 1);
 	if (!new_line)
 		return (NULL);
 	while (line[i] && whitespaces(line[i]))

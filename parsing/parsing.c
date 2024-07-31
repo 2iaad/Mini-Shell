@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 20:50:46 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 01:55:18 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**merg_cmd(t_final	*lst)
 	i = 0;
 	while ((lst)->args && ((lst))->args[i])
 		i++;
-	full_cmd = (char **) malloc (sizeof(char *) * (i + 2));
+	full_cmd = (char **) gv_coll (sizeof(char *) * (i + 2));
 	full_cmd[0] = ft_strdup((lst)->cmd);
 	i = 0;
 	while ((lst)->args && (lst)->args[i])
@@ -104,24 +104,6 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 	tcsetattr(0, 0, &p);
 	rl_catch_signals = 0;
 	init_signals();
-	if (!isatty(0))
-	{
-		line = readline("");
-		if (!line)
-		{
-			ft_putstr_fd("exit\n", 2);
-			exit_status(1, 1);
-		}
-		if (!line[0])
-		{
-			free(line);
-			return ;
-		}
-		add_history(line);
-		if (parce_line(&final_cmd, *env_list, line) != -1)
-			execution(final_cmd, env_list, &p);
-			return ;
-	}
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -138,5 +120,6 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 		add_history(line);
 		if (parce_line(&final_cmd, *env_list, line) != -1)
 			execution(final_cmd, env_list, &p);
+		free(line);
 	}
 }

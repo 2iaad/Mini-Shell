@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:37:24 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:07:10 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:36:37 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*allocat_andcopy_words(const char *s, int start, int end)
 	int		i;
 
 	i = 0;
-	word = (char *) malloc (sizeof(char) * (end - start + 1));
+	word = (char *) gv_coll (sizeof(char) * (end - start + 1));
 	if (!word)
 		return (NULL);
 	while (start < end)
@@ -84,7 +84,7 @@ char	**ft_split(const char *s, char c)
 	if (s == NULL)
 		return (NULL);
 	wc = ft_wc(s, c);
-	p2s = (char **) malloc (sizeof(char *) * (wc + 1)); 
+	p2s = (char **) gv_coll (sizeof(char *) * (wc + 1)); 
 	if (!p2s) 
 		return (NULL);
 	p2s = sizeofwords(wc, s, c, p2s);
