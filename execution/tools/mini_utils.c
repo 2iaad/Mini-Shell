@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:14:32 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 10:21:47 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:14:24 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free(char **str)
 	int	i;
 
 	i = -1;
-	while (str[++i])
+	while (str && str[++i])
 		free(str[i]);
 	free(str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 20:50:46 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 15:36:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	parce_line(t_final **final_cmd, t_env *env, char *line)
 
 void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 {
+	int				r;
 	struct termios	p;
 	char			*line;
 
@@ -104,31 +105,13 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 	tcsetattr(0, 0, &p);
 	rl_catch_signals = 0;
 	init_signals();
-	if (!isatty(0))
-	{
-		line = readline("");
-		if (!line)
-		{
-			ft_putstr_fd("exit\n", 2);
-			exit_status(1, 1);
-		}
-		if (!line[0])
-		{
-			free(line);
-			return ;
-		}
-		add_history(line);
-		if (parce_line(&final_cmd, *env_list, line) != -1)
-			execution(final_cmd, env_list, &p);
-			return ;
-	}
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (!line || !isatty(0))
 		{
 			ft_putstr_fd("exit\n", 2);
-			exit(0);
+			return (r = exit_status(1, 0), exit (r));
 		}
 		if (!line[0])
 		{

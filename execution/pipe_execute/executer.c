@@ -6,11 +6,22 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/30 09:58:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:55:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+bool	signal_checker()
+{
+	if (g_signal == 2)
+	{
+		exit_status(1, 1);
+		g_signal = 0;
+		return (true);
+	}
+	return (false);
+}
 
 void	multiple(t_final *lst, t_env **env)
 {
@@ -22,7 +33,7 @@ void	multiple(t_final *lst, t_env **env)
 	{
 		pipe_cmd(lst, &fds[0][0], 0);
 		heredoc_opener(&lst->files, *env, fds[1][0]);
-		if (g_signal == 2)
+		if (signal_checker())
 			break ;
 		pid = fork();
 		if (pid == -1)
@@ -47,7 +58,7 @@ void	single(t_final *lst, t_env **env)
 
 	init_secfds(sec_fd, 0);
 	heredoc_opener(&lst->files, *env, sec_fd[0]);
-	if (g_signal == 2)
+	if (signal_checker())
 		return ;
 	if (!s_file_opener(lst->files))
 		return ;
@@ -72,6 +83,4 @@ void	execution(t_final *lst, t_env **env, struct termios *p)
 	 	single(lst, env);
 		tcsetattr(0, 0, p);
 	}
-	if (g_signal == 2)
-		exit_status(1, 1);
 }
