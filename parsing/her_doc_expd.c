@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   her_doc_expd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:52:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 16:13:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:18:41 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ char	*expand_herdoc(char *line, t_env *env)
 	if (!pars.new)
 		return (line);
 	else
-		free(line);
-	return (pars.new);
+		return (free(line), pars.new);
 }
 
 void	read_herdoc(t_token *token)
