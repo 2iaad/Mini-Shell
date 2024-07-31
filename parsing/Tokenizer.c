@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 06:33:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 05:48:59 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:26:33 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*ft_get_token(char *content, int type)
 {
 	t_token	*n;
 
-	n = (t_token *)malloc(sizeof(t_token));
+	n = (t_token *)gv_coll(sizeof(t_token));
 	if (!n)
 		return (NULL);
 	n->token = ft_strdup(content);

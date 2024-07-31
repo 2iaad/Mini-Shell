@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 10:22:41 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:44:28 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,6 @@ void	ft_putendl_fd(char *s, int fd)
 		s++;
 	}
 	write (fd, "\n", 1);
-}
-
-void	init_status(t_env **env, int status)
-{
-	t_env	*tmp;
-
-	tmp = *env;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->key, "?", 1))
-		{
-			free(tmp->value);
-			if (status == 0)
-				tmp->value = ft_itoa(0);
-			else if (status == 1)
-				tmp->value = ft_itoa(1);
-		}
-	}
 }
 
 long	ft_atol(char *str)

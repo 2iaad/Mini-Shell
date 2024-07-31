@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/30 09:57:46 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:47:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 	ls > $dd | ls 
 	ctrl + c in heredoc
 */
+
+typedef struct s_garbage
+{
+	void				*ptr;
+	struct s_garbage	*next;
+}				t_garbage;
 
 typedef struct s_herdc
 {
@@ -92,7 +98,7 @@ typedef enum s_meta
 	OUT_FILE,
 	AOUT_FILE,
 	DELIMITER
-} t_meta;
+}	t_meta;
 
 typedef struct s_file
 {
@@ -109,7 +115,7 @@ typedef struct s_final
 	char			**final_cmd;
 	t_file			*files;
 	struct s_final	*next;
-}	t_final;
+}					t_final;
 
 typedef struct s_args
 {
@@ -121,12 +127,6 @@ typedef struct s_args
 }	t_args;
 
 int	g_signal;
-
-
-/*
-	before opening the file, check if the flg is 1, if it's the case, check the file if it's NULL
-	print the ambigous error (same as no such file or directory)
-*/
 
 //*----------------------------------TOOLS------------------------------------------*//
 //*---Parsing---*
@@ -147,8 +147,8 @@ int		ft_isalpha(int c);
 int		ft_isnum(int c);
 int		export_valid_check(char *str, t_env ***env);
 int		unset_valid_check(char *str, t_env ***env);
-void    ft_free(char **str);
-int     flag_check(char *s1);
+void	ft_free(char **str);
+int		flag_check(char *s1);
 long	ft_atol(char *str);
 char	*ft_itoa(int n);
 void	ft_putendl_fd(char *s, int fd);
@@ -234,7 +234,7 @@ t_token	*ft_get_token(char *content, int type);
 t_final	*struct_init(t_token **token);
 t_final	*init_final(t_token **nodee);
 int		count_len(t_token *node, int type);
-void	free_final(t_final *final);
+void	post_process_files(t_final **tmp, int files_index);
 
 //*---------------------BUILTINS--------------------------*//
 
@@ -287,7 +287,7 @@ int		exit_status(int status, int set);
 
 //*---------------------Garbage Collector--------------------------*//
 
-void	ft__free(t_free **lst);
-void	*gv_collc(t_free **lst, size_t len);
+void	*gv_coll(size_t size);
+void	add_to_gc(void *addr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:39:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/06/02 19:07:10 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:36:20 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*ft_lstnew(char *key, char *value)
 {
 	t_env	*nn;
 
-	nn = (t_env *) malloc (sizeof(t_env));
+	nn = (t_env *) gv_coll (sizeof(t_env));
 	if (!nn)
 		return (0);
 	nn->key = key;

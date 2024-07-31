@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 09:24:57 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:43:01 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_oldpwd(t_env ***env, char **oldpwd)
 			tmp->value = getcwd(NULL, -1337);
 			if (!tmp->value)
 				return (perror("getcwd"));
+			add_to_gc(tmp->value);
 		}
 		tmp = tmp->next;
 	}

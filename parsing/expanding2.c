@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 23:16:25 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 23:39:00 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:21:20 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ bool	check_dollar_condition(char *line, int i, int len)
 	return (line[i + len] == '$' && (
 			(line[i + len + 1] == '\0' || line[i + len + 1] == ' '
 				|| line[i + len + 1] == '+' || line[i + len + 1] == '=')
-			|| (i + len - 1 >= 0 && i + len + 1 < strlen(line)
+			|| (i + len - 1 >= 0 && i + len + 1 < ft_strlen(line)
 				&& line[i + len - 1] == -2 && line[i + len + 1] == -2)
-			|| (i + len - 1 >= 0 && i + len + 1 < strlen(line)
+			|| (i + len - 1 >= 0 && i + len + 1 < ft_strlen(line)
 				&& line[i + len - 1] == -1 && line[i + len + 1] == -1)
-			|| (i + len - 1 >= 0 && i + len + 1 < strlen(line)
+			|| (i + len - 1 >= 0 && i + len + 1 < ft_strlen(line)
 				&& line[i + len - 1] == -2 && line[i + len + 1] == -1))
 	);
 }

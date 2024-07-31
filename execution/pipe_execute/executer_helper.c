@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 09:53:45 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:43:21 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	env_maker(t_env *envp, char ***env)
 		tmp = tmp->next;
 		i++;
 	}
-	*env = (char **) malloc (sizeof(char *) * (i + 1));
+	*env = (char **) gv_coll (sizeof(char *) * (i + 1));
 	if (!*env)
 		return ;
 	(1 == 1) && ((tmp = envp) && (i = 0));

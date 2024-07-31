@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:14:56 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 05:45:26 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:25:03 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	env_i(t_env **env, char **envp)
 	char	**str;
 
 	i = 0;
-	str = (char **) malloc (sizeof(char *) * 5);
+	str = (char **) gv_coll (sizeof(char *) * 5);
 	str[0] = ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
 	str[1] = ft_strdup("PWD=/Users/zderfouf/Desktop/minishell");
 	str[2] = ft_strdup("SHLVL=1");

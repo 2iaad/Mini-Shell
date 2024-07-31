@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   her_doc_expd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:52:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/30 04:46:25 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:10:20 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ char	*expand_herdoc(char *line, t_env *env)
 	}
 	if (!pars.new)
 		return (line);
+	else
+	 	free(line);
 	return (pars.new);
 }
 

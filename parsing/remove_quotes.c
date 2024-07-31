@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:04:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/30 04:51:56 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:26:26 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*remove_quotes(char *line)
 		return (NULL);
 	if (len == 0)
 		return (ft_strdup(""));
-	new_line = malloc(len + 1);
+	new_line = gv_coll(len + 1);
 	if (!new_line)
 		return (NULL);
 	while (line[i])

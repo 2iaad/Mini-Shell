@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/30 14:00:05 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:44:55 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ int	expanding(t_token *token, t_env *env)
 					|| prev_type == REDIR_APPEND || prev_type == REDIR_HEREDOC)
 				&& (!tmp_token->token || ft_strlen(tmp_token->token) == 0))
 			{
-				// printf("minishell: %s: ambiguous redirect\n", tmp);
-				// free(tmp);
-				// ambig_redirect = 1;
+				printf("minishell: %s: ambiguous redirect\n", tmp);
+				free(tmp);
+				ambig_redirect = 1;
 				break ;
 			}
 		}

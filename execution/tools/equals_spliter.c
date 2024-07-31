@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:53:30 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 09:56:49 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:43:55 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*first_word(const char *str, char c)
 			break ;
 		i++;
 	}
-	s = malloc(sizeof(char) * (i - j) + 1);
+	s = gv_coll(sizeof(char) * (i - j) + 1);
 	if (!s)
 		return (NULL);
 	while (j < i)
@@ -49,7 +49,7 @@ char	*second_word(const char *str, char c)
 	while (str[j] != c)
 		j++;
 	j++;
-	s = malloc(sizeof(char) * (i - j) + 1);
+	s = gv_coll(sizeof(char) * (i - j) + 1);
 	i = 0;
 	while (str[j])
 	{
@@ -67,14 +67,14 @@ char	**custumized_ft_split(const char *str, char c)
 
 	if (!ft_strchr(str, c))
 	{
-		s = (char **) malloc (sizeof(char *) * 2);
+		s = (char **) gv_coll (sizeof(char *) * 2);
 		if (!s)
 			return (NULL);
 		s[0] = first_word(str, '=');
 		s[1] = NULL;
 		return (s);
 	}
-	s = (char **) malloc (sizeof(char *) * 3);
+	s = (char **) gv_coll (sizeof(char *) * 3);
 	if (!s)
 		return (NULL);
 	s[0] = first_word(str, c);
@@ -111,7 +111,7 @@ char	*ft_itoa(int n)
 		nb *= -1;
 		cn++;
 	}
-	ptr = (char *) malloc (sizeof(char) * (cn + 1));
+	ptr = (char *) gv_coll (sizeof(char) * (cn + 1));
 	if (!ptr)
 		return (NULL);
 	ptr[cn] = '\0';

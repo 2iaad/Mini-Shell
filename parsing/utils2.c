@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 00:40:47 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 05:49:56 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 00:27:04 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_strjoin_parse(char *s1, char *s2)
 	if (!s2)
 		return (ft_strdup(s1));
 	t_len = ft_strlen(s1) + ft_strlen(s2);
-	s = (char *)malloc (t_len + 1);
+	s = (char *)gv_coll (t_len + 1);
 	if (!s)
 		return (NULL);
 	*s = '\0';
@@ -81,7 +81,7 @@ char	*ft_substr(char *s, int start, int len)
 		return (ft_strdup(""));
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
-	sub = (char *) malloc(len + 1);
+	sub = (char *) gv_coll(len + 1);
 	if (!sub)
 		return (NULL);
 	i = 0;

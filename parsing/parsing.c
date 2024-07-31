@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 15:36:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:46:51 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**merg_cmd(t_final	*lst)
 	i = 0;
 	while ((lst)->args && ((lst))->args[i])
 		i++;
-	full_cmd = (char **) malloc (sizeof(char *) * (i + 2));
+	full_cmd = (char **) gv_coll (sizeof(char *) * (i + 2));
 	full_cmd[0] = ft_strdup((lst)->cmd);
 	i = 0;
 	while ((lst)->args && (lst)->args[i])
@@ -121,5 +121,6 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 		add_history(line);
 		if (parce_line(&final_cmd, *env_list, line) != -1)
 			execution(final_cmd, env_list, &p);
+		free(line);
 	}
 }

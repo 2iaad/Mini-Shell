@@ -6,19 +6,11 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/30 04:11:12 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/07/31 03:05:53 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	post_process_files(t_final **tmp, int files_index)
-{
-	if (files_index > 0)
-		(*tmp)->files[files_index].type = 42;
-	else
-		(*tmp)->files = NULL;
-}
 
 void	process_file_type(t_token **node, t_final **tmp, int *files_index)
 {
@@ -58,6 +50,12 @@ void	node_process(t_token **node, t_final **tmp, int *opt_indx, int *fl_indx)
 	}
 }
 
+void	move_next_node(t_token **node)
+{
+	if ((*node)->type == PIPE)
+		*node = (*node)->next;
+}
+
 t_final	*struct_init(t_token **token)
 {
 	t_token	*node;
@@ -72,8 +70,7 @@ t_final	*struct_init(t_token **token)
 		if (node == *token || node->type == PIPE)
 		{
 			(1) && (opt_index = 0, files_index = 0);
-			if (node->type == PIPE)
-				node = node->next;
+			move_next_node(&node);
 			tmp = init_final(&node);
 			if (!tmp)
 				return (NULL);
