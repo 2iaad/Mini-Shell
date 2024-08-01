@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/01 17:50:35 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:12:47 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,7 @@ void	parce_files(t_final **lst);
 char	*name_heredoc(char *heredoc);
 void	final_heredoc(t_file *files, int *flag);
 void	reset_offset(char *filename, int fd);
-void	heredoc_opener(t_file **files, t_env *env);
+void	heredoc_opener(t_file **files, t_env *env, int sec_fd);
 
 void	in(char *infile, bool last);
 void	out(char *outfile, int type, bool last);
