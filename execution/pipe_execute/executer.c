@@ -6,19 +6,17 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/01 14:25:49 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:44:49 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <stdlib.h>
 
 bool	signal_checker()
 {
 	if (g_signal == 2)
 	{
 		exit_status(1, 1);
-		g_signal = 0;
 		return (true);
 	}
 	return (false);

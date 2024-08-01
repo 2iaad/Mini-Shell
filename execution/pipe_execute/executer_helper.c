@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 15:43:21 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:45:50 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	multiple_helper(t_env **env)
 {
 	int	status;
 
+	if (g_signal)
+		return (g_signal = 0, (void) NULL);
 	while (wait(&(status)) != -1)
 		;
 	exit_status(WEXITSTATUS(status), 1);

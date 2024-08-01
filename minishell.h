@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/01 14:28:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:47:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,28 @@
 	< ls --> exit code ------------> handlitoo
 	
 	./main.c --> exit status
-	cat --> CTRL+C : checki exit status deyalha ----
 	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
 
 
 	RACHIIIIID:
 
 
-	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE ------------->handlito
-	cat ctrl + quite ==> exit status 131 && ctrl + c
-	exit not working exit | exit && exit
-	unset PWD OLDPWD ==> cd && echo PWD OLDPWD
-	use waitPid instead of wait sleep 2 | fghfggf
+	ctrl + c here_doc ==> fd leaks && "<<a | ls" in PIPE ------------->handlito
 	exit staus of ctrl+c in here_doc
+	
+	
 	minishell$ ls|<<a
 	minishell$ echo $?
+	unset PWD OLDPWD ==> cd && echo PWD OLDPWD
+	exit not working exit | exit && exit
+	use waitPid instead of wait sleep 2 | fghfggf
+
+
+	RACHIIIID O LAAASIR:
+
+	cat ctrl + quite ==> exit status 131 && ctrl + c
+	cat --> CTRL+C : checki exit status deyalha ----
+	
 */
 
 

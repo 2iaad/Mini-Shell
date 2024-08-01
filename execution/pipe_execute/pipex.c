@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:58:31 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 09:30:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:41:36 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ void	pipe_cmd(t_final *lst, int *fds, int flag)
 
 void	child(t_final *lst, t_env **env, int *fds)
 {
+	int r;
+
 	file_opener(lst->files);
 	if (lst->next && isatty(1))
 		pipe_cmd(lst, &fds[0], 1);
 	if (builtins(lst, env))
-		exit(0);
+		return (r = exit_status(1, 0), exit(r));
 	else
 		execute_cmd(lst, *env);
 }
