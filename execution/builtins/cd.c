@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 15:43:01 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:59:19 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ void	cd(t_final *lst, t_env *env)
 {
 	char	*dir;
 
-	if (lst->final_cmd[1] && !lst->final_cmd[1][0])
+	if (!lst->final_cmd[1])
+		init_dir(lst->final_cmd, env, &dir);
+	else if (lst->final_cmd[1] && !lst->final_cmd[1][0])
 		return ;
-	if (lst->final_cmd[1][0] == '-' && lst->final_cmd[1][1] == '\0')
+	else if (lst->final_cmd[1][0] == '-' && lst->final_cmd[1][1] == '\0')
 		return (pwd());
 	init_dir(lst->final_cmd, env, &dir);
 	if (!access(dir, F_OK))

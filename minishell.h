@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 15:47:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:34:21 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,36 @@
 	"$HOME"$"$HOME"
 	ls > $dd | ls 
 	ctrl + c in heredoc
+
+	LAASSIIIIIR:
+
+	env -i:
+	PATH 3amr walakin hidden -------------------> handlito wlakin gher f env
+	OLDPWD --> mseti walakin khawi ----------------> handlito
+
+	cd $ldksjf -------------------> handlitoo
+	
+	< ls --> exit code ------------> handlitoo
+	cat --> CTRL+C : checki exit status deyalha ----
+	exit | exit | exit | exit 100
+	<< l <<l << l << l << l --> ctrl-C leaks fd
+	./main.c --> exit status
+
+
+	RACHIIIIID:
+
+
+	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE
+	cat ctrl + quite ==> exit status 131 && ctrl + c
+	exit not working exit | exit && exit
+	unset PWD OLDPWD ==> cd && echo PWD OLDPWD
+	use waitPid instead of wait sleep 2 | fghfggf
+	exit staus of ctrl+c in here_doc
+	minishell$ ls|<<a
+	minishell$ echo $?
 */
+
+
 
 typedef struct s_garbage
 {
@@ -72,6 +101,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	bool			hidden;
 	struct s_env	*next;
 }					t_env;
 

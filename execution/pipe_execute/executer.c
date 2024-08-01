@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/30 16:55:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 11:35:55 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <stdlib.h>
 
 bool	signal_checker()
 {
@@ -61,7 +62,7 @@ void	single(t_final *lst, t_env **env)
 	if (signal_checker())
 		return ;
 	if (!s_file_opener(lst->files))
-		return ;
+		return ((void) exit_status(1, 1));
 	if (!builtins(lst, env))
 	{
 		pid = fork();
