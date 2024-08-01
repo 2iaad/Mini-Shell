@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/01 11:35:55 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:25:49 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ void	multiple(t_final *lst, t_env **env)
 	while (lst)
 	{
 		pipe_cmd(lst, &fds[0][0], 0);
-		heredoc_opener(&lst->files, *env, fds[1][0]);
+		heredoc_opener(&lst->files, *env);
 		if (signal_checker())
+		{
+			close(fds[0][0]);
+			close(fds[0][1]);
 			break ;
+		}
 		pid = fork();
 		if (pid == -1)
 			error("fork", 1337);
@@ -58,9 +62,9 @@ void	single(t_final *lst, t_env **env)
 	int		sec_fd[2];
 
 	init_secfds(sec_fd, 0);
-	heredoc_opener(&lst->files, *env, sec_fd[0]);
+	heredoc_opener(&lst->files, *env);
 	if (signal_checker())
-		return ;
+		return ((void)close(sec_fd[0]), (void)close(sec_fd[1]));
 	if (!s_file_opener(lst->files))
 		return ((void) exit_status(1, 1));
 	if (!builtins(lst, env))

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/01 11:34:21 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:28:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@
 	LAASSIIIIIR:
 
 	env -i:
-	PATH 3amr walakin hidden -------------------> handlito wlakin gher f env
+	PATH 3amr walakin hidden -------------------> handlito
 	OLDPWD --> mseti walakin khawi ----------------> handlito
 
 	cd $ldksjf -------------------> handlitoo
-	
+	<< l <<l << l << l << l --> ctrl-C leaks fd ---------------> handlito
 	< ls --> exit code ------------> handlitoo
-	cat --> CTRL+C : checki exit status deyalha ----
-	exit | exit | exit | exit 100
-	<< l <<l << l << l << l --> ctrl-C leaks fd
+	
 	./main.c --> exit status
+	cat --> CTRL+C : checki exit status deyalha ----
+	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
 
 
 	RACHIIIIID:
 
 
-	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE
+	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE ------------->handlito
 	cat ctrl + quite ==> exit status 131 && ctrl + c
 	exit not working exit | exit && exit
 	unset PWD OLDPWD ==> cd && echo PWD OLDPWD
@@ -290,7 +290,7 @@ void	parce_files(t_final **lst);
 char	*name_heredoc(char *heredoc);
 void	final_heredoc(t_file *files, int *flag);
 void	reset_offset(char *filename, int fd);
-void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
+void	heredoc_opener(t_file **files, t_env *env);
 
 void	in(char *infile, bool last);
 void	out(char *outfile, int type, bool last);

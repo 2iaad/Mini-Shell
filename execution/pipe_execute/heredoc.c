@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 16:05:15 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:22:07 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd, t_file *file)
 		line = readline("> ");
 		if (line == NULL)
 			break ;
+		if (g_signal == 2)
+			return (void) close(tmp_fd), (void) close(fd);
 		if (!ft_strncmp(line, DELIMITER, ft_strlen(DELIMITER)))
 		{
 			free (line);
@@ -54,7 +56,7 @@ void	heredoc_maker(char **filename, char *DELIMITER, t_env *env, t_file *f)
 	reset_offset(*filename, fd);
 }
 
-void	heredoc_opener(t_file **files, t_env *env, int stdin_fd)
+void	heredoc_opener(t_file **files, t_env *env)
 {
 	int		i;
 	int		flag;
@@ -63,8 +65,6 @@ void	heredoc_opener(t_file **files, t_env *env, int stdin_fd)
 	i = 0;
 	if (!file_checker(*files, DELIMITER))
 		return ;
-	if (dup2(stdin_fd, 0) == -1)
-		error("dup2", 1337);
 	final_heredoc(*files, &flag);
 	while ((*files) && (*files)[i].type != 42 && i < flag)
 	{
