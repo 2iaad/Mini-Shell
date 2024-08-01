@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/01 17:47:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:50:35 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,16 @@
 	RACHIIIIID:
 
 
-	ctrl + c here_doc ==> fd leaks && "<<a | ls" in PIPE ------------->handlito
+	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE ------------->handlito
+	
+	exit not working exit | exit && exit
+	unset PWD OLDPWD ==> cd && echo PWD OLDPWD
+	use waitPid instead of wait sleep 2 | fghfggf
 	exit staus of ctrl+c in here_doc
 	
 	
 	minishell$ ls|<<a
 	minishell$ echo $?
-	unset PWD OLDPWD ==> cd && echo PWD OLDPWD
-	exit not working exit | exit && exit
-	use waitPid instead of wait sleep 2 | fghfggf
 
 
 	RACHIIIID O LAAASIR:
