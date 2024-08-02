@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/02 10:46:20 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:50:05 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	heredoc_opener(t_file **files, t_env *env, int sec_fd)
 	if (!file_checker(*files, DELIMITER))
 		return ;
 	if (dup2(sec_fd, 0) == -1)
-		error("dup", 1337);
+		return (error("dup2", 1337));
 	final_heredoc(*files, &flag);
 	while ((*files) && (*files)[i].type != 42 && i < flag)
 	{
