@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/02 10:49:49 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:49:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,13 @@
 	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE ------------->handlito
 	exit staus of ctrl+c in here_doc ------> handlito
 	minishell$ ls|<<a ---------> handlitha
+	unset PWD OLDPWD ==> cd && echo PWD OLDPWD --------> handlito
 	
-	unset PWD OLDPWD ==> cd && echo PWD OLDPWD
+
+
+	handle is a directory
+
+`
 	exit not working exit | exit && exit
 	use waitPid instead of wait sleep 2 | fghfggf
 	minishell$ echo $?	
