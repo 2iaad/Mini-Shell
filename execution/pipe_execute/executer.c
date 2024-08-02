@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/01 17:44:49 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:15:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	single(t_final *lst, t_env **env)
 	if (signal_checker())
 		return ((void)close(sec_fd[0]), (void)close(sec_fd[1]));
 	if (!s_file_opener(lst->files))
-		return ((void) exit_status(1, 1));
+		return ((void) exit_status(1, 1), init_secfds(sec_fd, 1));
 	if (!builtins(lst, env))
 	{
 		pid = fork();
