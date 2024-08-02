@@ -6,9 +6,23 @@
 #    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/07/31 00:28:27 by ibouram          ###   ########.fr        #
+#    Updated: 2024/08/01 04:26:56 by ibouram          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
+#ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE
+# export A="-a -l" ==> spliit by space /// ider
+#cat ctrl + quite ==> exit status 131 && ctrl + c
+#exit not working exit | exit && exit
+#unset PWD OLDPWD ==> cd && echo PWD OLDPWD
+#use waitPid instead of wait sleep 2 | fghfggf
+
+#exit staus of ctrl+c in here_doc
+#minishell$ ls|<<a
+#minishell$ echo $?
+#
+
 
 PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c parsing/env_init.c main.c \
 				parsing/add_space.c parsing/syntax_error.c parsing/Tokenizer.c parsing/lin_list.c parsing/signals.c\
@@ -28,7 +42,7 @@ EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/buil
 RM = rm -rf
 NAME = minishell
 CC = cc
-# FLAGS = -fsanitize=address -ggdb3 #-Wall -Wextra -Werror
+FLAGS = -fsanitize=address -ggdb3 #-Wall -Wextra -Werror
 READLINE = $(shell brew --prefix readline)
 
 PARSINGOBJS = $(PARSINGSRC:.c=.o)

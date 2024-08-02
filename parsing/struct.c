@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 03:05:53 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/01 01:28:44 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	node_process(t_token **node, t_final **tmp, int *opt_indx, int *fl_indx)
 {
 	while (*node && (*node)->type != PIPE)
 	{
-		if ((*node)->token == NULL)
-		{
-			*node = (*node)->next;
-			continue ;
-		}
+		// if ((*node)->token == NULL)
+		// {
+		// 	*node = (*node)->next;
+		// 	continue ;
+		// }
 		token_type(node, tmp, opt_indx, fl_indx);
 		*node = (*node)->next;
 	}

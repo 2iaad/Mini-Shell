@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:49:29 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 00:25:46 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/02 00:22:28 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ static int	process_word(char *line, int *i)
 	return (count);
 }
 
-static int	count_words(char *line)
+int	count_words(char *line)
 {
 	int		i;
 	int		count;
 	char	quote;
 
 	(1) && (i = 0, count = 0);
+	if (!line)
+		return (0);
 	while (line[i])
 	{
 		while (line[i] && whitespaces(line[i]))

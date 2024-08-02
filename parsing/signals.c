@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 02:51:33 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/25 15:59:38 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/01 01:36:13 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void	signal_handle(int sig)
 	if (sig == SIGINT)
 	{
 		if (waitpid(-1, NULL, WNOHANG) == 0)
-		{
-			ft_putstr_fd("\n", 2);
 			return ;
-		}
 		exit_status(1, 1);
 		ft_putstr_fd("\n", 2);
 		rl_replace_line("", 0);

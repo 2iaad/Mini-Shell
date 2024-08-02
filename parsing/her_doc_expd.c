@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 10:52:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 16:18:41 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/01 03:35:46 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	handl_dollar(t_pars *pars, char *line, t_env *env, t_env **expander)
 	if (line[pars->i + pars->len] == '$'
 		&& (line[pars->i + pars->len + 1] == '\0'
 			|| line[pars->i + pars->len + 1] == ' '
+			|| line[pars->i + pars->len + 1] == '\t'
 			|| line[pars->i + pars->len + 1] == '\''
 			|| line[pars->i + pars->len + 1] == '\"'))
 	{

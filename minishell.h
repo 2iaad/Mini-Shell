@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 15:47:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 00:02:32 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_token
 	int				type;
 	int				index;
 	int				flg;
+	int				var_flg;
 	struct s_token	*next;
 }				t_token;
 
@@ -131,6 +132,7 @@ int	g_signal;
 //*----------------------------------TOOLS------------------------------------------*//
 //*---Parsing---*
 char	**split_line(char *line);
+int		count_words(char *line);
 int		ft_strlen(char *s);
 int		whitespaces(char s);
 void	ft_putstr_fd(char *s, int fd);
@@ -204,13 +206,13 @@ char	*trim_line(char *line);
 //*----------------------EXPANDING---------------------------*//
 
 int		delimiters(char c);
-char	*expand_env(char *line, t_env *env);
+char	*expand_env(char *lin, t_env *env, t_token *token);
 void	handle_dollar(t_parse *pars, char *line, t_env *env, t_env **expander);
 void	expand_env_2(t_parse *pars, int *i);
 void	expand_env_1(t_parse *pars, char *line, int i);
 char	*handle_num(char *line, int *i);
 bool	check_dollar_condition(char *line, int i, int len);
-int		expanding(t_token *token, t_env *env);
+void	expanding(t_token *token, t_env *env);
 char	*expand_herdoc(char *line, t_env *env);
 void	read_herdoc(t_token *token);
 

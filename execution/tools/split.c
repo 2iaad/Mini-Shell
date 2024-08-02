@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:37:24 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 15:44:40 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/01 03:20:37 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	split_ft_free(char **p2s, int wc)
 	free(p2s);
 }
 
-static int	ft_wc(char const *s, char c)
+int	ft_wc(char const *s, char c)
 {
 	int	wc;
 	int	i;

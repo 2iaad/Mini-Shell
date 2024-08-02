@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 15:43:21 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:42:33 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	multiple_helper(t_env **env)
 
 	while (wait(&(status)) != -1)
 		;
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		(ft_putstr_fd("\n", 2));
 	exit_status(WEXITSTATUS(status), 1);
+
 }
 
 void	init_secfds(int *sec_fd, int flag)
