@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:09:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/01 09:31:31 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:29:19 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	pwd(void)
 	if (!c_path)
 	{
 		perror("getcwd");
-		return ;
+		return ((void)exit_status(1, 1));
 	}
 	printf("%s\n", c_path);
 	free(c_path);

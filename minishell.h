@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/02 12:49:45 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:37:27 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
+# include <sys/stat.h>
 
 /* 
 
@@ -30,7 +31,8 @@
 	"$HOME"$"$HOME"
 	ls > $dd | ls 
 	ctrl + c in heredoc
-
+	cd Makefile ==> exit status
+	
 	LAASSIIIIIR:
 
 	env -i:
@@ -43,28 +45,21 @@
 	./main.c --> exit status ------------> handlito
 	
 
-	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
-
 	RACHIIIIID:
 
+	is a directory -------> handiltoooooooo
 
 	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE ------------->handlito
 	exit staus of ctrl+c in here_doc ------> handlito
 	minishell$ ls|<<a ---------> handlitha
 	unset PWD OLDPWD ==> cd && echo PWD OLDPWD --------> handlito
-	
-
-
-	handle is a directory
-
-`
-	exit not working exit | exit && exit
-	use waitPid instead of wait sleep 2 | fghfggf
-	minishell$ echo $?	
 
 
 	RACHIIIID O LAAASIR:
 
+	exit not working exit | exit && exit
+	use waitPid instead of wait sleep 2 | fghfggf
+	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
 	cat ctrl + quite ==> exit status 131 && ctrl + c
 	cat --> CTRL+C : checki exit status deyalha ----
 	

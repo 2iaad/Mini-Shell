@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/01 16:00:11 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:50:36 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	init_path(t_final *lst, char **env, char **path, int *flag)
 
 void	permission_checker(char *cmd)
 {
+	struct stat	p;
+
 	if (access(cmd, F_OK) == 0
 		&& access(cmd, X_OK) != 0)
 		{
@@ -90,6 +92,17 @@ void	permission_checker(char *cmd)
 			ft_putstr_fd(": Permission denied\n", 2);
 			exit(126);
 		}
+	stat(cmd, &p);
+	if (S_ISDIR(p.st_mode))
+	{
+		if (ft_strcmp("..", cmd))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(": is a directory\n", 2);
+			exit(126);
+		}
+	}
 }
 
 void	execute_cmd(t_final	*lst, t_env *envp)

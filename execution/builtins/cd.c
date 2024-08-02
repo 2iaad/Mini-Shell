@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/02 12:29:53 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 21:48:20 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*home_path(t_env	*env)
 	return (NULL);
 }
 
-void	init_pwd(t_env ***env, char **oldpwd)
+bool	init_pwd(t_env ***env, char **oldpwd)
 {
 	t_env	*tmp;
 	bool	flag;
@@ -40,7 +40,7 @@ void	init_pwd(t_env ***env, char **oldpwd)
 			*oldpwd = tmp->value;
 			tmp->value = getcwd(NULL, -1337);
 			if (!tmp->value)
-				return (perror("getcwd"));
+				return (perror("getcwd"), exit_status(1, 1), true);
 			add_to_gc(tmp->value);
 		}
 		tmp = tmp->next;
@@ -49,19 +49,21 @@ void	init_pwd(t_env ***env, char **oldpwd)
 	{
 		char *value = getcwd(NULL, -1337);
 		if (!value)
-			return (perror("getcwd"));
+			return (perror("getcwd"), exit_status(1, 1), true);
 		ft_lstadd_back(*env, ft_lstnew(ft_strdup("PWD"), value));
 	}
+	return (false);
 }
 
-void	init_oldpwd(t_env	**env)
+bool	init_oldpwd(t_env	**env)
 {
 	bool	flag;
 	t_env	*tmp;
 	char	*oldpwd;
 
 	(1 == 1) && ((tmp = *env) && (oldpwd = NULL) && (flag = false));
-	init_pwd(&env, &oldpwd);
+	if (init_pwd(&env, &oldpwd))
+		return (true);
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, "OLDPWD", 6))
@@ -74,6 +76,7 @@ void	init_oldpwd(t_env	**env)
 	}
 	if (!flag)
 		ft_lstadd_back(env, ft_lstnew(ft_strdup("OLDPWD"), ft_strdup(oldpwd)));
+	return (false);
 }
 
 void	init_dir(char **final_cmd, t_env *env, char **dir)
@@ -92,7 +95,6 @@ void	cd(t_final *lst, t_env *env)
 
 	if (!lst->final_cmd[1])
 		dir = NULL;
-		// init_dir(lst->final_cmd, env, &dir);
 	else if (lst->final_cmd[1] && !lst->final_cmd[1][0])
 		return ;
 	else if (lst->final_cmd[1][0] == '-' && lst->final_cmd[1][1] == '\0')
@@ -101,9 +103,9 @@ void	cd(t_final *lst, t_env *env)
 	if (!access(dir, F_OK))
 	{
 		if (chdir(dir) == -1)
-			return (perror("chdir"));
-		init_oldpwd(&env);
-		exit_status(0, 1);
+			return ((void)exit_status(1, 1), perror("chdir"));
+		if (!init_oldpwd(&env))
+			exit_status(0, 1);
 	}
 	else
 	{
