@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/02 09:15:31 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:27:47 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	multiple(t_final *lst, t_env **env)
 	while (lst)
 	{
 		pipe_cmd(lst, &fds[0][0], 0);
-		heredoc_opener(&lst->files, *env);
+		heredoc_opener(&lst->files, *env, fds[1][0]);
 		if (signal_checker())
 		{
 			close(fds[0][0]);
@@ -60,7 +60,7 @@ void	single(t_final *lst, t_env **env)
 	int		sec_fd[2];
 
 	init_secfds(sec_fd, 0);
-	heredoc_opener(&lst->files, *env);
+	heredoc_opener(&lst->files, *env, sec_fd[0]);
 	if (signal_checker())
 		return ((void)close(sec_fd[0]), (void)close(sec_fd[1]));
 	if (!s_file_opener(lst->files))
@@ -78,6 +78,8 @@ void	single(t_final *lst, t_env **env)
 
 void	execution(t_final *lst, t_env **env, struct termios *p)
 {
+	if (g_signal == 2)
+		g_signal = 0;
 	parce_files(&lst);
 	if (lst->next)
 		multiple(lst, env);

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/01 17:50:35 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:36:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,22 @@
 	cd $ldksjf -------------------> handlitoo
 	<< l <<l << l << l << l --> ctrl-C leaks fd ---------------> handlito
 	< ls --> exit code ------------> handlitoo
+	./main.c --> exit status ------------> handlito
 	
-	./main.c --> exit status
-	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
 
+	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
 
 	RACHIIIIID:
 
 
 	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE ------------->handlito
+	exit staus of ctrl+c in here_doc ------> handlito
+	minishell$ ls|<<a ---------> handlitha
 	
-	exit not working exit | exit && exit
 	unset PWD OLDPWD ==> cd && echo PWD OLDPWD
+	exit not working exit | exit && exit
 	use waitPid instead of wait sleep 2 | fghfggf
-	exit staus of ctrl+c in here_doc
-	
-	
-	minishell$ ls|<<a
-	minishell$ echo $?
+	minishell$ echo $?	
 
 
 	RACHIIIID O LAAASIR:
@@ -298,7 +296,7 @@ void	parce_files(t_final **lst);
 char	*name_heredoc(char *heredoc);
 void	final_heredoc(t_file *files, int *flag);
 void	reset_offset(char *filename, int fd);
-void	heredoc_opener(t_file **files, t_env *env);
+void	heredoc_opener(t_file **files, t_env *env, int sec_fd);
 
 void	in(char *infile, bool last);
 void	out(char *outfile, int type, bool last);
