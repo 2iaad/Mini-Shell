@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/03 16:29:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:38:21 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,12 @@
 	unset PWD OLDPWD ==> cd && echo PWD OLDPWD --------> handlito
 	cat + CTRL+C || CTRL+\ ==> exit status -------------> handlithaaa
 
-	handle ---> cat | ls
+	cat | ls ---------> handlito
+	use waitPid instead of wait "sleep 2 | fghfggf" -------> handlitoo
 
 	RACHIIIID O LAAASIR:
 
-	use waitPid instead of wait "sleep 2 | fghfggf" -------> handlitoo
+	mkdir cat + cat +++++ touch ls + ls
 	exit | exit && exit
 	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
 	
@@ -290,7 +291,7 @@ void	cd_error(char *dir);
 void	init_env(t_env **env_list, char **env);
 char	*right_path(char **cmd, char **env);
 char	*look_for_paths(char **ev);
-
+bool	add_pwd(t_env **env);
 bool	file_checker(t_file *files, int type);
 void	parce_files(t_final **lst);
 
