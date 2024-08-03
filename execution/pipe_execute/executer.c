@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/03 16:28:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:11:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	multiple(t_final *lst, t_env **env)
 		heredoc_opener(&lst->files, *env, fds[1][0]);
 		if (signal_checker())
 		{
-			(1) && (close(fds[0][0]) && close(fds[0][1]));
+			close(fds[0][0]);
+			close(fds[0][1]);
 			break ;
 		}
 		lst->pid = fork();
