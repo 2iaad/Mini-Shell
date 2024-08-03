@@ -6,21 +6,39 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/01 17:45:50 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:28:17 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	multiple_helper(t_env **env)
+void	sig_check()
+{
+	if (g_signal)
+		return (g_signal = 0, (void)NULL);
+}
+
+void	waiter(t_final *lst, t_env **env)
 {
 	int	status;
 
-	if (g_signal)
-		return (g_signal = 0, (void) NULL);
-	while (wait(&(status)) != -1)
-		;
-	exit_status(WEXITSTATUS(status), 1);
+	if (waitpid(lst->pid, &status, 0) > 0)
+	{
+		if (WIFSIGNALED(status))
+			exit_status(WTERMSIG(status) + 128, 1);
+		else if (WIFEXITED(status))
+			exit_status(WEXITSTATUS(status), 1);
+		while (wait(NULL) != -1)
+			;
+	}
+}
+
+void	ft_help(int fds[2][2], t_final **lst, t_env **env)
+{
+	pipe_cmd(*lst, &fds[0][0], 2);
+	if (!(*lst)->next)
+		waiter(*lst, env);
+	(*lst) = (*lst)->next;
 }
 
 void	init_secfds(int *sec_fd, int flag)

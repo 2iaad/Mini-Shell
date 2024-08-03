@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/02 21:50:36 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:17:56 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	permission_checker(char *cmd)
 	stat(cmd, &p);
 	if (S_ISDIR(p.st_mode))
 	{
-		if (ft_strcmp("..", cmd))
+		if (ft_strcmp("..", cmd) && ft_strcmp(".", cmd))
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(cmd, 2);
