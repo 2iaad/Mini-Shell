@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 15:44:28 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:39:15 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,18 @@ long	ft_atol(char *str)
 		i++;
 	}
 	return (nb * s);
+}
+
+bool	add_pwd(t_env **env)
+{
+	char *value;
+	char *s;
+
+	value  = getcwd(NULL, -1337);
+	if (!value)
+		return (perror("getcwd"), exit_status(1, 1), true);
+	s = ft_strdup(value);
+	free(value);
+	ft_lstadd_back(env, ft_lstnew(ft_strdup("PWD"), s));
+	return (false);
 }

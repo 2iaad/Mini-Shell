@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/02 21:48:20 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:44:00 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <inttypes.h>
 
 char	*home_path(t_env	*env)
 {
@@ -36,8 +37,7 @@ bool	init_pwd(t_env ***env, char **oldpwd)
 	{
 		if (!ft_strncmp(tmp->key, "PWD", 3))
 		{
-			flag = true;
-			*oldpwd = tmp->value;
+			(1) && ((flag = true) && (*oldpwd = tmp->value));
 			tmp->value = getcwd(NULL, -1337);
 			if (!tmp->value)
 				return (perror("getcwd"), exit_status(1, 1), true);
@@ -46,12 +46,8 @@ bool	init_pwd(t_env ***env, char **oldpwd)
 		tmp = tmp->next;
 	}
 	if (!flag)
-	{
-		char *value = getcwd(NULL, -1337);
-		if (!value)
-			return (perror("getcwd"), exit_status(1, 1), true);
-		ft_lstadd_back(*env, ft_lstnew(ft_strdup("PWD"), value));
-	}
+		if (add_pwd(*env))
+			return (true) ;
 	return (false);
 }
 
