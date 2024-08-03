@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/02 21:37:27 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:29:18 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@
 	exit staus of ctrl+c in here_doc ------> handlito
 	minishell$ ls|<<a ---------> handlitha
 	unset PWD OLDPWD ==> cd && echo PWD OLDPWD --------> handlito
+	cat + CTRL+C || CTRL+\ ==> exit status -------------> handlithaaa
 
+	handle ---> cat | ls
 
 	RACHIIIID O LAAASIR:
 
-	exit not working exit | exit && exit
-	use waitPid instead of wait sleep 2 | fghfggf
+	use waitPid instead of wait "sleep 2 | fghfggf" -------> handlitoo
+	exit | exit && exit
 	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
-	cat ctrl + quite ==> exit status 131 && ctrl + c
-	cat --> CTRL+C : checki exit status deyalha ----
 	
 */
 
@@ -146,6 +146,7 @@ typedef struct s_file
 
 typedef struct s_final
 {
+	pid_t			pid;
 	char			*cmd;
 	char			**args;
 	char			**final_cmd;
@@ -305,7 +306,9 @@ bool	s_in(char *infile, bool last);
 bool	s_out(char *outfile, int type, bool last);
 bool	s_file_opener(t_file *files);
 void	init_secfds(int *sec_fd, int flag);
-void	multiple_helper(t_env **env);
+void	waiter(t_final *lst, t_env **env);
+void	sig_check();
+void	ft_help(int fds[2][2], t_final **lst, t_env **env);
 
 void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env **env, int *fds);
