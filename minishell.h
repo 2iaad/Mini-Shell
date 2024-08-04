@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/04 16:05:22 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 17:05:51 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,47 +24,7 @@
 # include <stdbool.h>
 # include <sys/stat.h>
 
-/* 
 
-	gv_coll
-	norm
-	"$HOME"$"$HOME"
-	ls > $dd | ls 
-	ctrl + c in heredoc
-	cd Makefile ==> exit status
-	
-	LAASSIIIIIR:
-
-	env -i:
-	PATH 3amr walakin hidden -------------------> handlito
-	OLDPWD --> mseti walakin khawi ----------------> handlito
-
-	cd $ldksjf -------------------> handlitoo
-	<< l <<l << l << l << l --> ctrl-C leaks fd ---------------> handlito
-	< ls --> exit code ------------> handlitoo
-	./main.c --> exit status ------------> handlito
-	
-
-	RACHIIIIID:
-
-	is a directory -------> handiltoooooooo
-
-	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE ------------->handlito
-	exit staus of ctrl+c in here_doc ------> handlito
-	minishell$ ls|<<a ---------> handlitha
-	unset PWD OLDPWD ==> cd && echo PWD OLDPWD --------> handlito
-	cat + CTRL+C || CTRL+\ ==> exit status -------------> handlithaaa
-
-	cat | ls ---------> handlito
-	use waitPid instead of wait "sleep 2 | fghfggf" -------> handlitoo
-
-	RACHIIIID O LAAASIR:
-
-	mkdir cat + cat +++++ touch ls + ls
-	
-	exit | exit && exit
-	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
-*/
 
 typedef struct s_garbage
 {
@@ -308,6 +268,7 @@ void	file_opener(t_file *files);
 bool	s_in(char *infile, bool last);
 bool	s_out(char *outfile, int type, bool last);
 bool	s_file_opener(t_file *files);
+void	ambious_redirect(char *file);
 void	init_secfds(int *sec_fd, int flag);
 void	waiter(t_final *lst, t_env **env);
 void	sig_check(void);

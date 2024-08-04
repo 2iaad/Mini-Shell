@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   file_opener_s.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 16:23:44 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 16:47:00 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	ambious_redirect(char *file)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(": ambiguous redirect\n", 2);
+}
 
 bool	s_in(char *infile, bool last)
 {
@@ -61,6 +68,11 @@ bool	s_file_opener(t_file *files)
 		return (false);
 	while (files && files[i].type != 42)
 	{
+		if (files[i].file == NULL)
+		{
+			ambious_redirect(files[i].file);
+			return (false);
+		}
 		if (files[i].type == IN_FILE)
 			flag[0] = s_in(files[i].file, files[i].last);
 		else if (files[i].type == OUT_FILE || files[i].type == AOUT_FILE)

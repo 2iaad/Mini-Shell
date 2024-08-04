@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/28 00:06:18 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:00:28 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	file_opener(t_file *files)
 	(1 == 1) && ((i = 0) && (fd = 0));
 	while (files && files[i].type != 42)
 	{
+		if (files[i].file == NULL)
+			return (ambious_redirect(files[i].file), exit(1));
 		if (files[i].type == OUT_FILE || files[i].type == AOUT_FILE)
 			out(files[i].file, files[i].type, files[i].last);
 		else if (files[i].type == IN_FILE)
