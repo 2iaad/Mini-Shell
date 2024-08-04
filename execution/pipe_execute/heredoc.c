@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 13:49:19 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:54:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd, t_file *file)
 		free(line);
 	}
 	signal(SIGINT, signal_handle);
-	return (rl_catch_signals = 0, dup2(tmp_fd, 0), close(tmp_fd));
+	return (rl_catch_signals = 0, dup2(tmp_fd, 0), (void)close(tmp_fd));
 }
 
 void	heredoc_maker(char **filename, char *DELIMITER, t_env *env, t_file *f)
