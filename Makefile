@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
+#    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/08/04 16:10:00 by ibouram          ###   ########.fr        #
+#    Updated: 2024/08/04 18:32:43 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,11 @@ EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/buil
 RM = rm -rf
 NAME = minishell
 CC = cc
-FLAGS = -fsanitize=address -ggdb3 #-Wall -Wextra -Werror
+FLAGS = -fsanitize=address -ggdb3 -Wall -Wextra -Werror
 READLINE = $(shell brew --prefix readline)
 
 PARSINGOBJS = $(PARSINGSRC:.c=.o)
 EXECUTIONOBJS = $(EXECUTIONSRC:.c=.o)
-MAINOBJS = $(MAINSRC:.c=.o)
 
 all: $(NAME)
 	@printf "\033[32m[ ✔ ] %s\n\033[0m" "DONE"

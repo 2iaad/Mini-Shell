@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:56:15 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 17:00:28 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:36:50 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	out(char *outfile, int type, bool last)
 {
 	int	fd;
 
+	fd = 0;
 	if (type == OUT_FILE)
 		fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (type == AOUT_FILE)

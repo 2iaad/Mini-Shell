@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 15:07:28 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/25 13:56:29 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 18:42:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main (int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	t_final final_cmd;
+	t_final	final_cmd;
 	t_env	*env_list;
+
 	rl_catch_signals = 0;
 	(void)av;
 	g_signal = 0;

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:14:56 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/01 11:29:24 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:39:32 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_hidden(t_env **env, int flag)
 				tmp->hidden = true;
 		}
 		else
-		 	tmp->hidden = false;
+			tmp->hidden = false;
 		tmp = tmp->next;
 	}
 }
@@ -39,6 +39,7 @@ void	env_i(t_env **env, char **envp)
 	char	**str;
 
 	i = 0;
+	(void)envp;
 	str = (char **) gv_coll (sizeof(char *) * 5);
 	str[0] = ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.");
 	str[1] = ft_strdup("PWD=/Users/zderfouf/Desktop/minishell");
@@ -74,7 +75,7 @@ void	init_env(t_env **env_list, char **env)
 			{
 				ft_free(str);
 				i++;
-				continue;
+				continue ;
 			}
 			ft_lstadd_back(env_list, ft_lstnew(ft_strdup(str[0]),
 					ft_strdup(getenv(str[0]))));

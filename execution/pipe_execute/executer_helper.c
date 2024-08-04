@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 16:07:15 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 18:37:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	waiter(t_final *lst, t_env **env)
 {
 	int	status;
 
+	(void)env;
 	if (waitpid(lst->pid, &status, 0) > 0)
 	{
 		if (WIFSIGNALED(status))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:04:48 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/31 00:26:26 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 18:34:23 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*remove_quotes(char *line)
 	int		i;
 	int		j;
 	int		len;
-	char	quote;
 	char	*new_line;
 
 	(1) && (i = 0, j = 0, len = quotes_len(line, i));

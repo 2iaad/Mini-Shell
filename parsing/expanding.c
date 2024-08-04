@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 03:47:44 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/03 12:03:50 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 18:39:52 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ char	*handle_num(char *line, int *i)
 char	*expand_env(char *lin, t_env *env, t_token *token)
 {
 	t_parse	ps;
-	int		a;
-	t_env	*tmp_env;
 	t_env	*expander;
 
+	(void)token;
 	(1) && (ps.i = 0, ps.new = NULL, expander = NULL);
 	while (lin[ps.i])
 	{
@@ -57,7 +56,7 @@ char	*expand_env(char *lin, t_env *env, t_token *token)
 			expand_env_2(&ps, &ps.i);
 		else if (lin[ps.i + ps.len] == '$'
 			&& ft_isnum(lin[ps.i + ps.len + 1]))
-				ps.new = handle_num(lin, &ps.i);
+			ps.new = handle_num(lin, &ps.i);
 		else if (lin[ps.i + ps.len] == '$')
 			handle_dollar(&ps, lin, env, &expander);
 		else

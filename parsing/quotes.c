@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:05:10 by ibouram           #+#    #+#             */
-/*   Updated: 2024/07/29 23:33:29 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 18:33:08 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	handle_meta(char *line, int *j, int i, int *valid)
 
 int	vm2(char *line, int i, int j, int valid)
 {
-	int		in1;
-	int		in2;
 	char	quote;
 
 	while (line[j])

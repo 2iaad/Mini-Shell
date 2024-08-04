@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:03:18 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 09:16:13 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:36:16 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	export_action(t_final *lst, t_env **env_list, char **str)
 {
+	(void)lst;
 	if (str[0][ft_strlen(str[0]) - 1] == '+')
 		export_join(*env_list, str);
 	else if (str[1] && str[1][0] == '+')
@@ -24,6 +25,7 @@ void	export_action(t_final *lst, t_env **env_list, char **str)
 
 void	export_helper(t_env **env_list, bool flag)
 {
+	(void)env_list;
 	if (!flag)
 		exit_status(0, 1);
 	else
@@ -60,7 +62,8 @@ void	export_command(t_final *lst, t_env **env_list)
 			ft_free(str);
 			continue ;
 		}
-		(1) && (export_action(lst, env_list, str), ft_free(str), (i = i));
+		export_action(lst, env_list, str);
+		ft_free(str);
 	}
 	export_helper(env_list, flag);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/04 15:54:33 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 18:31:25 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ void	node_process(t_token **node, t_final **tmp, int *opt_indx, int *fl_indx)
 {
 	while (*node && (*node)->type != PIPE)
 	{
-		// if ((*node)->token == NULL)
-		// {
-		// 	*node = (*node)->next;
-		// 	continue ;
-		// }
 		token_type(node, tmp, opt_indx, fl_indx);
 		*node = (*node)->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 16:22:15 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 18:41:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ void	execute_cmd(t_final	*lst, t_env *envp)
 	char	*path;
 	char	**env;
 
-
 	if (!lst->final_cmd[0])
 		exit(0);
+	if (lst->var_flg)
+		split_cmd(&lst);
 	env_maker(envp, &env);
 	permission_checker(lst->final_cmd[0]);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)

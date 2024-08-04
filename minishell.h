@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/04 17:05:51 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:43:02 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <sys/stat.h>
-
-
 
 typedef struct s_garbage
 {
@@ -273,6 +271,7 @@ void	init_secfds(int *sec_fd, int flag);
 void	waiter(t_final *lst, t_env **env);
 void	sig_check(void);
 void	ft_help(int fds[2][2], t_final **lst, t_env **env);
+void	split_cmd(t_final **lst);
 
 void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env **env, int *fds);

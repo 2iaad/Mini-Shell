@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:32:58 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/29 10:28:47 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:38:00 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	export_valid_check(char *str, t_env ***env)
 	int	i;
 
 	i = 0;
+	(void)env;
 	if (!(ft_isalpha(str[0])))
 		return (builtins_error(str, 1337), 0);
 	while (str[++i])
@@ -48,6 +49,7 @@ int	unset_valid_check(char *str, t_env ***env)
 	int	i;
 
 	i = 0;
+	(void)env;
 	if (!(ft_isalpha(str[0])))
 		return (builtins_error(str, 42), 0);
 	while (str[++i])

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 13:43:56 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 13:47:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:41:54 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,15 @@ void	permission_checker(char *cmd)
 			exit(126);
 		}
 	}
+}
+
+void	split_cmd(t_final **lst)
+{
+	char	**cmd;
+
+	cmd = ft_split((*lst)->final_cmd[0], ' ');
+	if (!cmd || !cmd[0])
+		return (exit(0));
+	ft_free((*lst)->final_cmd);
+	((*lst)->final_cmd = cmd);
 }
