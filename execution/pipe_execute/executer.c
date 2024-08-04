@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 10:13:33 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/03 19:11:57 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:45:33 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,13 @@ void	execution(t_final *lst, t_env **env, struct termios *p)
 		single(lst, env);
 		tcsetattr(0, 0, p);
 	}
+}
+
+void	error(char *str, int a)
+{
+	if (a == 1)
+		ft_putstr_fd(str, 2);
+	else
+		perror(str);
+	exit(1);
 }

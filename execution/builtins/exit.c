@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:49:51 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 12:43:14 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:41:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ bool	spaces_checker(char *str)
 bool	error_checker(char *str)
 {
 	bool	flag;
-	char	**s;;
+	char	**s;
 
-	if (!str[0]) // ""
-		return (true); 
-	if (spaces_checker(str)) // "  "
+	if (!str[0])
+		return (true);
+	if (spaces_checker(str))
 		return (true);
 	s = ft_split(str, ' ');
-	if (s[1]) // "1  2"
+	if (s[1])
 		return (ft_free(s), true);
 	ft_free(s);
 	if (check_if_valid(str))
@@ -72,7 +72,6 @@ bool	error_checker(char *str)
 		return (true);
 	return (false);
 }
-
 
 void	exit_command(char **cmd)
 {
@@ -85,11 +84,11 @@ void	exit_command(char **cmd)
 	if (error_checker(cmd[1]))
 		flag = 1;
 	if (cmd[2] && flag)
-			return (void) write(1, "exit\n", 5), exit_error(cmd[1]);
+		return ((void)write(1, "exit\n", 5), exit_error(cmd[1]));
 	else if (cmd[2] && !flag)
-			return (ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2));
+		return (ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2));
 	else if (cmd[1] && flag)
-			return (void) write(1, "exit\n", 5), exit_error(cmd[1]);
+		return ((void)write(1, "exit\n", 5), exit_error(cmd[1]));
 	else
 	{
 		exit(ft_atol(cmd[1], &flag));

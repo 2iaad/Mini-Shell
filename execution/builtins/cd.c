@@ -6,12 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:10:29 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/03 18:44:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:38:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <inttypes.h>
 
 char	*home_path(t_env	*env)
 {
@@ -47,7 +46,7 @@ bool	init_pwd(t_env ***env, char **oldpwd)
 	}
 	if (!flag)
 		if (add_pwd(*env))
-			return (true) ;
+			return (true);
 	return (false);
 }
 

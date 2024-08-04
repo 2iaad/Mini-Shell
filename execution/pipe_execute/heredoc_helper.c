@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 09:14:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 15:43:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:49:32 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	reset_offset(char *filename, int fd)
 {
 	close(fd);
 	fd = open(filename, O_RDONLY | O_CREAT, 0644);
-	// if (unlink(filename) == -1)
-	// 	error("unlink", 1337);
 	if (fd == -1)
 		error("open", 1337);
 	close(fd);

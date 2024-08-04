@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/02 10:50:05 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:49:19 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ bool	heredoc_signal(int tmp_fd, int fd)
 		dup2(tmp_fd, 0);
 		close(tmp_fd);
 		close(fd);
-		return true;
+		return (true);
 	}
-	return false;
+	return (false);
 }
 
 void	heredoc_limiter(char *DELIMITER, t_env *env, int fd, t_file *file)
@@ -29,8 +29,7 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd, t_file *file)
 	char	*line;
 	int		tmp_fd;
 
-	tmp_fd = dup(0);
-	rl_catch_signals = 1;
+	(1) && (tmp_fd = dup(0) && rl_catch_signals = 1);
 	signal(SIGINT, signal_handle_2);
 	while (1)
 	{
@@ -51,9 +50,7 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd, t_file *file)
 		free(line);
 	}
 	signal(SIGINT, signal_handle);
-	rl_catch_signals = 0;
-	dup2(tmp_fd, 0);
-	close(tmp_fd);
+	return (rl_catch_signals = 0, dup2(tmp_fd, 0), close(tmp_fd));
 }
 
 void	heredoc_maker(char **filename, char *DELIMITER, t_env *env, t_file *f)

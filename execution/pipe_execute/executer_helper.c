@@ -6,16 +6,16 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:32:12 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/03 16:28:17 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:47:00 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	sig_check()
+void	sig_check(void)
 {
 	if (g_signal)
-		return (g_signal = 0, (void)NULL);
+		return (g_signal = 0, (void) NULL);
 }
 
 void	waiter(t_final *lst, t_env **env)
@@ -82,13 +82,4 @@ void	env_maker(t_env *envp, char ***env)
 		i++;
 	}
 	(*env)[i] = NULL;
-}
-
-void	error(char *str, int a)
-{
-	if (a == 1)
-		ft_putstr_fd(str, 2);
-	else
-		perror(str);
-	exit(1);
 }

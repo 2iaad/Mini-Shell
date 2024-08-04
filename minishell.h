@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/04 02:39:47 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:52:53 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ typedef struct s_args
 
 int	g_signal;
 
-//*----------------------------------TOOLS------------------------------------------*//
+//*------------------TOOLS------------------------*//
 //*---Parsing---*
 char	**split_line(char *line);
 int		ft_strlen(char *s);
@@ -179,6 +179,7 @@ char	*ft_strjoin_parse(char *s1, char *s2);
 int		ft_strlen(char *s);
 int		ft_strcmp(char *s1, char *s2);
 //*//*---Execution---*
+void	permission_checker(char *cmd);
 int		ft_isalpha(int c);
 int		ft_isnum(int c);
 int		export_valid_check(char *str, t_env ***env);
@@ -306,7 +307,7 @@ bool	s_out(char *outfile, int type, bool last);
 bool	s_file_opener(t_file *files);
 void	init_secfds(int *sec_fd, int flag);
 void	waiter(t_final *lst, t_env **env);
-void	sig_check();
+void	sig_check(void);
 void	ft_help(int fds[2][2], t_final **lst, t_env **env);
 
 void	pipe_cmd(t_final *lst, int *fds, int flag);

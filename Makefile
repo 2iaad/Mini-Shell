@@ -6,7 +6,7 @@
 #    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/08/01 10:00:42 by zderfouf         ###   ########.fr        #
+#    Updated: 2024/08/04 13:46:16 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/buil
 				execution/tools/lst_utils.c execution/tools/mini_utils.c execution/tools/split.c execution/tools/string_utils.c \
 				execution/pipe_execute/exec_tools.c execution/pipe_execute/file_opener.c execution/pipe_execute/heredoc.c \
 				execution/pipe_execute/pipex.c execution/pipe_execute/executer_helper.c execution/pipe_execute/file_helper.c \
-				execution/pipe_execute/file_opener_s.c execution/tools/helper_builtins.c execution/tools/helper_export.c \
+				execution/pipe_execute/file_opener_s.c execution/tools/helper_builtins.c execution/tools/helper_export.c 
+				execution/pipe_execute/executer_helper2.c \
 				
 
 RM = rm -rf

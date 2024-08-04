@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/03 17:17:56 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:44:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,31 +80,6 @@ void	init_path(t_final *lst, char **env, char **path, int *flag)
 	}
 }
 
-void	permission_checker(char *cmd)
-{
-	struct stat	p;
-
-	if (access(cmd, F_OK) == 0
-		&& access(cmd, X_OK) != 0)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(cmd, 2);
-			ft_putstr_fd(": Permission denied\n", 2);
-			exit(126);
-		}
-	stat(cmd, &p);
-	if (S_ISDIR(p.st_mode))
-	{
-		if (ft_strcmp("..", cmd) && ft_strcmp(".", cmd))
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(cmd, 2);
-			ft_putstr_fd(": is a directory\n", 2);
-			exit(126);
-		}
-	}
-}
-
 void	execute_cmd(t_final	*lst, t_env *envp)
 {
 	int		flag;
@@ -114,7 +89,7 @@ void	execute_cmd(t_final	*lst, t_env *envp)
 	if (!lst->final_cmd[0])
 		exit(0);
 	env_maker(envp, &env);
-	permission_checker(lst->final_cmd[0]); // ila kan ./main.c
+	permission_checker(lst->final_cmd[0]);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
 		execve(lst->final_cmd[0], lst->final_cmd, env);
 	init_path(lst, env, &path, &flag);

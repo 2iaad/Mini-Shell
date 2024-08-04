@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:09:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/02 21:29:19 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:41:27 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	env(t_env *env_list)
 	{
 		if (tmp->value)
 		{
-			if (tmp->hidden == true) // in case env -i ---> env : PATH should be hidden
+			if (tmp->hidden == true)
 			{
 				tmp = tmp->next;
-				continue;
+				continue ;
 			}
 			printf("%s=%s\n", tmp->key, tmp->value);
 		}

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 10:03:34 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/02 18:12:34 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:42:14 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	unset(t_final	*lst, t_env **env_list)
 			continue ;
 		}
 		if (!ft_strncmp((*env_list)->key, lst->final_cmd[i],
-				ft_strlen(lst->final_cmd[i])) && ft_strcmp(lst->final_cmd[i], "_"))
+				ft_strlen(lst->final_cmd[i]))
+			&& ft_strcmp(lst->final_cmd[i], "_"))
 			free_first_node(env_list);
 		else if (ft_strcmp(lst->final_cmd[i], "_"))
 			d_node(env_list, lst->final_cmd[i]);
