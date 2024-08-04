@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/04 15:48:00 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 16:05:22 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
+# include <sys/stat.h>
 
 /* 
 
@@ -30,6 +31,39 @@
 	"$HOME"$"$HOME"
 	ls > $dd | ls 
 	ctrl + c in heredoc
+	cd Makefile ==> exit status
+	
+	LAASSIIIIIR:
+
+	env -i:
+	PATH 3amr walakin hidden -------------------> handlito
+	OLDPWD --> mseti walakin khawi ----------------> handlito
+
+	cd $ldksjf -------------------> handlitoo
+	<< l <<l << l << l << l --> ctrl-C leaks fd ---------------> handlito
+	< ls --> exit code ------------> handlitoo
+	./main.c --> exit status ------------> handlito
+	
+
+	RACHIIIIID:
+
+	is a directory -------> handiltoooooooo
+
+	ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE ------------->handlito
+	exit staus of ctrl+c in here_doc ------> handlito
+	minishell$ ls|<<a ---------> handlitha
+	unset PWD OLDPWD ==> cd && echo PWD OLDPWD --------> handlito
+	cat + CTRL+C || CTRL+\ ==> exit status -------------> handlithaaa
+
+	cat | ls ---------> handlito
+	use waitPid instead of wait "sleep 2 | fghfggf" -------> handlitoo
+
+	RACHIIIID O LAAASIR:
+
+	mkdir cat + cat +++++ touch ls + ls
+	
+	exit | exit && exit
+	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
 */
 
 typedef struct s_garbage
@@ -72,6 +106,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	bool			hidden;
 	struct s_env	*next;
 }					t_env;
 
@@ -111,6 +146,7 @@ typedef struct s_file
 
 typedef struct s_final
 {
+	pid_t			pid;
 	char			*cmd;
 	int				var_flg;
 	char			**args;
@@ -130,7 +166,7 @@ typedef struct s_args
 
 int	g_signal;
 
-//*----------------------------------TOOLS------------------------------------------*//
+//*------------------TOOLS------------------------*//
 //*---Parsing---*
 char	**split_line(char *line);
 int		count_words(char *line);
@@ -146,13 +182,14 @@ char	*ft_strjoin_parse(char *s1, char *s2);
 int		ft_strlen(char *s);
 int		ft_strcmp(char *s1, char *s2);
 //*//*---Execution---*
+void	permission_checker(char *cmd);
 int		ft_isalpha(int c);
 int		ft_isnum(int c);
 int		export_valid_check(char *str, t_env ***env);
 int		unset_valid_check(char *str, t_env ***env);
 void	ft_free(char **str);
 int		flag_check(char *s1);
-long	ft_atol(char *str);
+long	ft_atol(char *str, bool *flag);
 char	*ft_itoa(int n);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_strjoin(char *s1, char *s2);
@@ -256,14 +293,14 @@ void	cd_error(char *dir);
 void	init_env(t_env **env_list, char **env);
 char	*right_path(char **cmd, char **env);
 char	*look_for_paths(char **ev);
-
+bool	add_pwd(t_env **env);
 bool	file_checker(t_file *files, int type);
 void	parce_files(t_final **lst);
 
 char	*name_heredoc(char *heredoc);
 void	final_heredoc(t_file *files, int *flag);
 void	reset_offset(char *filename, int fd);
-void	heredoc_opener(t_file **files, t_env *env, int stdin_fd);
+void	heredoc_opener(t_file **files, t_env *env, int sec_fd);
 
 void	in(char *infile, bool last);
 void	out(char *outfile, int type, bool last);
@@ -272,7 +309,9 @@ bool	s_in(char *infile, bool last);
 bool	s_out(char *outfile, int type, bool last);
 bool	s_file_opener(t_file *files);
 void	init_secfds(int *sec_fd, int flag);
-void	multiple_helper(t_env **env);
+void	waiter(t_final *lst, t_env **env);
+void	sig_check(void);
+void	ft_help(int fds[2][2], t_final **lst, t_env **env);
 
 void	pipe_cmd(t_final *lst, int *fds, int flag);
 void	child(t_final *lst, t_env **env, int *fds);

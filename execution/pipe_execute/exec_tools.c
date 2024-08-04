@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:26:17 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 15:55:34 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 16:22:15 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ void	execute_cmd(t_final	*lst, t_env *envp)
 	char	*path;
 	char	**env;
 
+
 	if (!lst->final_cmd[0])
 		exit(0);
 	env_maker(envp, &env);
+	permission_checker(lst->final_cmd[0]);
 	if (access(lst->final_cmd[0], F_OK | X_OK) == 0)
 		execve(lst->final_cmd[0], lst->final_cmd, env);
 	init_path(lst, env, &path, &flag);

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 15:44:28 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:51:37 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	ft_putendl_fd(char *s, int fd)
 	write (fd, "\n", 1);
 }
 
-long	ft_atol(char *str)
+long	ft_atol(char *str, bool *flag)
 {
-	int		i;
-	int		s;
-	long	nb;
+	int					i;
+	int					s;
+	unsigned long long	nb;
 
 	i = 0;
 	s = 1;
@@ -51,11 +51,23 @@ long	ft_atol(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = nb * 10 + (str[i] - '0');
-		if (nb * s > INT_MAX)
-			return (LONG_MAX);
-		else if (nb * s < INT_MIN)
-			return (LONG_MIN);
+		if ((nb > LONG_MAX && s > 0) || ((nb - 1) > LONG_MAX && s < 0))
+			*flag = true;
 		i++;
 	}
 	return (nb * s);
+}
+
+bool	add_pwd(t_env **env)
+{
+	char	*value;
+	char	*s;
+
+	value = getcwd(NULL, -1337);
+	if (!value)
+		return (perror("getcwd"), exit_status(1, 1), true);
+	s = ft_strdup(value);
+	free(value);
+	ft_lstadd_back(env, ft_lstnew(ft_strdup("PWD"), s));
+	return (false);
 }

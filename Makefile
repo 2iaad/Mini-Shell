@@ -6,23 +6,9 @@
 #    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/08/04 15:51:08 by ibouram          ###   ########.fr        #
+#    Updated: 2024/08/04 16:10:00 by ibouram          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
-#ctrl + c here_doc ==> fd leaks && <<a | ls in PIPE
-# export A="-a -l" ==> spliit by space /// ider
-#cat ctrl + quite ==> exit status 131 && ctrl + c
-#exit not working exit | exit && exit
-#unset PWD OLDPWD ==> cd && echo PWD OLDPWD
-#use waitPid instead of wait sleep 2 | fghfggf
-
-#exit staus of ctrl+c in here_doc
-#minishell$ ls|<<a
-#minishell$ echo $?
-#./Makefile 
-
 
 PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c parsing/env_init.c main.c \
 				parsing/add_space.c parsing/syntax_error.c parsing/Tokenizer.c parsing/lin_list.c parsing/signals.c\
@@ -37,7 +23,7 @@ EXECUTIONSRC = 	execution/builtins/cd.c execution/builtins/echo.c execution/buil
 				execution/pipe_execute/exec_tools.c execution/pipe_execute/file_opener.c execution/pipe_execute/heredoc.c \
 				execution/pipe_execute/pipex.c execution/pipe_execute/executer_helper.c execution/pipe_execute/file_helper.c \
 				execution/pipe_execute/file_opener_s.c execution/tools/helper_builtins.c execution/tools/helper_export.c \
-				
+				execution/pipe_execute/executer_helper2.c \
 
 RM = rm -rf
 NAME = minishell

@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:39:20 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/04 15:56:14 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 16:12:54 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	tokenizer(char **splited, t_token **token, t_env *env)
 	current = *token;
 	while (current)
 	{
-		
 		current->var_flg = 0;
 		if (current->token && current->token[0] == '$')
 			current->var_flg = 1;

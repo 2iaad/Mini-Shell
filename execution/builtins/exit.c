@@ -3,38 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:49:51 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/07/31 16:25:35 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 13:41:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	exit_command(char **cmd)
+void	exit_error(char *cmd)
+{
+	write (2, "minishell: exit: ", 17);
+	ft_putstr_fd(cmd, 2);
+	write (2, ": numeric argument required\n", 28);
+	exit(255);
+}
+
+bool	check_if_valid(char *str)
 {
 	int	i;
-	int	status;
 
-	i = -1;
-	status = exit_status(1, 0);
-	if (cmd[2])
-		return (ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2));
-	while (cmd[1] && cmd[1][++i])
+	i = 0;
+	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i])
 	{
-		if (!ft_isnum(cmd[1][i]))
-		{
-			write(1, "exit\n", 5);
-			write (2, "minishell: exit: ", 17);
-			ft_putstr_fd(cmd[1], 2);
-			write (2, ": numeric argument required\n", 28);
-			exit(255);
-		}
+		if (!ft_isnum(str[i]) && str[i] != ' ')
+			return (true);
+		i++;
 	}
-	write(1, "exit\n", 5);
-	if (cmd[1])
-		exit(ft_atol(cmd[1]));
+	return (false);
+}
+
+bool	spaces_checker(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	error_checker(char *str)
+{
+	bool	flag;
+	char	**s;
+
+	if (!str[0])
+		return (true);
+	if (spaces_checker(str))
+		return (true);
+	s = ft_split(str, ' ');
+	if (s[1])
+		return (ft_free(s), true);
+	ft_free(s);
+	if (check_if_valid(str))
+		return (true);
+	ft_atol(str, &flag);
+	if (flag)
+		return (true);
+	return (false);
+}
+
+void	exit_command(char **cmd)
+{
+	bool	flag;
+	int		status;
+
+	(1) && (flag = 0, status = exit_status(1, 0));
+	if (!cmd[1])
+		exit (status);
+	if (error_checker(cmd[1]))
+		flag = 1;
+	if (cmd[2] && flag)
+		return ((void)write(1, "exit\n", 5), exit_error(cmd[1]));
+	else if (cmd[2] && !flag)
+		return (ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2));
+	else if (cmd[1] && flag)
+		return ((void)write(1, "exit\n", 5), exit_error(cmd[1]));
 	else
-		exit(status);
+	{
+		exit(ft_atol(cmd[1], &flag));
+	}
 }
