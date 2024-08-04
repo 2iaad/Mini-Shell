@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:54:48 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/03 18:39:15 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 02:39:43 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+#include <limits.h>
 
 int	ft_isalpha(int c)
 {
@@ -31,11 +32,11 @@ void	ft_putendl_fd(char *s, int fd)
 	write (fd, "\n", 1);
 }
 
-long	ft_atol(char *str)
+long	ft_atol(char *str, bool *flag)
 {
-	int		i;
-	int		s;
-	long	nb;
+	int					i;
+	int					s;
+	unsigned long long	nb;
 
 	i = 0;
 	s = 1;
@@ -51,10 +52,8 @@ long	ft_atol(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = nb * 10 + (str[i] - '0');
-		if (nb * s > INT_MAX)
-			return (LONG_MAX);
-		else if (nb * s < INT_MIN)
-			return (LONG_MIN);
+		if ((nb > LONG_MAX && s > 0) || ((nb - 1)> LONG_MAX && s < 0))
+			*flag = true;
 		i++;
 	}
 	return (nb * s);

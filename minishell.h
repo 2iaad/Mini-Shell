@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/03 18:38:21 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 02:39:47 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,10 @@
 	RACHIIIID O LAAASIR:
 
 	mkdir cat + cat +++++ touch ls + ls
+	
 	exit | exit && exit
 	exit | exit | exit | exit 100 -----> khasni nparrsi had l9lawi deyal case ila kant +1
-	
 */
-
-
 
 typedef struct s_garbage
 {
@@ -187,7 +185,7 @@ int		export_valid_check(char *str, t_env ***env);
 int		unset_valid_check(char *str, t_env ***env);
 void	ft_free(char **str);
 int		flag_check(char *s1);
-long	ft_atol(char *str);
+long	ft_atol(char *str, bool *flag);
 char	*ft_itoa(int n);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_strjoin(char *s1, char *s2);
