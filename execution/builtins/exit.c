@@ -6,12 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:49:51 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 02:40:04 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 12:43:14 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <stdbool.h>
 
 void	exit_error(char *cmd)
 {
@@ -26,11 +25,13 @@ bool	check_if_valid(char *str)
 	int	i;
 
 	i = 0;
+	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
 	while (str[i])
 	{
-		if (str[0] == '+' || str[0] == '-')
-			i++;
-		if (!ft_isnum(str[i]))
+		if (!ft_isnum(str[i]) && str[i] != ' ')
 			return (true);
 		i++;
 	}
@@ -78,19 +79,19 @@ void	exit_command(char **cmd)
 	bool	flag;
 	int		status;
 
-	(1) && (flag = 0 ,status = exit_status(1, 0));
-	if (!cmd[1]) // exit
+	(1) && (flag = 0, status = exit_status(1, 0));
+	if (!cmd[1])
 		exit (status);
-	if (error_checker(cmd[1])) // ila kan true donc kayn error f cmd[1]
+	if (error_checker(cmd[1]))
 		flag = 1;
-	if (cmd[2] && flag) // exit 1d d
+	if (cmd[2] && flag)
 			return (void) write(1, "exit\n", 5), exit_error(cmd[1]);
-	else if (cmd[2] && !flag) // exit 1 d
+	else if (cmd[2] && !flag)
 			return (ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2));
 	else if (cmd[1] && flag)
 			return (void) write(1, "exit\n", 5), exit_error(cmd[1]);
 	else
 	{
-		printf("nparsi number\n");
+		exit(ft_atol(cmd[1], &flag));
 	}
 }
