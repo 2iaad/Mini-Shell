@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 19:30:14 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/01 01:28:44 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 15:54:33 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,15 @@ void	process_file_type(t_token **node, t_final **tmp, int *files_index)
 
 void	token_type(t_token **node, t_final **tmp, int *opt_index, int *fl_index)
 {
+	if (!node || !(*node) || !tmp || !(*tmp))
+		return ;
 	if ((*node)->type == CMD)
+	{
 		(*tmp)->cmd = ft_strdup((*node)->token);
+		(*tmp)->var_flg = 0;
+		if ((*node)->var_flg == 1)
+			(*tmp)->var_flg = 1;
+	}
 	else if ((*node)->type == OPTION)
 		(*tmp)->args[(*opt_index)++] = ft_strdup((*node)->token);
 	else if ((*node)->type == IN_FILE || (*node)->type == OUT_FILE

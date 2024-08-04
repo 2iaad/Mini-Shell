@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:45:46 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/02 00:02:32 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 15:48:00 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_file
 typedef struct s_final
 {
 	char			*cmd;
+	int				var_flg;
 	char			**args;
 	char			**final_cmd;
 	t_file			*files;

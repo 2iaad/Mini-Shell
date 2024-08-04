@@ -6,7 +6,7 @@
 /*   By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 09:56:52 by ibouram           #+#    #+#             */
-/*   Updated: 2024/08/02 19:27:20 by ibouram          ###   ########.fr       */
+/*   Updated: 2024/08/04 15:50:48 by ibouram          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	parce_line(t_final **final_cmd, t_env *env, char *line)
 		exit_status(258, 1);
 		return (-1);
 	}
-	(1) && (read_herdoc(token), token_quotes(&token), split = split);
+	(read_herdoc(token), token_quotes(&token));
 	(1) && (reset_quotes(&token), *final_cmd = struct_init(&token));
 	init_final_cmd(&final_cmd);
 	return (1);
@@ -101,6 +101,7 @@ void	read_from_input(t_final *final_cmd, t_env **env_list, char **envp)
 	struct termios	p;
 	char			*line;
 
+	(void)envp;
 	tcgetattr(0, &p);
 	tcsetattr(0, 0, &p);
 	rl_catch_signals = 0;

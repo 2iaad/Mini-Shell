@@ -6,7 +6,7 @@
 #    By: ibouram <ibouram@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 17:00:51 by ibouram           #+#    #+#              #
-#    Updated: 2024/08/01 04:26:56 by ibouram          ###   ########.fr        #
+#    Updated: 2024/08/04 15:51:08 by ibouram          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@
 #exit staus of ctrl+c in here_doc
 #minishell$ ls|<<a
 #minishell$ echo $?
-#
+#./Makefile 
 
 
 PARSINGSRC =	parsing/parsing.c parsing/quotes.c parsing/utils.c parsing/env_init.c main.c \
