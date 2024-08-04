@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:51:41 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/08/04 13:54:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:55:54 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	heredoc_limiter(char *DELIMITER, t_env *env, int fd, t_file *file)
 	char	*line;
 	int		tmp_fd;
 
-	(1) && (tmp_fd = dup(0) && rl_catch_signals = 1);
+	(1) && (tmp_fd = dup(0) , rl_catch_signals = 1);
 	signal(SIGINT, signal_handle_2);
 	while (1)
 	{
